@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Explore MP Board and CBSE Commerce subjects, chapter lists, study resources and practice questions with COMMERZO. Learn. Practice. Score.">
+  <meta name="robots" content="index,follow">
+  <title>COMMERZO | Commerce Study & Practice Platform</title>
+  <link rel="icon" type="image/png" href="./commerzo-logo.png">
+  <link rel="apple-touch-icon" href="./commerzo-logo.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "COMMERZO",
+    "alternateName": ["COMMERZO Study", "COMMERZO - Learn. Practice. Score."],
+    "url": "https://theharshshrivas.github.io/commerzo-website/"
+  }
+  </script>
+  <style>
+    :root {
+      --bg:#f5f7fb; --ink:#172033; --muted:#68748a;
+      --primary:#5145e5; --primary-dark:#3930b8; --line:#e5e9f2;
+      --card:#fff; --navy:#101827; --soft:#eeedff; --good:#117a4b;
+      --shadow:0 12px 35px rgba(25,35,65,.07);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:var(--ink); }
+    button,input,select,textarea { font:inherit; }
+    button { border:0; border-radius:11px; padding:12px 16px; background:var(--primary); color:#fff; font-weight:700; cursor:pointer; transition:transform .15s,background .15s; }
+    button:hover { background:var(--primary-dark); transform:translateY(-1px); }
+    button:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+    button.secondary { background:var(--soft); color:#4034c9; }
+    button.secondary:hover { background:#dedbff; }
+    a { color:inherit; }
+    header { background:var(--navy); color:white; padding:14px clamp(14px,5vw,64px); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+    .brand-lockup { display:flex; align-items:center; gap:12px; min-width:0; }
+    .site-logo { width:clamp(42px,7vw,58px); height:clamp(42px,7vw,58px); object-fit:contain; flex-shrink:0; border-radius:12px; }
+    .brand { font-size:clamp(20px,3vw,25px); font-weight:800; letter-spacing:1px; line-height:1.15; }
+    .brand span { color:#a9a2ff; }
+    .tagline { color:#c3ccdc; display:block; margin-top:4px; font-size:13px; }
+    .header-note { color:#c3ccdc; font-size:13px; }
+    main { max-width:1160px; margin:auto; padding:28px 18px 52px; }
+    .hero { position:relative; overflow:hidden; padding:clamp(25px,5vw,46px); border-radius:24px; color:white; background:linear-gradient(125deg,#211b60,#5145e5 62%,#7770fa); box-shadow:var(--shadow); }
+    .hero:after { content:""; position:absolute; width:230px; height:230px; right:-75px; bottom:-110px; border:1px solid #ffffff44; border-radius:50%; box-shadow:0 0 0 24px #ffffff0b,0 0 0 48px #ffffff0b; pointer-events:none; }
+    .tag { display:inline-block; padding:7px 11px; border-radius:20px; background:#ffffff22; font-size:12px; font-weight:700; letter-spacing:.4px; }
+    .hero h1 { font-size:clamp(31px,5vw,49px); line-height:1.08; margin:17px 0 12px; max-width:650px; }
+    .hero p { line-height:1.65; max-width:650px; color:#eeedff; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .hero .secondary { background:#ffffffed; color:#352bb0; }
+    .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:18px 0 28px; }
+    .stat { background:white; border:1px solid var(--line); border-radius:14px; padding:16px; text-align:center; }
+    .stat strong { display:block; font-size:20px; color:var(--primary); margin-bottom:4px; }
+    .stat span { color:var(--muted); font-size:12px; }
+    h2 { margin:30px 0 10px; font-size:clamp(21px,3vw,25px); }
+    .muted { color:var(--muted); line-height:1.65; }
+    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:17px 0; }
+    input,select,textarea { padding:12px 13px; border:1px solid #dce2ef; border-radius:11px; background:white; color:var(--ink); min-width:0; width:100%; }
+    .controls select { flex:0 0 160px; }
+    .controls input { flex:1 1 220px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:15px; margin-top:16px; }
+    .card,.panel { background:var(--card); padding:20px; border:1px solid var(--line); border-radius:17px; box-shadow:0 5px 18px #18213b06; }
+    .card { display:flex; flex-direction:column; align-items:flex-start; }
+    .card h3 { margin:10px 0; line-height:1.35; }
+    .icon { font-size:29px; }
+    .card p { color:var(--muted); line-height:1.55; font-size:14px; flex:1; }
+    .card button { margin-top:7px; }
+    .panel { margin-top:18px; }
+    .panel h2 { margin-top:0; }
+    .hidden { display:none !important; }
+    .option { display:block; width:100%; margin:10px 0; text-align:left; background:#f1f2ff; color:#27245c; border:1px solid #e1dfff; }
+    .option:hover { background:#e4e2ff; }
+    .feedback { min-height:24px; font-weight:600; }
+    .resource-label { font-size:11px; text-transform:uppercase; letter-spacing:.7px; color:var(--primary); font-weight:800; }
+    .ai-layout { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr); gap:18px; align-items:start; }
+    .ai-form { display:grid; gap:11px; }
+    textarea { min-height:130px; resize:vertical; line-height:1.5; }
+    .ai-answer { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.7; }
+    .notice { padding:12px 14px; border-radius:11px; background:#fff7df; color:#765000; font-size:13px; line-height:1.55; }
+    .chat-log { display:flex; flex-direction:column; gap:12px; margin:15px 0; }
+    .chat-message { padding:13px 14px; border-radius:13px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .chat-message.user { background:#eeedff; align-self:flex-end; max-width:95%; }
+    .chat-message.ai { background:#f4f6fa; border:1px solid var(--line); align-self:stretch; }
+    .pill { display:inline-block; padding:5px 9px; background:#f0efff; color:#4237c5; border-radius:20px; font-size:12px; margin:3px 4px 3px 0; }
+    footer { text-align:center; padding:27px 16px; background:var(--navy); color:#d4d9e5; font-size:13px; line-height:1.9; }
+    footer a { color:#c8c2ff; }
+    .small { font-size:12px; }
+    @media(max-width:650px) {
+      main { padding:18px 13px 36px; }
+      .header-note { width:100%; padding-left:54px; }
+      .stats { gap:8px; }
+      .stat { padding:12px 6px; }
+      .stat strong { font-size:17px; }
+      .stat span { font-size:11px; }
+      .ai-layout { grid-template-columns:1fr; }
+      .controls select { flex:1 1 100%; }
+      .hero-actions button { flex:1 1 145px; }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand-lockup">
+    <img class="site-logo" src="./commerzo-logo.png" alt="COMMERZO logo" width="58" height="58" onerror="this.style.display='none'">
+    <div>
+      <div class="brand">COMMER<span>ZO</span></div>
+      <span class="tagline">Learn. Practice. Score.</span>
+    </div>
+  </div>
+  <div class="header-note">Student Learning Platform</div>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="tag">COMMERCE • LEARNING • PRACTICE</span>
+    <h1>Your studies.<br>Your progress.</h1>
+    <p>Explore MP Board and CBSE subjects, practise core concepts, and get step-by-step help with your doubts—all in one student-friendly place.</p>
+    <div class="hero-actions">
+      <button onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">Explore Subjects →</button>
+      <button class="secondary" onclick="document.getElementById('ai-doubt').scrollIntoView({behavior:'smooth'})">Ask AI a Doubt ✦</button>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Platform features">
+    <div class="stat"><strong>MP Board</strong><span>Board-focused learning</span></div>
+    <div class="stat"><strong>CBSE</strong><span>Commerce & Applied Maths</span></div>
+    <div class="stat"><strong>AI Doubt Help</strong><span>Backend connection required</span></div>
+  </section>
+
+  <h2>Choose your board</h2>
+  <div class="controls">
+    <select id="board" aria-label="Choose board" onchange="renderSubjects()">
+      <option value="MP Board">MP Board</option>
+      <option value="CBSE">CBSE</option>
+    </select>
+    <input id="search" aria-label="Search subjects or chapters" placeholder="Search subjects or chapters..." oninput="renderSubjects()">
+  </div>
+
+  <h2 id="subjects">Your Subjects</h2>
+  <p class="muted">Choose a subject to explore chapter entries. Official syllabus and verified material should be checked before exam use.</p>
+  <div id="subjectGrid" class="grid"></div>
+
+  <section id="detail" class="panel hidden">
+    <button class="secondary" onclick="closeDetail()">← All subjects</button>
+    <h2 id="detailTitle"></h2>
+    <p class="muted" id="detailDesc"></p>
+    <div id="chapterList" class="grid"></div>
+  </section>
+
+  <section id="practice" class="panel hidden">
+    <h2>Quick Practice</h2>
+    <p class="muted">Sample questions for quick revision. These are not a complete question bank.</p>
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="feedback" class="muted feedback" aria-live="polite"></p>
+    <div class="controls">
+      <button onclick="nextQuestion()">Next question →</button>
+      <button class="secondary" onclick="closePractice()">Close practice</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Study resources</h2>
+    <p class="muted">Use these sections to organise learning resources. Download links will work after verified files are added to the repository.</p>
+    <div class="grid">
+      <article class="card"><div class="icon">📝</div><h3>Handwritten Notes</h3><p>Chapter-wise notes and revision summaries.</p><span class="pill">Coming soon</span></article>
+      <article class="card"><div class="icon">📄</div><h3>Previous Year Papers</h3><p>Past board papers for exam practice.</p><span class="pill">Coming soon</span></article>
+      <article class="card"><div class="icon">🎯</div><h3>Sample Papers</h3><p>Practice papers with exam-style questions.</p><span class="pill">Coming soon</span></article>
+      <article class="card"><div class="icon">📊</div><h3>Marking Scheme</h3><p>Understand marks allocation and answer structure.</p><span class="pill">Coming soon</span></article>
+      <article class="card"><div class="icon">⭐</div><h3>Important Questions</h3><p>Chapter-wise revision questions, reviewed before publishing.</p><span class="pill">Coming soon</span></article>
+      <article class="card"><div class="icon">📚</div><h3>Syllabus</h3><p>Board-specific syllabus links and chapter checklist.</p><span class="pill">Coming soon</span></article>
+    </div>
+  </section>
+
+  <section id="ai-doubt" class="panel">
+    <h2>COMMERZO AI Doubt Solver ✦</h2>
+    <p class="muted">Ask about Accountancy, Business Studies, Economics, Applied Mathematics, English or Hindi. The connected AI service can provide a simple explanation, step-by-step working, and a final answer.</p>
+    <div class="ai-layout">
+      <div>
+        <div id="chatLog" class="chat-log" aria-live="polite">
+          <div class="chat-message ai">Hi! Apna study doubt yahan likho. AI answers activate karne ke liye website ko ek secure AI backend se connect karna hoga.</div>
+        </div>
+        <form id="aiForm" class="ai-form">
+          <label for="aiSubject"><strong>Subject</strong></label>
+          <select id="aiSubject">
+            <option>Accountancy</option><option>Business Studies</option><option>Economics</option>
+            <option>Applied Mathematics</option><option>English</option><option>Hindi</option><option>Other</option>
+          </select>
+          <label for="aiQuestion"><strong>Your doubt</strong></label>
+          <textarea id="aiQuestion" maxlength="4000" placeholder="Example: Explain goodwill adjustment in partnership reconstitution with a simple example." required></textarea>
+          <button id="aiSend" type="submit">Ask COMMERZO AI →</button>
+        </form>
+      </div>
+      <aside>
+        <div class="card">
+          <div class="icon">🧠</div>
+          <h3>Study-focused answers</h3>
+          <p>Explain concepts in easy language, show working for numericals, and ask follow-up questions.</p>
+          <span class="pill">Hindi / English</span><span class="pill">Step-by-step</span><span class="pill">Commerce-first</span>
+        </div>
+        <div class="notice" style="margin-top:13px">
+          <strong>Important:</strong> This GitHub Pages file alone cannot run a private AI model. The form needs a secure backend endpoint. Do not put a Gemini/API key in this HTML or commit it to GitHub.
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>COMMERZO</strong> — Learn. Practice. Score.<br>
+  Independent student learning project. Verify important exam information with your official board materials.<br>
+  <span class="small">AI responses, once connected, may occasionally be incorrect. Check important answers before relying on them.</span>
+</footer>
+
+<script>
+const data = {
+  "MP Board": [
+    {name:"Accountancy",icon:"📊",chapters:["Accounting for Partnership Firms","Reconstitution of Partnership","Dissolution of Partnership Firm","Accounting for Share Capital","Debentures","Financial Statements Analysis","Accounting Ratios","Cash Flow Statement"]},
+    {name:"Business Studies",icon:"📚",chapters:["Nature and Significance of Management","Principles of Management","Business Environment","Planning","Organising","Staffing","Directing","Controlling","Financial Management","Marketing Management"]},
+    {name:"Economics",icon:"📈",chapters:["National Income","Money and Banking","Determination of Income","Government Budget","Balance of Payments","Introduction to Microeconomics","Demand","Supply","Market Equilibrium"]},
+    {name:"Mathematics",icon:"➗",chapters:["Relations and Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity and Differentiability","Applications of Derivatives","Integrals","Probability"]},
+    {name:"English",icon:"📖",chapters:["Reading","Writing","Grammar","Literature"]},
+    {name:"Hindi",icon:"✍️",chapters:["व्याकरण","लेखन","पाठ्यपुस्तक"]}
+  ],
+  "CBSE": [
+    {name:"Accountancy",icon:"📊",chapters:["Accounting for Partnership Firms","Reconstitution of Partnership","Dissolution of Partnership Firm","Accounting for Share Capital","Debentures","Financial Statements Analysis","Cash Flow Statement"]},
+    {name:"Business Studies",icon:"📚",chapters:["Nature and Significance of Management","Principles of Management","Business Environment","Planning","Organising","Staffing","Directing","Controlling","Financial Management","Marketing Management"]},
+    {name:"Economics",icon:"📈",chapters:["Introductory Macroeconomics","National Income","Money and Banking","Determination of Income and Employment","Government Budget","Balance of Payments","Indian Economic Development"]},
+    {name:"Applied Mathematics",icon:"➗",chapters:["Numbers and Quantification","Matrices","Calculus","Probability Distributions","Inferential Statistics","Index Numbers","Financial Mathematics","Linear Programming"]},
+    {name:"English",icon:"📖",chapters:["Reading","Writing","Grammar","Literature"]},
+    {name:"Hindi",icon:"✍️",chapters:["व्याकरण","लेखन","पाठ्यपुस्तक"]}
+  ]
+};
+
+let questionIndex = 0;
+const questions = [
+  {q:"Which financial statement shows assets and liabilities on a particular date?",options:["Balance Sheet","Cash Book","Journal"],answer:0,explanation:"A Balance Sheet reports assets, liabilities and capital at a particular date."},
+  {q:"What is the basic accounting equation?",options:["Assets = Liabilities + Capital","Sales = Assets + Cash","Capital = Sales − Purchases"],answer:0,explanation:"The accounting equation is Assets = Liabilities + Owner's Equity (Capital)."},
+  {q:"Which management function involves setting objectives in advance?",options:["Controlling","Planning","Staffing"],answer:1,explanation:"Planning means deciding objectives and the course of action in advance."},
+  {q:"If demand rises while supply remains unchanged, what usually happens to equilibrium price?",options:["It rises","It falls","It always becomes zero"],answer:0,explanation:"With supply unchanged, an increase in demand generally raises equilibrium price and quantity."}
+];
+
+function renderSubjects() {
+  const board = document.getElementById("board").value;
+  const term = document.getElementById("search").value.toLowerCase().trim();
+  const grid = document.getElementById("subjectGrid");
+  grid.innerHTML = "";
+  const results = data[board].filter(s => (s.name+" "+s.chapters.join(" ")).toLowerCase().includes(term));
+  if (!results.length) {
+    grid.innerHTML = '<p class="muted">No matching subjects or chapters found.</p>';
+    return;
+  }
+  results.forEach(s => {
+    const card = document.createElement("article"); card.className = "card";
+    const icon = document.createElement("div"); icon.className = "icon"; icon.textContent = s.icon;
+    const title = document.createElement("h3"); title.textContent = s.name;
+    const desc = document.createElement("p"); desc.textContent = s.chapters.length+" sample chapter entries";
+    const btn = document.createElement("button"); btn.textContent = "Explore subject →"; btn.onclick = () => openSubject(s);
+    card.append(icon,title,desc,btn); grid.appendChild(card);
+  });
+}
+function openSubject(s) {
+  document.getElementById("detail").classList.remove("hidden");
+  document.getElementById("practice").classList.add("hidden");
+  document.getElementById("detailTitle").textContent = s.name;
+  document.getElementById("detailDesc").textContent = document.getElementById("board").value+" • Sample chapter list";
+  const list = document.getElementById("chapterList"); list.innerHTML = "";
+  s.chapters.forEach((chapter,i) => {
+    const card = document.createElement("article"); card.className = "card";
+    const title = document.createElement("h3"); title.textContent = (i+1)+". "+chapter;
+    const desc = document.createElement("p"); desc.textContent = "Study materials will appear here after verified resources are added.";
+    const btn = document.createElement("button"); btn.textContent = "Practise sample quiz"; btn.onclick = startPractice;
+    card.append(title,desc,btn); list.appendChild(card);
+  });
+  document.getElementById("detail").scrollIntoView({behavior:"smooth"});
+}
+function closeDetail() {
+  document.getElementById("detail").classList.add("hidden");
+  document.getElementById("practice").classList.add("hidden");
+}
+function closePractice() { document.getElementById("practice").classList.add("hidden"); }
+function startPractice() {
+  document.getElementById("practice").classList.remove("hidden");
+  questionIndex = 0; showQuestion();
+  document.getElementById("practice").scrollIntoView({behavior:"smooth"});
+}
+function showQuestion() {
+  const q = questions[questionIndex % questions.length];
+  document.getElementById("question").textContent = q.q;
+  document.getElementById("feedback").textContent = "";
+  const options = document.getElementById("options"); options.innerHTML = "";
+  q.options.forEach((option,i) => {
+    const btn = document.createElement("button"); btn.className = "option"; btn.textContent = option;
+    btn.onclick = () => {
+      document.getElementById("feedback").textContent = i===q.answer ? "Correct! "+q.explanation : "Not quite. "+q.explanation;
+      [...options.children].forEach(b => b.disabled=true);
+    };
+    options.appendChild(btn);
+  });
+}
+function nextQuestion() { questionIndex++; showQuestion(); }
+
+function addChatMessage(text, role) {
+  const log = document.getElementById("chatLog");
+  const message = document.createElement("div");
+  message.className = "chat-message "+role;
+  message.textContent = text;
+  log.appendChild(message);
+  message.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/*
+  Secure AI setup:
+  Deploy a backend (for example, a serverless function) that keeps the AI API key
+  in server-side secrets and accepts POST JSON: { subject: string, question: string }.
+  It should return JSON: { answer: string }.
+  After deploying it, set COMMERZO_AI_ENDPOINT to that backend URL below.
+*/
+const COMMERZO_AI_ENDPOINT = ""; // Example: "https://your-secure-backend.example/api/ask"
+
+document.getElementById("aiForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+  const subject = document.getElementById("aiSubject").value;
+  const question = document.getElementById("aiQuestion").value.trim();
+  const send = document.getElementById("aiSend");
+  if (!question) return;
+  addChatMessage(subject+": "+question, "user");
+  document.getElementById("aiQuestion").value = "";
+  if (!COMMERZO_AI_ENDPOINT) {
+    addChatMessage("AI abhi connect nahi hua hai. Is GitHub Pages website mein AI chat ka interface ready hai, lekin real answers ke liye secure backend/API setup zaroori hai. API key ko index.html mein mat daalna. Backend endpoint deploy hone ke baad COMMERZO_AI_ENDPOINT mein uska URL set karna hoga.", "ai");
+    return;
+  }
+  send.disabled = true; send.textContent = "Thinking…";
+  try {
+    const response = await fetch(COMMERZO_AI_ENDPOINT, {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({subject,question})
+    });
+    if (!response.ok) throw new Error("AI service returned status "+response.status);
+    const result = await response.json();
+    if (!result || typeof result.answer !== "string" || !result.answer.trim()) throw new Error("Unexpected AI response format");
+    addChatMessage(result.answer.trim(), "ai");
+  } catch (error) {
+    addChatMessage("AI se response nahi mil saka. Connection ya backend configuration check karo, phir dobara try karo.", "ai");
+  } finally {
+    send.disabled = false; send.textContent = "Ask COMMERZO AI →";
+  }
+});
+
+renderSubjects();
+</script>
+</body>
+</html>
