@@ -1,497 +1,299 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#101827">
-
-  <title>COMMERZO | Website Admin</title>
-  <link rel="icon" href="./commerzo-logo.png">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #f4f6fb;
-      color: #172033;
-      font: 16px/1.5 system-ui, sans-serif;
-    }
-
-    header {
-      background: #101827;
-      color: white;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    header img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      background: white;
-      border-radius: 10px;
-      padding: 3px;
-    }
-
-    main {
-      max-width: 760px;
-      margin: 28px auto;
-      padding: 0 14px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e2e7f0;
-      border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-size: 25px;
-      margin: 0 0 8px;
-    }
-
-    h2 {
-      font-size: 19px;
-    }
-
-    p {
-      color: #657087;
-    }
-
-    label {
-      display: block;
-      font-weight: 650;
-      margin: 14px 0 6px;
-    }
-
-    input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #cbd2df;
-      border-radius: 10px;
-      font: inherit;
-    }
-
-    button {
-      padding: 12px 16px;
-      border: 0;
-      border-radius: 10px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .primary {
-      background: #5145e5;
-      color: white;
-    }
-
-    .secondary {
-      background: #edf0f7;
-      color: #172033;
-    }
-
-    button:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-    }
-
-    .notice {
-      padding: 13px;
-      border-radius: 10px;
-      background: #fff5d8;
-      color: #694e00;
-      font-size: 14px;
-      margin-top: 16px;
-    }
-
-    .status {
-      margin-top: 12px;
-      min-height: 24px;
-      overflow-wrap: anywhere;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .metric {
-      background: #f7f8fc;
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    .muted {
-      color: #657087;
-      font-size: 14px;
-    }
-
-    @media (max-width: 480px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        padding: 17px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101827">
+<title>COMMERZO | Website Admin</title>
+<link rel="icon" href="./commerzo-logo.png">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fb;color:#172033;font:16px/1.5 system-ui,sans-serif}
+header{background:#101827;color:#fff;padding:15px;display:flex;align-items:center;gap:12px}
+header img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:9px;padding:3px}
+main{max-width:900px;margin:24px auto;padding:0 14px}
+.card{background:#fff;border:1px solid #e2e7f0;border-radius:16px;padding:20px;margin-bottom:16px}
+h1{font-size:25px;margin:0 0 8px}h2{font-size:20px;margin:18px 0 12px}
+p{color:#657087}
+label{display:block;font-weight:650;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd2df;border-radius:10px;font:inherit;background:#fff;color:#172033}
+textarea{min-height:85px;resize:vertical}
+button{padding:11px 14px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:#5145e5;color:#fff}.secondary{background:#edf0f7;color:#172033}.danger{background:#fee2e2;color:#991b1b}
+.notice{padding:13px;border-radius:10px;background:#fff5d8;color:#694e00;font-size:14px;margin:14px 0}
+.hidden{display:none!important}.muted,.small{color:#657087;font-size:14px;overflow-wrap:anywhere}
+.status{margin-top:12px;min-height:22px;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.metric{background:#f7f8fc;padding:15px;border-radius:12px}
+.metric strong{display:block;font-size:26px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.tab{background:#edf0f7;color:#172033}.tab.active{background:#5145e5;color:#fff}
+.entry{border:1px solid #e2e7f0;border-radius:12px;padding:13px;margin:10px 0;overflow-wrap:anywhere}
+.entryhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.actions,.formactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.card{padding:16px}.tab{flex:1 1 40%}}
+</style>
 </head>
-
 <body>
-
 <header>
-  <img
-    src="./commerzo-logo.png"
-    alt="COMMERZO"
-    onerror="this.style.display='none'"
-  >
-
-  <div>
-    <strong>COMMERZO Website Admin</strong>
-    <div style="font-size:12px;color:#cbd5e1">
-      Learn. Practice. Score.
-    </div>
-  </div>
+<img src="./commerzo-logo.png" alt="COMMERZO" onerror="this.style.display='none'">
+<div><strong>COMMERZO Website Admin</strong><div style="font-size:12px;color:#cbd5e1">Learn. Practice. Score.</div></div>
 </header>
-
 <main>
+<section class="card" id="loginPanel">
+<h1>Admin Login</h1>
+<p>Sign in using your authorized Firebase admin account.</p>
+<form id="loginForm">
+<label for="email">Email address</label>
+<input id="email" type="email" autocomplete="username" required>
+<label for="password">Password</label>
+<input id="password" type="password" autocomplete="current-password" required>
+<button class="primary" id="loginButton" type="submit" style="margin-top:18px;width:100%">Sign in</button>
+<div id="loginStatus" class="status" role="status" aria-live="polite"></div>
+</form>
+<div class="notice">Only an existing Firebase account with an authorized admin document can access this panel.</div>
+</section>
 
-  <!-- ADMIN LOGIN -->
-  <section class="card" id="loginPanel">
-
-    <h1>Admin Login</h1>
-
-    <p>
-      Sign in using your authorized Firebase admin account.
-    </p>
-
-    <form id="loginForm">
-
-      <label for="email">Email address</label>
-
-      <input
-        id="email"
-        type="email"
-        autocomplete="username"
-        required
-      >
-
-      <label for="password">Password</label>
-
-      <input
-        id="password"
-        type="password"
-        autocomplete="current-password"
-        required
-      >
-
-      <button
-        class="primary"
-        id="loginButton"
-        type="submit"
-        style="margin-top:18px;width:100%"
-      >
-        Sign in
-      </button>
-
-      <div
-        class="status"
-        id="loginStatus"
-        role="status"
-        aria-live="polite"
-      ></div>
-
-    </form>
-
-    <div class="notice">
-      Public sign-up is disabled. An account must already exist
-      in Firebase Authentication and have an authorized admin
-      document in Firestore.
-    </div>
-
-  </section>
-
-  <!-- ADMIN DASHBOARD -->
-  <section class="card hidden" id="dashboard">
-
-    <h1>Dashboard</h1>
-
-    <p id="account"></p>
-
-    <button
-      class="secondary"
-      id="logoutButton"
-      type="button"
-    >
-      Sign out
-    </button>
-
-    <div class="notice">
-      Admin verification successful.
-
-      Content management is not connected yet. Your existing
-      website content has not been changed by this login page.
-    </div>
-
-    <h2>Content Management</h2>
-
-    <div class="grid">
-
-      <div class="metric">
-        <strong>Subjects</strong>
-        <div class="muted">Management setup pending</div>
-      </div>
-
-      <div class="metric">
-        <strong>Chapters</strong>
-        <div class="muted">Management setup pending</div>
-      </div>
-
-      <div class="metric">
-        <strong>MCQs</strong>
-        <div class="muted">Management setup pending</div>
-      </div>
-
-      <div class="metric">
-        <strong>Study Resources</strong>
-        <div class="muted">Management setup pending</div>
-      </div>
-
-    </div>
-
-    <p class="muted">
-      Next step: connect these sections to Firestore so the
-      authorized admin can manage website study content.
-    </p>
-
-  </section>
-
+<section class="card hidden" id="dashboard">
+<div class="entryhead">
+<div><h1>Dashboard</h1><p id="account"></p></div>
+<button class="secondary" id="logoutButton" type="button">Sign out</button>
+</div>
+<div class="notice" id="mainStatus" role="status">Verifying admin access…</div>
+<h2>Content Overview</h2>
+<div class="grid">
+<div class="metric">Subjects<strong id="subjectCount">—</strong></div>
+<div class="metric">Chapters<strong id="chapterCount">—</strong></div>
+<div class="metric">MCQs<strong id="mcqCount">—</strong></div>
+<div class="metric">Study Resources<strong id="resourceCount">—</strong></div>
+</div>
+<div class="tabs">
+<button class="tab active" data-section="subjects" type="button">Subjects</button>
+<button class="tab" data-section="chapters" type="button">Chapters</button>
+<button class="tab" data-section="mcqs" type="button">MCQs</button>
+<button class="tab" data-section="resources" type="button">Resources</button>
+</div>
+<section id="managerPanel">
+<h2 id="sectionTitle">Subjects</h2>
+<p id="sectionHelp" class="muted"></p>
+<form id="contentForm">
+<input id="editId" type="hidden">
+<div id="dynamicFields"></div>
+<div class="formactions">
+<button class="primary" id="saveButton" type="submit">Add subject</button>
+<button class="secondary hidden" id="cancelEdit" type="button">Cancel edit</button>
+</div>
+</form>
+<div id="contentStatus" class="status" role="status" aria-live="polite"></div>
+<h2>Saved content</h2>
+<div id="entries"><p class="muted">Loading…</p></div>
+</section>
+<p class="small">This panel saves content in Firestore. The public homepage will display it only after the homepage code is separately connected to these collections.</p>
+</section>
 </main>
 
-<!-- SINGLE FIREBASE MODULE -->
 <script type="module">
-
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-  import {
-    getFirestore,
-    doc,
-    getDoc
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-
-  // FIREBASE CONFIGURATION
-  const firebaseConfig = {
-    apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
-    authDomain: "commerzo-42fd2.firebaseapp.com",
-    projectId: "commerzo-42fd2",
-    storageBucket: "commerzo-42fd2.firebasestorage.app",
-    messagingSenderId: "472656083923",
-    appId: "1:472656083923:web:022b77078ec9e07db00d26",
-    measurementId: "G-RCHSTFTQM2"
-  };
-
-
-  // INITIALIZE FIREBASE
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-
-  // HTML ELEMENTS
-  const loginPanel = document.getElementById("loginPanel");
-  const dashboard = document.getElementById("dashboard");
-  const status = document.getElementById("loginStatus");
-  const loginButton = document.getElementById("loginButton");
-
-  let authCheckNumber = 0;
-
-
-  // SHOW LOGIN PANEL
-  function showLogin(message = "") {
-    loginPanel.classList.remove("hidden");
-    dashboard.classList.add("hidden");
-    status.textContent = message;
-  }
-
-
-  // VERIFY ADMIN AFTER AUTHENTICATION
-  onAuthStateChanged(auth, async (user) => {
-
-    const checkNumber = ++authCheckNumber;
-
-    // Hide dashboard while authorization is checked.
-    dashboard.classList.add("hidden");
-
-    if (!user) {
-      loginPanel.classList.remove("hidden");
-      status.textContent = "";
-      return;
-    }
-
-    loginPanel.classList.add("hidden");
-    status.textContent = "";
-
-    try {
-
-      // Find the signed-in user's admin document.
-      const adminRef = doc(db, "admins", user.uid);
-      const adminSnapshot = await getDoc(adminRef);
-
-      // Ignore an outdated verification result.
-      if (checkNumber !== authCheckNumber) {
-        return;
-      }
-
-      // The document must exist and role must equal "admin".
-      const authorized =
-        adminSnapshot.exists() &&
-        adminSnapshot.data().role === "admin";
-
-      if (!authorized) {
-
-        await signOut(auth);
-
-        if (checkNumber !== authCheckNumber) {
-          return;
-        }
-
-        showLogin(
-          "Access denied: this account is not an authorized COMMERZO admin."
-        );
-
-        return;
-      }
-
-      // Authorized admin.
-      document.getElementById("account").textContent =
-        "Admin: " + (user.email || "Authenticated admin");
-
-      dashboard.classList.remove("hidden");
-
-    } catch (error) {
-
-      if (checkNumber !== authCheckNumber) {
-        return;
-      }
-
-      console.error("Admin verification error:", error);
-
-      // Fail closed if admin verification fails.
-      await signOut(auth).catch(() => {});
-
-      if (checkNumber !== authCheckNumber) {
-        return;
-      }
-
-      showLogin(
-        "Admin verification failed. Check your internet connection, Firestore Rules and admin document."
-      );
-    }
-
-  });
-
-
-  // LOGIN FORM
-  document.getElementById("loginForm").addEventListener(
-    "submit",
-    async (event) => {
-
-      event.preventDefault();
-
-      status.textContent = "";
-      loginButton.disabled = true;
-      loginButton.textContent = "Signing in…";
-
-      try {
-
-        await signInWithEmailAndPassword(
-          auth,
-          document.getElementById("email").value.trim(),
-          document.getElementById("password").value
-        );
-
-      } catch (error) {
-
-        console.error("Login error:", error);
-
-        const messages = {
-          "auth/invalid-credential":
-            "Email or password is incorrect.",
-
-          "auth/invalid-email":
-            "Enter a valid email address.",
-
-          "auth/too-many-requests":
-            "Too many attempts. Try again later.",
-
-          "auth/network-request-failed":
-            "Network error. Check your internet connection.",
-
-          "auth/operation-not-allowed":
-            "Email/Password sign-in is not enabled in Firebase."
-        };
-
-        showLogin(
-          messages[error.code] ||
-          "Sign-in failed. Check your Firebase Authentication settings."
-        );
-
-      } finally {
-
-        loginButton.disabled = false;
-        loginButton.textContent = "Sign in";
-
-      }
-
-    }
-  );
-
-
-  // LOGOUT BUTTON
-  document.getElementById("logoutButton").addEventListener(
-    "click",
-    async () => {
-
-      try {
-
-        await signOut(auth);
-
-      } catch (error) {
-
-        console.error("Logout error:", error);
-
-        alert("Sign out failed. Please try again.");
-
-      }
-
-    }
-  );
-
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import {getFirestore,doc,getDoc,collection,getDocs,addDoc,updateDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+authDomain:"commerzo-42fd2.firebaseapp.com",
+projectId:"commerzo-42fd2",
+storageBucket:"commerzo-42fd2.firebasestorage.app",
+messagingSenderId:"472656083923",
+appId:"1:472656083923:web:022b77078ec9e07db00d26",
+measurementId:"G-RCHSTFTQM2"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const $=id=>document.getElementById(id);
+const sections=["subjects","chapters","mcqs","resources"];
+const cache={subjects:[],chapters:[],mcqs:[],resources:[]};
+let active="subjects";
+let verifiedUid=null;
+let authRun=0;
+
+const config={
+subjects:{title:"Subjects",singular:"subject",help:"Create subjects for MP Board, CBSE or both.",fields:[
+{id:"name",label:"Subject name",type:"text",required:true,placeholder:"Accountancy"},
+{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+{id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
+{id:"code",label:"Subject code (optional)",type:"text"},
+{id:"description",label:"Description (optional)",type:"textarea"}]},
+chapters:{title:"Chapters",singular:"chapter",help:"Add a chapter and link it to a saved subject.",fields:[
+{id:"name",label:"Chapter name",type:"text",required:true},
+{id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
+{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+{id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
+{id:"order",label:"Chapter number / order",type:"number",required:true},
+{id:"description",label:"Description (optional)",type:"textarea"}]},
+mcqs:{title:"MCQs",singular:"MCQ",help:"Enter the question, all four options, correct answer and explanation.",fields:[
+{id:"question",label:"Question",type:"textarea",required:true},
+{id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
+{id:"chapterId",label:"Chapter",type:"select",source:"chapters",required:true},
+{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+{id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
+{id:"option0",label:"Option A",type:"text",required:true},
+{id:"option1",label:"Option B",type:"text",required:true},
+{id:"option2",label:"Option C",type:"text",required:true},
+{id:"option3",label:"Option D",type:"text",required:true},
+{id:"correctIndex",label:"Correct answer",type:"select",required:true,options:["A","B","C","D"]},
+{id:"explanation",label:"Explanation (optional)",type:"textarea"}]},
+resources:{title:"Study Resources",singular:"resource",help:"Add a study resource with a public URL.",fields:[
+{id:"title",label:"Resource title",type:"text",required:true},
+{id:"type",label:"Resource type",type:"select",required:true,options:["Handwritten Notes","Previous Year Papers","Marking Scheme","Sample Papers","Important Questions","Syllabus","Other"]},
+{id:"subjectId",label:"Subject (optional)",type:"select",source:"subjects"},
+{id:"chapterId",label:"Chapter (optional)",type:"select",source:"chapters",optionalBlank:true},
+{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+{id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
+{id:"url",label:"Resource URL",type:"url",required:true,placeholder:"https://..."},
+{id:"description",label:"Description (optional)",type:"textarea"}]}
+};
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function showLogin(message=""){$("loginPanel").classList.remove("hidden");$("dashboard").classList.add("hidden");$("loginStatus").textContent=message;}
+function titleOf(section,r){return r.name||r.title||r.question||"Untitled";}
+function opts(f){
+if(f.source)return cache[f.source].map(r=>({value:r.id,label:titleOf(f.source,r)}));
+return (f.options||[]).map(v=>({value:v,label:v}));
+}
+function renderFields(){
+const c=config[active];
+$("dynamicFields").innerHTML=c.fields.map(f=>{
+let control="";
+if(f.type==="textarea")control='<textarea id="f_'+f.id+'" '+(f.required?"required":"")+'></textarea>';
+else if(f.type==="select"){
+const blank=f.optionalBlank?'<option value="">— None —</option>':(f.source?'<option value="">Choose…</option>':"");
+control='<select id="f_'+f.id+'" '+(f.required?"required":"")+'>'+blank+opts(f).map(o=>'<option value="'+esc(o.value)+'">'+esc(o.label)+'</option>').join("")+'</select>';
+}else control='<input id="f_'+f.id+'" type="'+f.type+'" '+(f.required?"required":"")+' '+(f.type==="number"?'min="1" step="1"':'')+' placeholder="'+esc(f.placeholder||"")+'">';
+return '<label for="f_'+f.id+'">'+esc(f.label)+'</label>'+control;
+}).join("");
+}
+function collectForm(){
+const d={};
+for(const f of config[active].fields){
+let v=$("f_"+f.id).value.trim();
+if(f.type==="number")v=v===""?null:Number(v);
+if(f.id==="correctIndex")v=["A","B","C","D"].indexOf(v);
+d[f.id]=v;
+}
+if(active==="mcqs"){
+d.options=[d.option0,d.option1,d.option2,d.option3];
+delete d.option0;delete d.option1;delete d.option2;delete d.option3;
+}
+return d;
+}
+function fillForm(r){
+for(const f of config[active].fields){
+let v=r[f.id]??"";
+if(active==="mcqs"&&f.id==="correctIndex")v=["A","B","C","D"][Number(r.correctIndex)]||"A";
+if(active==="mcqs"&&f.id.startsWith("option"))v=(r.options||[])[Number(f.id.slice(-1))]||"";
+$("f_"+f.id).value=String(v);
+}
+}
+function details(section,r){
+if(section==="subjects")return [r.board,r.className?"Class "+r.className:"",r.code].filter(Boolean).join(" · ");
+if(section==="chapters"){const s=cache.subjects.find(x=>x.id===r.subjectId);return [(s&&s.name)||"Subject not found",r.board,r.className?"Class "+r.className:"",r.order?"Chapter "+r.order:""].filter(Boolean).join(" · ");}
+if(section==="mcqs"){const s=cache.subjects.find(x=>x.id===r.subjectId),c=cache.chapters.find(x=>x.id===r.chapterId);return [(s&&s.name)||"Subject not found",(c&&c.name)||"Chapter not found",r.board,"Correct: "+(["A","B","C","D"][Number(r.correctIndex)]||"?")].join(" · ");}
+const s=cache.subjects.find(x=>x.id===r.subjectId);
+return [r.type,s&&s.name,r.board,r.url].filter(Boolean).join(" · ");
+}
+function resetForm(){
+$("contentForm").reset();$("editId").value="";
+$("saveButton").textContent="Add "+config[active].singular;
+$("cancelEdit").classList.add("hidden");
+}
+function renderEntries(){
+const list=cache[active];
+if(!list.length){$("entries").innerHTML='<p class="muted">No items saved in this section yet.</p>';return;}
+$("entries").innerHTML=list.map(r=>'<article class="entry"><strong>'+esc(titleOf(active,r))+'</strong><div class="small">'+esc(details(active,r))+'</div>'+
+(active==="mcqs"?'<p class="small">'+esc((r.options||[]).map((o,i)=>"("+["A","B","C","D"][i]+") "+o).join(" | "))+'</p>':"")+
+'<div class="actions"><button type="button" class="secondary" data-edit="'+esc(r.id)+'">Edit</button><button type="button" class="danger" data-delete="'+esc(r.id)+'">Delete</button></div></article>').join("");
+$("entries").querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>{
+const r=cache[active].find(x=>x.id===b.dataset.edit);if(!r)return;
+$("editId").value=r.id;fillForm(r);$("saveButton").textContent="Save changes";$("cancelEdit").classList.remove("hidden");$("contentStatus").textContent="Editing selected item.";
+window.scrollTo({top:$("managerPanel").offsetTop,behavior:"smooth"});
+}));
+$("entries").querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.delete)));
+}
+async function refreshAll(){
+$("mainStatus").textContent="Loading Firestore content…";
+try{
+for(const s of sections){const snap=await getDocs(collection(db,s));cache[s]=snap.docs.map(d=>({id:d.id,...d.data()}));}
+$("subjectCount").textContent=cache.subjects.length;
+$("chapterCount").textContent=cache.chapters.length;
+$("mcqCount").textContent=cache.mcqs.length;
+$("resourceCount").textContent=cache.resources.length;
+renderFields();renderEntries();
+$("mainStatus").textContent="Connected to Firestore. Changes are saved to the database.";
+}catch(e){console.error(e);$("mainStatus").textContent="Could not load content: "+(e.code||e.message)+". Check Firestore Rules and internet connection.";}
+}
+function switchSection(s){
+if(!config[s])return;active=s;
+document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.section===s));
+$("sectionTitle").textContent=config[s].title;$("sectionHelp").textContent=config[s].help;
+$("contentStatus").textContent="";resetForm();renderFields();renderEntries();
+}
+async function removeItem(id){
+const r=cache[active].find(x=>x.id===id);
+if(!r||!confirm('Delete "'+titleOf(active,r)+'" from Firestore? This cannot be undone.'))return;
+try{await deleteDoc(doc(db,active,id));$("contentStatus").textContent="Deleted successfully.";await refreshAll();}
+catch(e){console.error(e);$("contentStatus").textContent="Delete failed: "+(e.code||e.message);}
+}
+onAuthStateChanged(auth,async user=>{
+const run=++authRun;$("dashboard").classList.add("hidden");
+if(!user){verifiedUid=null;$("loginPanel").classList.remove("hidden");$("loginStatus").textContent="";return;}
+$("loginPanel").classList.add("hidden");
+try{
+const snap=await getDoc(doc(db,"admins",user.uid));
+if(run!==authRun)return;
+if(!snap.exists()||snap.data().role!=="admin"){
+await signOut(auth);
+if(run===authRun)showLogin("Access denied: this account is not an authorized admin.");
+return;
+}
+verifiedUid=user.uid;$("account").textContent="Admin: "+(user.email||"Authenticated admin");
+$("dashboard").classList.remove("hidden");switchSection(active);await refreshAll();
+}catch(e){
+console.error(e);if(run!==authRun)return;
+await signOut(auth).catch(()=>{});
+if(run===authRun)showLogin("Admin verification failed. Check internet, Firestore Rules and the admin document.");
+}
+});
+$("loginForm").addEventListener("submit",async e=>{
+e.preventDefault();$("loginStatus").textContent="";$("loginButton").disabled=true;$("loginButton").textContent="Signing in…";
+try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);}
+catch(err){
+console.error(err);
+const messages={"auth/invalid-credential":"Email or password is incorrect.","auth/invalid-email":"Enter a valid email address.","auth/too-many-requests":"Too many attempts. Try again later.","auth/network-request-failed":"Network error. Check your connection.","auth/operation-not-allowed":"Enable Email/Password sign-in in Firebase."};
+showLogin(messages[err.code]||"Sign-in failed. Check Firebase Authentication settings.");
+}finally{$("loginButton").disabled=false;$("loginButton").textContent="Sign in";}
+});
+$("logoutButton").addEventListener("click",async()=>{try{await signOut(auth);}catch(e){console.error(e);alert("Sign out failed. Please try again.");}});
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchSection(b.dataset.section)));
+$("cancelEdit").addEventListener("click",()=>{resetForm();$("contentStatus").textContent="Edit cancelled.";});
+$("contentForm").addEventListener("submit",async e=>{
+e.preventDefault();
+if(!verifiedUid){$("contentStatus").textContent="Admin session not verified. Sign in again.";return;}
+const data=collectForm(),id=$("editId").value,button=$("saveButton");
+if(active==="resources"&&!/^https?:\/\//i.test(data.url)){$("contentStatus").textContent="Enter a complete resource link beginning with https:// or http://.";return;}
+if(active==="mcqs"&&data.options.some(v=>!v)){$("contentStatus").textContent="Please fill all four answer options.";return;}
+button.disabled=true;$("contentStatus").textContent="Saving…";
+try{
+data.updatedAt=serverTimestamp();
+if(id){await updateDoc(doc(db,active,id),data);$("contentStatus").textContent="Updated successfully.";}
+else{data.createdAt=serverTimestamp();await addDoc(collection(db,active),data);$("contentStatus").textContent="Added successfully.";}
+resetForm();await refreshAll();
+}catch(err){console.error(err);$("contentStatus").textContent="Save failed: "+(err.code||err.message);}
+finally{button.disabled=false;}
+});
 </script>
-
 </body>
-  </html>
+</html>
