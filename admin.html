@@ -195,6 +195,142 @@
       alert("Sign out failed. Please try again.");
     }
   });
+  <script type="module">
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+    authDomain: "commerzo-42fd2.firebaseapp.com",
+    projectId: "commerzo-42fd2",
+    storageBucket: "commerzo-42fd2.firebasestorage.app",
+    messagingSenderId: "472656083923",
+    appId: "1:472656083923:web:022b77078ec9e07db00d26",
+    measurementId: "G-RCHSTFTQM2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const loginPanel = document.getElementById("loginPanel");
+  const dashboard = document.getElementById("dashboard");
+  const status = document.getElementById("loginStatus");
+  const loginButton = document.getElementById("loginButton");
+
+  let authCheckNumber = 0;
+
+  function showLogin(message = "") {
+    loginPanel.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+    status.textContent = message;
+  }
+
+  onAuthStateChanged(auth, async user => {
+    const checkNumber = ++authCheckNumber;
+
+    dashboard.classList.add("hidden");
+
+    if (!user) {
+      loginPanel.classList.remove("hidden");
+      return;
+    }
+
+    loginPanel.classList.add("hidden");
+    status.textContent = "";
+
+    try {
+      const adminRef = doc(db, "admins", user.uid);
+      const adminSnapshot = await getDoc(adminRef);
+
+      if (checkNumber !== authCheckNumber) return;
+
+      const authorized =
+        adminSnapshot.exists() &&
+        adminSnapshot.data().role === "admin";
+
+      if (!authorized) {
+        await signOut(auth);
+
+        if (checkNumber !== authCheckNumber) return;
+
+        showLogin("Access denied: this account is not an authorized COMMERZO admin.");
+        return;
+      }
+
+      document.getElementById("account").textContent =
+        "Admin: " + (user.email || "Authenticated admin");
+
+      dashboard.classList.remove("hidden");
+    } catch (error) {
+      if (checkNumber !== authCheckNumber) return;
+
+      await signOut(auth).catch(() => {});
+
+      if (checkNumber !== authCheckNumber) return;
+
+      showLogin(
+        "Admin verification failed. Check your internet connection and Firestore Rules, then try again."
+      );
+
+      console.error("Admin verification error:", error);
+    }
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    status.textContent = "";
+    loginButton.disabled = true;
+    loginButton.textContent = "Signing in…";
+
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        document.getElementById("email").value.trim(),
+        document.getElementById("password").value
+      );
+    } catch (error) {
+      const messages = {
+        "auth/invalid-credential": "Email or password is incorrect.",
+        "auth/invalid-email": "Enter a valid email address.",
+        "auth/too-many-requests": "Too many attempts. Try again later.",
+        "auth/network-request-failed": "Network error. Check your connection.",
+        "auth/operation-not-allowed":
+          "Email/Password sign-in is not enabled."
+      };
+
+      showLogin(
+        messages[error.code] ||
+        "Sign-in failed. Check Firebase Authentication settings."
+      );
+    } finally {
+      loginButton.disabled = false;
+      loginButton.textContent = "Sign in";
+    }
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      alert("Sign out failed. Please try again.");
+    }
+  });
+</script>
 </script>
 </body>
 </html>
