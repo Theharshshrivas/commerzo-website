@@ -353,5 +353,285 @@ document.getElementById("aiForm").addEventListener("submit", async function(even
 
 renderSubjects();
 </script>
+  <script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore, collection, getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+  authDomain: "commerzo-42fd2.firebaseapp.com",
+  projectId: "commerzo-42fd2",
+  storageBucket: "commerzo-42fd2.firebasestorage.app",
+  messagingSenderId: "472656083923",
+  appId: "1:472656083923:web:022b77078ec9e07db00d26",
+  measurementId: "G-RCHSTFTQM2"
+};
+
+const app = getApps().find(a => a.name === "commerzo-public")
+  || initializeApp(firebaseConfig, "commerzo-public");
+
+const db = getFirestore(app);
+const content = {
+  subjects: [],
+  chapters: [],
+  mcqs: [],
+  resources: []
+};
+
+const el = id => document.getElementById(id);
+
+function boardMatches(item, board) {
+  return !item.board || item.board === "Both" || item.board === board;
+}
+
+function makeCard(titleText, descriptionText, buttonText, action) {
+  const card = document.createElement("article");
+  card.className = "card";
+
+  const title = document.createElement("h3");
+  title.textContent = titleText;
+
+  const desc = document.createElement("p");
+  desc.textContent = descriptionText;
+
+  card.append(title, desc);
+
+  if (buttonText) {
+    const button = document.createElement("button");
+    button.textContent = buttonText;
+    button.onclick = action;
+    card.append(button);
+  }
+
+  return card;
+}
+
+function renderLiveSubjects() {
+  const board = el("board").value;
+  const term = el("search").value.trim().toLowerCase();
+  const grid = el("subjectGrid");
+
+  grid.replaceChildren();
+
+  const subjects = content.subjects.filter(s => {
+    const chapters = content.chapters.filter(c => c.subjectId === s.id);
+    const searchable = [
+      s.name,
+      s.description,
+      ...chapters.map(c => c.name)
+    ].join(" ").toLowerCase();
+
+    return boardMatches(s, board) && searchable.includes(term);
+  });
+
+  if (!subjects.length) {
+    grid.textContent =
+      "Is board ke liye abhi live subjects nahi mile. Admin panel mein subjects add karke check karo.";
+    return;
+  }
+
+  subjects.forEach(subject => {
+    const chapters = content.chapters.filter(c =>
+      c.subjectId === subject.id && boardMatches(c, board)
+    );
+
+    grid.append(makeCard(
+      subject.name || "Subject",
+      (subject.description || "Explore subject chapters.") +
+        " · " + chapters.length + " chapters",
+      "Explore subject →",
+      () => openLiveSubject(subject, chapters)
+    ));
+  });
+}
+
+function openLiveSubject(subject, chapters) {
+  el("detail").classList.remove("hidden");
+  el("practice").classList.add("hidden");
+  el("detailTitle").textContent = subject.name || "Subject";
+  el("detailDesc").textContent =
+    el("board").value + " · Live chapters";
+
+  const list = el("chapterList");
+  list.replaceChildren();
+
+  chapters.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+
+  if (!chapters.length) {
+    list.textContent = "Is subject ke chapters abhi admin se publish nahi hue.";
+  }
+
+  chapters.forEach((chapter, i) => {
+    list.append(makeCard(
+      (chapter.order || i + 1) + ". " + chapter.name,
+      chapter.description || "Practise chapter MCQs.",
+      "Practise MCQs →",
+      () => openLivePractice(subject, chapter)
+    ));
+  });
+
+  el("detail").scrollIntoView({ behavior: "smooth" });
+}
+
+function openLivePractice(subject, chapter) {
+  const board = el("board").value;
+  const questions = content.mcqs.filter(m =>
+    m.subjectId === subject.id &&
+    m.chapterId === chapter.id &&
+    boardMatches(m, board)
+  );
+
+  el("practice").classList.remove("hidden");
+  el("practice").querySelector("h2").textContent =
+    chapter.name + " — Practice";
+
+  const questionEl = el("question");
+  const optionsEl = el("options");
+  const feedbackEl = el("feedback");
+  const nextButton = el("practice").querySelector(
+    'button[onclick="nextQuestion()"]'
+  );
+
+  nextButton.classList.add("hidden");
+  optionsEl.replaceChildren();
+  feedbackEl.textContent = "";
+
+  if (!questions.length) {
+    questionEl.textContent =
+      "Is chapter ke liye abhi MCQs publish nahi hue hain.";
+    el("practice").scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+
+  let index = 0;
+
+  function showQuestion() {
+    const q = questions[index];
+    questionEl.textContent =
+      (index + 1) + "/" + questions.length + " · " + q.question;
+
+    optionsEl.replaceChildren();
+    feedbackEl.textContent = "";
+
+    (q.options || []).forEach((option, i) => {
+      const button = document.createElement("button");
+      button.className = "option";
+      button.textContent = String.fromCharCode(65 + i) + ". " + option;
+
+      button.onclick = () => {
+        [...optionsEl.querySelectorAll("button")].forEach(b => {
+          if (!b.classList.contains("live-next")) b.disabled = true;
+        });
+
+        const correct = i === Number(q.correctIndex);
+        feedbackEl.textContent =
+          (correct ? "Correct! " : "Not quite. ") +
+          (q.explanation || (
+            "Correct answer: " +
+            String.fromCharCode(65 + Number(q.correctIndex))
+          ));
+      };
+
+      optionsEl.append(button);
+    });
+
+    const next = document.createElement("button");
+    next.className = "live-next";
+    next.style.marginTop = "10px";
+    next.textContent = index === questions.length - 1
+      ? "Restart practice ↻"
+      : "Next MCQ →";
+
+    next.onclick = () => {
+      index = (index + 1) % questions.length;
+      showQuestion();
+    };
+
+    optionsEl.append(next);
+  }
+
+  showQuestion();
+  el("practice").scrollIntoView({ behavior: "smooth" });
+}
+
+function renderLiveResources() {
+  const panels = [...document.querySelectorAll("section.panel")];
+  const panel = panels.find(p =>
+    p.querySelector("h2")?.textContent.trim() === "Study resources"
+  );
+
+  if (!panel) return;
+
+  const grid = panel.querySelector(".grid");
+  grid.replaceChildren();
+
+  const resources = content.resources.filter(r =>
+    boardMatches(r, el("board").value)
+  );
+
+  if (!resources.length) {
+    grid.textContent =
+      "Resources admin panel se add karne ke baad yahan dikhengi.";
+    return;
+  }
+
+  resources.forEach(resource => {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const type = document.createElement("span");
+    type.className = "resource-label";
+    type.textContent = resource.type || "Resource";
+
+    const title = document.createElement("h3");
+    title.textContent = resource.title || "Study resource";
+
+    const desc = document.createElement("p");
+    desc.textContent = resource.description || "Open learning resource.";
+
+    card.append(type, title, desc);
+
+    if (resource.url) {
+      const link = document.createElement("a");
+      link.href = resource.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open resource →";
+      card.append(link);
+    }
+
+    grid.append(card);
+  });
+}
+
+async function loadCommerzoContent() {
+  el("subjectGrid").textContent = "Loading live COMMERZO content…";
+
+  try {
+    for (const name of ["subjects", "chapters", "mcqs", "resources"]) {
+      const snapshot = await getDocs(collection(db, name));
+      content[name] = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+    }
+
+    window.renderSubjects = () => {
+      renderLiveSubjects();
+      renderLiveResources();
+    };
+
+    window.renderSubjects();
+  } catch (error) {
+    console.error("COMMERZO content load failed:", error);
+    el("subjectGrid").textContent =
+      "Live content load nahi hua. Internet aur Firestore read rules check karo.";
+  }
+}
+
+loadCommerzoContent();
+  </script>
 </body>
 </html>
