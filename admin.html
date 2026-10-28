@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#101827">
+  <title>COMMERZO | Website Admin</title>
+  <link rel="icon" href="./commerzo-logo.png">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #f4f6fb; color: #172033;
+      font: 16px/1.5 system-ui, sans-serif;
+    }
+    header {
+      background: #101827; color: white; padding: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    header img {
+      width: 44px; height: 44px; object-fit: contain;
+      background: white; border-radius: 10px; padding: 3px;
+    }
+    main { max-width: 760px; margin: 28px auto; padding: 0 14px; }
+    .card {
+      background: white; border: 1px solid #e2e7f0;
+      border-radius: 16px; padding: 22px; margin-bottom: 16px;
+    }
+    h1 { font-size: 25px; margin: 0 0 8px; }
+    h2 { font-size: 19px; }
+    p { color: #657087; }
+    label { display: block; font-weight: 650; margin: 14px 0 6px; }
+    input {
+      width: 100%; padding: 13px; border: 1px solid #cbd2df;
+      border-radius: 10px; font: inherit;
+    }
+    button {
+      padding: 12px 16px; border: 0; border-radius: 10px;
+      font: inherit; font-weight: 700; cursor: pointer;
+    }
+    .primary { background: #5145e5; color: white; }
+    .secondary { background: #edf0f7; color: #172033; }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .notice {
+      padding: 13px; border-radius: 10px; background: #fff5d8;
+      color: #694e00; font-size: 14px; margin-top: 16px;
+    }
+    .status { margin-top: 12px; min-height: 24px; overflow-wrap: anywhere; }
+    .hidden { display: none !important; }
+    .grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .metric { background: #f7f8fc; padding: 15px; border-radius: 12px; }
+    .muted { color: #657087; font-size: 14px; }
+    @media(max-width:480px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 17px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <img src="./commerzo-logo.png" alt="COMMERZO"
+       onerror="this.style.display='none'">
+  <div>
+    <strong>COMMERZO Website Admin</strong>
+    <div style="font-size:12px;color:#cbd5e1">Learn. Practice. Score.</div>
+  </div>
+</header>
+
+<main>
+  <section class="card" id="loginPanel">
+    <h1>Admin Login</h1>
+    <p>Sign in using your Firebase email and password.</p>
+
+    <form id="loginForm">
+      <label for="email">Email address</label>
+      <input id="email" type="email" autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <input id="password" type="password"
+             autocomplete="current-password" required>
+
+      <button class="primary" id="loginButton"
+              type="submit" style="margin-top:18px;width:100%">
+        Sign in
+      </button>
+      <div class="status" id="loginStatus" role="status"
+           aria-live="polite"></div>
+    </form>
+
+    <div class="notice">
+      No public sign-up is available. Use an account already created in
+      Firebase Authentication. Login alone does not grant admin privileges.
+    </div>
+  </section>
+
+  <section class="card hidden" id="dashboard">
+    <h1>Dashboard</h1>
+    <p id="account"></p>
+    <button class="secondary" id="logoutButton">Sign out</button>
+
+    <div class="notice">
+      Login successful. Content editing is not enabled yet because
+      admin-only Firestore permissions have not been configured.
+      Do not make the database public.
+    </div>
+
+    <h2>Content Management</h2>
+    <div class="grid">
+      <div class="metric"><strong>Subjects</strong><div class="muted">Setup pending</div></div>
+      <div class="metric"><strong>Chapters</strong><div class="muted">Setup pending</div></div>
+      <div class="metric"><strong>MCQs</strong><div class="muted">Setup pending</div></div>
+      <div class="metric"><strong>Study Resources</strong><div class="muted">Setup pending</div></div>
+    </div>
+
+    <p class="muted">
+      Next: secure admin authorization, then connect real-time content
+      management to Firestore.
+    </p>
+  </section>
+</main>
+
+<script type="module">
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import {
+    getAuth, onAuthStateChanged,
+    signInWithEmailAndPassword, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+    authDomain: "commerzo-42fd2.firebaseapp.com",
+    projectId: "commerzo-42fd2",
+    storageBucket: "commerzo-42fd2.firebasestorage.app",
+    messagingSenderId: "472656083923",
+    appId: "1:472656083923:web:022b77078ec9e07db00d26",
+    measurementId: "G-RCHSTFTQM2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginPanel = document.getElementById("loginPanel");
+  const dashboard = document.getElementById("dashboard");
+  const status = document.getElementById("loginStatus");
+  const loginButton = document.getElementById("loginButton");
+
+  onAuthStateChanged(auth, user => {
+    loginPanel.classList.toggle("hidden", Boolean(user));
+    dashboard.classList.toggle("hidden", !user);
+
+    if (user) {
+      document.getElementById("account").textContent =
+        "Signed in as " + (user.email || "authenticated user");
+    }
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    status.textContent = "";
+    loginButton.disabled = true;
+    loginButton.textContent = "Signing in…";
+
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        document.getElementById("email").value.trim(),
+        document.getElementById("password").value
+      );
+    } catch (error) {
+      const messages = {
+        "auth/invalid-credential": "Email or password is incorrect.",
+        "auth/invalid-email": "Enter a valid email address.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+        "auth/network-request-failed": "Network error. Check your connection.",
+        "auth/operation-not-allowed":
+          "Email/Password sign-in is not enabled for this project."
+      };
+
+      status.textContent = messages[error.code] ||
+        "Sign-in failed. Check Firebase Authentication settings.";
+    } finally {
+      loginButton.disabled = false;
+      loginButton.textContent = "Sign in";
+    }
+  });
+
+  document.getElementById("logoutButton").addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+    } catch {
+      alert("Sign out failed. Please try again.");
+    }
+  });
+</script>
+</body>
+</html>
