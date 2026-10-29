@@ -11,29 +11,38 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f4f6fb;color:#172033;font:16px/1.5 system-ui,sans-serif}
-header{background:#101827;color:#fff;padding:15px;display:flex;align-items:center;gap:12px}
-header img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:9px;padding:3px}
-main{max-width:900px;margin:24px auto;padding:0 14px}
-.card{background:#fff;border:1px solid #e2e7f0;border-radius:16px;padding:20px;margin-bottom:16px}
-h1{font-size:25px;margin:0 0 8px}h2{font-size:20px;margin:18px 0 12px}
+header{background:#101827;color:white;padding:15px;display:flex;align-items:center;gap:12px}
+header img{width:44px;height:44px;object-fit:contain;background:white;border-radius:9px;padding:3px}
+main{max-width:1000px;margin:24px auto;padding:0 14px}
+.card{background:white;border:1px solid #e2e7f0;border-radius:16px;padding:20px;margin-bottom:16px}
+h1{font-size:25px;margin:0 0 8px}
+h2{font-size:20px;margin:18px 0 12px}
 p{color:#657087}
 label{display:block;font-weight:650;margin:12px 0 5px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #cbd2df;border-radius:10px;font:inherit;background:#fff;color:#172033}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd2df;border-radius:10px;font:inherit;background:white;color:#172033}
+input[type=file]{padding:9px}
 textarea{min-height:85px;resize:vertical}
 button{padding:11px 14px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
 button:disabled{opacity:.55;cursor:not-allowed}
-.primary{background:#5145e5;color:#fff}.secondary{background:#edf0f7;color:#172033}.danger{background:#fee2e2;color:#991b1b}
+.primary{background:#5145e5;color:white}
+.secondary{background:#edf0f7;color:#172033}
+.danger{background:#fee2e2;color:#991b1b}
 .notice{padding:13px;border-radius:10px;background:#fff5d8;color:#694e00;font-size:14px;margin:14px 0}
-.hidden{display:none!important}.muted,.small{color:#657087;font-size:14px;overflow-wrap:anywhere}
+.hidden{display:none!important}
+.muted,.small,.fieldnote{color:#657087;font-size:14px;overflow-wrap:anywhere}
 .status{margin-top:12px;min-height:22px;overflow-wrap:anywhere}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .metric{background:#f7f8fc;padding:15px;border-radius:12px}
 .metric strong{display:block;font-size:26px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.tab{background:#edf0f7;color:#172033}.tab.active{background:#5145e5;color:#fff}
+.tab{background:#edf0f7;color:#172033}
+.tab.active{background:#5145e5;color:white}
 .entry{border:1px solid #e2e7f0;border-radius:12px;padding:13px;margin:10px 0;overflow-wrap:anywhere}
 .entryhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .actions,.formactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.filebox{border:1px dashed #b8c0d2;border-radius:12px;padding:14px;margin-top:8px;background:#fafbff}
+.progress{height:7px;background:#e7eaf3;border-radius:10px;overflow:hidden;margin-top:8px}
+.progress span{display:block;height:100%;width:0;background:#5145e5}
 @media(max-width:520px){.grid{grid-template-columns:1fr}.card{padding:16px}.tab{flex:1 1 40%}}
 </style>
 </head>
@@ -52,9 +61,9 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <label for="password">Password</label>
 <input id="password" type="password" autocomplete="current-password" required>
 <button class="primary" id="loginButton" type="submit" style="margin-top:18px;width:100%">Sign in</button>
-<div id="loginStatus" class="status" role="status" aria-live="polite"></div>
+<div id="loginStatus" class="status" role="status"></div>
 </form>
-<div class="notice">Only an existing Firebase account with an authorized admin document can access this panel.</div>
+<div class="notice">Only an authorized Firebase admin account can access this panel.</div>
 </section>
 
 <section class="card hidden" id="dashboard">
@@ -79,7 +88,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <section id="managerPanel">
 <h2 id="sectionTitle">Subjects</h2>
 <p id="sectionHelp" class="muted"></p>
-<form id="contentForm">
+<form id="contentForm" novalidate>
 <input id="editId" type="hidden">
 <div id="dynamicFields"></div>
 <div class="formactions">
@@ -87,11 +96,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
 <button class="secondary hidden" id="cancelEdit" type="button">Cancel edit</button>
 </div>
 </form>
-<div id="contentStatus" class="status" role="status" aria-live="polite"></div>
+<div id="contentStatus" class="status" role="status"></div>
 <h2>Saved content</h2>
 <div id="entries"><p class="muted">Loading…</p></div>
 </section>
-<p class="small">This panel saves content in Firestore. The public homepage will display it only after the homepage code is separately connected to these collections.</p>
+<p class="small">Private Supabase files need signed-link integration on the public homepage before visitors can open them.</p>
 </section>
 </main>
 
@@ -101,14 +110,20 @@ import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut} from "htt
 import {getFirestore,doc,getDoc,collection,getDocs,addDoc,updateDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig={
-apiKey:"AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
-authDomain:"commerzo-42fd2.firebaseapp.com",
-projectId:"commerzo-42fd2",
-storageBucket:"commerzo-42fd2.firebasestorage.app",
-messagingSenderId:"472656083923",
-appId:"1:472656083923:web:022b77078ec9e07db00d26",
-measurementId:"G-RCHSTFTQM2"
+ apiKey:"AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+ authDomain:"commerzo-42fd2.firebaseapp.com",
+ projectId:"commerzo-42fd2",
+ storageBucket:"commerzo-42fd2.firebasestorage.app",
+ messagingSenderId:"472656083923",
+ appId:"1:472656083923:web:022b77078ec9e07db00d26",
+ measurementId:"G-RCHSTFTQM2"
 };
+
+const MEDIA_ENDPOINT="https://rawnsqcovqckwreuegpz.supabase.co/functions/v1/super-action";
+const MAX_SIZE=20*1024*1024;
+const ALLOWED_TYPES=new Set([
+ "application/pdf","image/jpeg","image/png","image/webp","video/mp4"
+]);
 
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
@@ -121,180 +136,400 @@ let verifiedUid=null;
 let authRun=0;
 
 const config={
-subjects:{title:"Subjects",singular:"subject",help:"Create subjects for MP Board, CBSE or both.",fields:[
-{id:"name",label:"Subject name",type:"text",required:true,placeholder:"Accountancy"},
-{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
-{id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
-{id:"code",label:"Subject code (optional)",type:"text"},
-{id:"description",label:"Description (optional)",type:"textarea"}]},
-chapters:{title:"Chapters",singular:"chapter",help:"Add a chapter and link it to a saved subject.",fields:[
-{id:"name",label:"Chapter name",type:"text",required:true},
-{id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
-{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
-{id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
-{id:"order",label:"Chapter number / order",type:"number",required:true},
-{id:"description",label:"Description (optional)",type:"textarea"}]},
-mcqs:{title:"MCQs",singular:"MCQ",help:"Enter the question, all four options, correct answer and explanation.",fields:[
-{id:"question",label:"Question",type:"textarea",required:true},
-{id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
-{id:"chapterId",label:"Chapter",type:"select",source:"chapters",required:true},
-{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
-{id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
-{id:"option0",label:"Option A",type:"text",required:true},
-{id:"option1",label:"Option B",type:"text",required:true},
-{id:"option2",label:"Option C",type:"text",required:true},
-{id:"option3",label:"Option D",type:"text",required:true},
-{id:"correctIndex",label:"Correct answer",type:"select",required:true,options:["A","B","C","D"]},
-{id:"explanation",label:"Explanation (optional)",type:"textarea"}]},
-resources:{title:"Study Resources",singular:"resource",help:"Add a study resource with a public URL.",fields:[
-{id:"title",label:"Resource title",type:"text",required:true},
-{id:"type",label:"Resource type",type:"select",required:true,options:["Handwritten Notes","Previous Year Papers","Marking Scheme","Sample Papers","Important Questions","Syllabus","Other"]},
-{id:"subjectId",label:"Subject (optional)",type:"select",source:"subjects"},
-{id:"chapterId",label:"Chapter (optional)",type:"select",source:"chapters",optionalBlank:true},
-{id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
-{id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
-{id:"url",label:"Resource URL",type:"url",required:true,placeholder:"https://..."},
-{id:"description",label:"Description (optional)",type:"textarea"}]}
+subjects:{
+ title:"Subjects",singular:"subject",
+ help:"Create subjects for MP Board, CBSE or both.",
+ fields:[
+  {id:"name",label:"Subject name",type:"text",required:true,placeholder:"Accountancy"},
+  {id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+  {id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
+  {id:"code",label:"Subject code (optional)",type:"text"},
+  {id:"description",label:"Description (optional)",type:"textarea"}
+ ]},
+chapters:{
+ title:"Chapters",singular:"chapter",
+ help:"Add a chapter and link it to a saved subject.",
+ fields:[
+  {id:"name",label:"Chapter name",type:"text",required:true},
+  {id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
+  {id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+  {id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
+  {id:"order",label:"Chapter number / order",type:"number",required:true},
+  {id:"description",label:"Description (optional)",type:"textarea"}
+ ]},
+mcqs:{
+ title:"MCQs",singular:"MCQ",
+ help:"Enter the question, four options, correct answer and explanation.",
+ fields:[
+  {id:"question",label:"Question",type:"textarea",required:true},
+  {id:"subjectId",label:"Subject",type:"select",source:"subjects",required:true},
+  {id:"chapterId",label:"Chapter",type:"select",source:"chapters",required:true},
+  {id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+  {id:"className",label:"Class",type:"select",required:true,options:["11","12"]},
+  {id:"option0",label:"Option A",type:"text",required:true},
+  {id:"option1",label:"Option B",type:"text",required:true},
+  {id:"option2",label:"Option C",type:"text",required:true},
+  {id:"option3",label:"Option D",type:"text",required:true},
+  {id:"correctIndex",label:"Correct answer",type:"select",required:true,options:["A","B","C","D"]},
+  {id:"explanation",label:"Explanation (optional)",type:"textarea"}
+ ]},
+resources:{
+ title:"Study Resources",singular:"resource",
+ help:"Upload PDF/JPG/PNG/WEBP/MP4 (maximum 20 MiB), or use a URL.",
+ fields:[
+  {id:"title",label:"Resource title",type:"text",required:true},
+  {id:"type",label:"Resource type",type:"select",required:true,options:["Handwritten Notes","Previous Year Papers","Marking Scheme","Sample Papers","Important Questions","Syllabus","Other"]},
+  {id:"subjectId",label:"Subject (optional)",type:"select",source:"subjects"},
+  {id:"chapterId",label:"Chapter (optional)",type:"select",source:"chapters",optionalBlank:true},
+  {id:"board",label:"Board",type:"select",required:true,options:["MP Board","CBSE","Both"]},
+  {id:"className",label:"Class",type:"select",required:true,options:["11","12","11 and 12"]},
+  {id:"url",label:"Existing resource URL (optional with upload)",type:"url",placeholder:"https://..."},
+  {id:"file",label:"Upload file (optional with URL)",type:"file"},
+  {id:"description",label:"Description (optional)",type:"textarea"}
+ ]}
 };
 
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function showLogin(message=""){$("loginPanel").classList.remove("hidden");$("dashboard").classList.add("hidden");$("loginStatus").textContent=message;}
+function esc(v){
+ return String(v??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function showLogin(message=""){
+ $("loginPanel").classList.remove("hidden");
+ $("dashboard").classList.add("hidden");
+ $("loginStatus").textContent=message;
+}
 function titleOf(section,r){return r.name||r.title||r.question||"Untitled";}
-function opts(f){
-if(f.source)return cache[f.source].map(r=>({value:r.id,label:titleOf(f.source,r)}));
-return (f.options||[]).map(v=>({value:v,label:v}));
+function optionsFor(f){
+ if(f.source)return cache[f.source].map(r=>({value:r.id,label:titleOf(f.source,r)}));
+ return(f.options||[]).map(v=>({value:v,label:v}));
 }
+
 function renderFields(){
-const c=config[active];
-$("dynamicFields").innerHTML=c.fields.map(f=>{
-let control="";
-if(f.type==="textarea")control='<textarea id="f_'+f.id+'" '+(f.required?"required":"")+'></textarea>';
-else if(f.type==="select"){
-const blank=f.optionalBlank?'<option value="">— None —</option>':(f.source?'<option value="">Choose…</option>':"");
-control='<select id="f_'+f.id+'" '+(f.required?"required":"")+'>'+blank+opts(f).map(o=>'<option value="'+esc(o.value)+'">'+esc(o.label)+'</option>').join("")+'</select>';
-}else control='<input id="f_'+f.id+'" type="'+f.type+'" '+(f.required?"required":"")+' '+(f.type==="number"?'min="1" step="1"':'')+' placeholder="'+esc(f.placeholder||"")+'">';
-return '<label for="f_'+f.id+'">'+esc(f.label)+'</label>'+control;
-}).join("");
+ const c=config[active];
+ $("dynamicFields").innerHTML=c.fields.map(f=>{
+  let control="";
+  if(f.type==="textarea"){
+   control='<textarea id="f_'+f.id+'" '+(f.required?"required":"")+'></textarea>';
+  }else if(f.type==="select"){
+   const blank=f.optionalBlank
+    ?'<option value="">— None —</option>'
+    :(f.source?'<option value="">Choose…</option>':"");
+   control='<select id="f_'+f.id+'" '+(f.required?"required":"")+'>'+
+    blank+optionsFor(f).map(o=>'<option value="'+esc(o.value)+'">'+esc(o.label)+'</option>').join("")+
+    '</select>';
+  }else if(f.type==="file"){
+   control='<div class="filebox">'+
+    '<input id="f_file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.mp4,application/pdf,image/jpeg,image/png,image/webp,video/mp4">'+
+    '<div class="fieldnote">Maximum 20 MiB. Private Supabase storage.</div>'+
+    '<div id="currentFile" class="fieldnote"></div>'+
+    '<div id="uploadProgress" class="progress hidden"><span id="uploadProgressBar"></span></div>'+
+    '</div>';
+  }else{
+   control='<input id="f_'+f.id+'" type="'+f.type+'" '+(f.required?"required":"")+
+    (f.type==="number"?' min="1" step="1"':'')+
+    ' placeholder="'+esc(f.placeholder||"")+'">';
+  }
+  return '<label for="f_'+f.id+'">'+esc(f.label)+'</label>'+control;
+ }).join("");
 }
+
 function collectForm(){
-const d={};
-for(const f of config[active].fields){
-let v=$("f_"+f.id).value.trim();
-if(f.type==="number")v=v===""?null:Number(v);
-if(f.id==="correctIndex")v=["A","B","C","D"].indexOf(v);
-d[f.id]=v;
+ const d={};
+ for(const f of config[active].fields){
+  if(f.type==="file")continue;
+  let v=$("f_"+f.id).value.trim();
+  if(f.type==="number")v=v===""?null:Number(v);
+  if(f.id==="correctIndex")v=["A","B","C","D"].indexOf(v);
+  d[f.id]=v;
+ }
+ if(active==="mcqs"){
+  d.options=[d.option0,d.option1,d.option2,d.option3];
+  delete d.option0;delete d.option1;delete d.option2;delete d.option3;
+ }
+ return d;
 }
-if(active==="mcqs"){
-d.options=[d.option0,d.option1,d.option2,d.option3];
-delete d.option0;delete d.option1;delete d.option2;delete d.option3;
-}
-return d;
-}
+
 function fillForm(r){
-for(const f of config[active].fields){
-let v=r[f.id]??"";
-if(active==="mcqs"&&f.id==="correctIndex")v=["A","B","C","D"][Number(r.correctIndex)]||"A";
-if(active==="mcqs"&&f.id.startsWith("option"))v=(r.options||[])[Number(f.id.slice(-1))]||"";
-$("f_"+f.id).value=String(v);
+ for(const f of config[active].fields){
+  if(f.type==="file")continue;
+  let v=r[f.id]??"";
+  if(active==="mcqs"&&f.id==="correctIndex")v=["A","B","C","D"][Number(r.correctIndex)]||"A";
+  if(active==="mcqs"&&f.id.startsWith("option"))v=(r.options||[])[Number(f.id.slice(-1))]||"";
+  $("f_"+f.id).value=String(v);
+ }
+ if(active==="resources"){
+  $("currentFile").textContent=[
+   r.storagePath?"Existing private file: "+(r.fileName||r.storagePath)+". Choose a new file to replace it.":"",
+   r.url?"Existing URL: "+r.url:""
+  ].filter(Boolean).join(" · ");
+ }
 }
-}
+
 function details(section,r){
-if(section==="subjects")return [r.board,r.className?"Class "+r.className:"",r.code].filter(Boolean).join(" · ");
-if(section==="chapters"){const s=cache.subjects.find(x=>x.id===r.subjectId);return [(s&&s.name)||"Subject not found",r.board,r.className?"Class "+r.className:"",r.order?"Chapter "+r.order:""].filter(Boolean).join(" · ");}
-if(section==="mcqs"){const s=cache.subjects.find(x=>x.id===r.subjectId),c=cache.chapters.find(x=>x.id===r.chapterId);return [(s&&s.name)||"Subject not found",(c&&c.name)||"Chapter not found",r.board,"Correct: "+(["A","B","C","D"][Number(r.correctIndex)]||"?")].join(" · ");}
-const s=cache.subjects.find(x=>x.id===r.subjectId);
-return [r.type,s&&s.name,r.board,r.url].filter(Boolean).join(" · ");
+ if(section==="subjects")return[r.board,r.className?"Class "+r.className:"",r.code].filter(Boolean).join(" · ");
+ if(section==="chapters"){
+  const s=cache.subjects.find(x=>x.id===r.subjectId);
+  return[s?.name||"Subject not found",r.board,r.className?"Class "+r.className:"",r.order?"Chapter "+r.order:""].filter(Boolean).join(" · ");
+ }
+ if(section==="mcqs"){
+  const s=cache.subjects.find(x=>x.id===r.subjectId);
+  const c=cache.chapters.find(x=>x.id===r.chapterId);
+  return[s?.name||"Subject not found",c?.name||"Chapter not found",r.board,"Correct: "+(["A","B","C","D"][Number(r.correctIndex)]||"?")].join(" · ");
+ }
+ const s=cache.subjects.find(x=>x.id===r.subjectId);
+ return[r.type,s?.name,r.board,r.storagePath?"Private file: "+(r.fileName||r.storagePath):"",r.url?"URL: "+r.url:""].filter(Boolean).join(" · ");
 }
+
 function resetForm(){
-$("contentForm").reset();$("editId").value="";
-$("saveButton").textContent="Add "+config[active].singular;
-$("cancelEdit").classList.add("hidden");
+ $("contentForm").reset();
+ $("editId").value="";
+ $("saveButton").textContent="Add "+config[active].singular;
+ $("cancelEdit").classList.add("hidden");
+ if($("currentFile"))$("currentFile").textContent="";
+ if($("uploadProgress")){
+  $("uploadProgress").classList.add("hidden");
+  $("uploadProgressBar").style.width="0%";
+ }
 }
+
 function renderEntries(){
-const list=cache[active];
-if(!list.length){$("entries").innerHTML='<p class="muted">No items saved in this section yet.</p>';return;}
-$("entries").innerHTML=list.map(r=>'<article class="entry"><strong>'+esc(titleOf(active,r))+'</strong><div class="small">'+esc(details(active,r))+'</div>'+
-(active==="mcqs"?'<p class="small">'+esc((r.options||[]).map((o,i)=>"("+["A","B","C","D"][i]+") "+o).join(" | "))+'</p>':"")+
-'<div class="actions"><button type="button" class="secondary" data-edit="'+esc(r.id)+'">Edit</button><button type="button" class="danger" data-delete="'+esc(r.id)+'">Delete</button></div></article>').join("");
-$("entries").querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>{
-const r=cache[active].find(x=>x.id===b.dataset.edit);if(!r)return;
-$("editId").value=r.id;fillForm(r);$("saveButton").textContent="Save changes";$("cancelEdit").classList.remove("hidden");$("contentStatus").textContent="Editing selected item.";
-window.scrollTo({top:$("managerPanel").offsetTop,behavior:"smooth"});
-}));
-$("entries").querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.delete)));
+ const list=cache[active];
+ if(!list.length){
+  $("entries").innerHTML='<p class="muted">No items saved in this section yet.</p>';
+  return;
+ }
+ $("entries").innerHTML=list.map(r=>
+  '<article class="entry"><strong>'+esc(titleOf(active,r))+'</strong>'+
+  '<div class="small">'+esc(details(active,r))+'</div>'+
+  (active==="mcqs"?'<p class="small">'+esc((r.options||[]).map((o,i)=>"("+["A","B","C","D"][i]+") "+o).join(" | "))+'</p>':"")+
+  '<div class="actions"><button type="button" class="secondary" data-edit="'+esc(r.id)+'">Edit</button>'+
+  '<button type="button" class="danger" data-delete="'+esc(r.id)+'">Delete</button></div></article>'
+ ).join("");
+
+ $("entries").querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>{
+  const r=cache[active].find(x=>x.id===b.dataset.edit);
+  if(!r)return;
+  $("editId").value=r.id;
+  fillForm(r);
+  $("saveButton").textContent="Save changes";
+  $("cancelEdit").classList.remove("hidden");
+  $("contentStatus").textContent="Editing selected item.";
+  window.scrollTo({top:$("managerPanel").offsetTop,behavior:"smooth"});
+ }));
+ $("entries").querySelectorAll("[data-delete]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.delete)));
 }
+
 async function refreshAll(){
-$("mainStatus").textContent="Loading Firestore content…";
-try{
-for(const s of sections){const snap=await getDocs(collection(db,s));cache[s]=snap.docs.map(d=>({id:d.id,...d.data()}));}
-$("subjectCount").textContent=cache.subjects.length;
-$("chapterCount").textContent=cache.chapters.length;
-$("mcqCount").textContent=cache.mcqs.length;
-$("resourceCount").textContent=cache.resources.length;
-renderFields();renderEntries();
-$("mainStatus").textContent="Connected to Firestore. Changes are saved to the database.";
-}catch(e){console.error(e);$("mainStatus").textContent="Could not load content: "+(e.code||e.message)+". Check Firestore Rules and internet connection.";}
+ $("mainStatus").textContent="Loading Firestore content…";
+ try{
+  for(const s of sections){
+   const snap=await getDocs(collection(db,s));
+   cache[s]=snap.docs.map(d=>({id:d.id,...d.data()}));
+  }
+  $("subjectCount").textContent=cache.subjects.length;
+  $("chapterCount").textContent=cache.chapters.length;
+  $("mcqCount").textContent=cache.mcqs.length;
+  $("resourceCount").textContent=cache.resources.length;
+  renderFields();renderEntries();
+  $("mainStatus").textContent="Connected to Firestore. Changes are saved to the database.";
+ }catch(e){
+  console.error(e);
+  $("mainStatus").textContent="Could not load content: "+(e.code||e.message)+". Check Firestore Rules and internet.";
+ }
 }
+
 function switchSection(s){
-if(!config[s])return;active=s;
-document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.section===s));
-$("sectionTitle").textContent=config[s].title;$("sectionHelp").textContent=config[s].help;
-$("contentStatus").textContent="";resetForm();renderFields();renderEntries();
+ if(!config[s])return;
+ active=s;
+ document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.section===s));
+ $("sectionTitle").textContent=config[s].title;
+ $("sectionHelp").textContent=config[s].help;
+ $("contentStatus").textContent="";
+ resetForm();renderFields();renderEntries();
 }
+
 async function removeItem(id){
-const r=cache[active].find(x=>x.id===id);
-if(!r||!confirm('Delete "'+titleOf(active,r)+'" from Firestore? This cannot be undone.'))return;
-try{await deleteDoc(doc(db,active,id));$("contentStatus").textContent="Deleted successfully.";await refreshAll();}
-catch(e){console.error(e);$("contentStatus").textContent="Delete failed: "+(e.code||e.message);}
+ const r=cache[active].find(x=>x.id===id);
+ if(!r||!confirm('Delete "'+titleOf(active,r)+'" from Firestore? This cannot be undone. The stored file, if any, will not be deleted automatically.'))return;
+ try{
+  await deleteDoc(doc(db,active,id));
+  $("contentStatus").textContent="Deleted successfully.";
+  await refreshAll();
+ }catch(e){
+  console.error(e);
+  $("contentStatus").textContent="Delete failed: "+(e.code||e.message);
+ }
 }
+
+async function uploadResourceFile(file){
+ if(!auth.currentUser)throw new Error("Admin session expired. Sign in again.");
+ if(!file||file.size<1||file.size>MAX_SIZE)throw new Error("File must be between 1 byte and 20 MiB.");
+ if(!ALLOWED_TYPES.has(file.type))throw new Error("Supported formats: PDF, JPG, PNG, WEBP and MP4.");
+
+ const token=await auth.currentUser.getIdToken(true);
+ const form=new FormData();
+ form.append("file",file,file.name);
+
+ $("uploadProgress").classList.remove("hidden");
+ $("uploadProgressBar").style.width="15%";
+
+ const response=await fetch(MEDIA_ENDPOINT,{
+  method:"POST",
+  headers:{Authorization:"Bearer "+token},
+  body:form
+ });
+ const result=await response.json().catch(()=>({}));
+ if(!response.ok||!result.ok||!result.storagePath){
+  throw new Error(result.error||"Upload failed (HTTP "+response.status+").");
+ }
+ $("uploadProgressBar").style.width="100%";
+ return result;
+}
+
 onAuthStateChanged(auth,async user=>{
-const run=++authRun;$("dashboard").classList.add("hidden");
-if(!user){verifiedUid=null;$("loginPanel").classList.remove("hidden");$("loginStatus").textContent="";return;}
-$("loginPanel").classList.add("hidden");
-try{
-const snap=await getDoc(doc(db,"admins",user.uid));
-if(run!==authRun)return;
-if(!snap.exists()||snap.data().role!=="admin"){
-await signOut(auth);
-if(run===authRun)showLogin("Access denied: this account is not an authorized admin.");
-return;
-}
-verifiedUid=user.uid;$("account").textContent="Admin: "+(user.email||"Authenticated admin");
-$("dashboard").classList.remove("hidden");switchSection(active);await refreshAll();
-}catch(e){
-console.error(e);if(run!==authRun)return;
-await signOut(auth).catch(()=>{});
-if(run===authRun)showLogin("Admin verification failed. Check internet, Firestore Rules and the admin document.");
-}
+ const run=++authRun;
+ $("dashboard").classList.add("hidden");
+ if(!user){
+  verifiedUid=null;
+  $("loginPanel").classList.remove("hidden");
+  $("loginStatus").textContent="";
+  return;
+ }
+ $("loginPanel").classList.add("hidden");
+ try{
+  const snap=await getDoc(doc(db,"admins",user.uid));
+  if(run!==authRun)return;
+  if(!snap.exists()||snap.data().role!=="admin"){
+   await signOut(auth);
+   if(run===authRun)showLogin("Access denied: this account is not an authorized admin.");
+   return;
+  }
+  verifiedUid=user.uid;
+  $("account").textContent="Admin: "+(user.email||"Authenticated admin");
+  $("dashboard").classList.remove("hidden");
+  switchSection(active);
+  await refreshAll();
+ }catch(e){
+  console.error(e);
+  if(run!==authRun)return;
+  await signOut(auth).catch(()=>{});
+  if(run===authRun)showLogin("Admin verification failed. Check internet, Firestore Rules and admin document.");
+ }
 });
+
 $("loginForm").addEventListener("submit",async e=>{
-e.preventDefault();$("loginStatus").textContent="";$("loginButton").disabled=true;$("loginButton").textContent="Signing in…";
-try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);}
-catch(err){
-console.error(err);
-const messages={"auth/invalid-credential":"Email or password is incorrect.","auth/invalid-email":"Enter a valid email address.","auth/too-many-requests":"Too many attempts. Try again later.","auth/network-request-failed":"Network error. Check your connection.","auth/operation-not-allowed":"Enable Email/Password sign-in in Firebase."};
-showLogin(messages[err.code]||"Sign-in failed. Check Firebase Authentication settings.");
-}finally{$("loginButton").disabled=false;$("loginButton").textContent="Sign in";}
+ e.preventDefault();
+ $("loginStatus").textContent="";
+ $("loginButton").disabled=true;
+ $("loginButton").textContent="Signing in…";
+ try{
+  await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);
+ }catch(err){
+  console.error(err);
+  const messages={
+   "auth/invalid-credential":"Email or password is incorrect.",
+   "auth/invalid-email":"Enter a valid email address.",
+   "auth/too-many-requests":"Too many attempts. Try later.",
+   "auth/network-request-failed":"Network error. Check connection.",
+   "auth/operation-not-allowed":"Enable Email/Password sign-in in Firebase."
+  };
+  showLogin(messages[err.code]||"Sign-in failed. Check Firebase Authentication settings.");
+ }finally{
+  $("loginButton").disabled=false;
+  $("loginButton").textContent="Sign in";
+ }
 });
-$("logoutButton").addEventListener("click",async()=>{try{await signOut(auth);}catch(e){console.error(e);alert("Sign out failed. Please try again.");}});
+
+$("logoutButton").addEventListener("click",async()=>{
+ try{await signOut(auth)}
+ catch(e){console.error(e);alert("Sign out failed. Please try again.")}
+});
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchSection(b.dataset.section)));
-$("cancelEdit").addEventListener("click",()=>{resetForm();$("contentStatus").textContent="Edit cancelled.";});
+$("cancelEdit").addEventListener("click",()=>{resetForm();$("contentStatus").textContent="Edit cancelled."});
+
 $("contentForm").addEventListener("submit",async e=>{
-e.preventDefault();
-if(!verifiedUid){$("contentStatus").textContent="Admin session not verified. Sign in again.";return;}
-const data=collectForm(),id=$("editId").value,button=$("saveButton");
-if(active==="resources"&&!/^https?:\/\//i.test(data.url)){$("contentStatus").textContent="Enter a complete resource link beginning with https:// or http://.";return;}
-if(active==="mcqs"&&data.options.some(v=>!v)){$("contentStatus").textContent="Please fill all four answer options.";return;}
-button.disabled=true;$("contentStatus").textContent="Saving…";
-try{
-data.updatedAt=serverTimestamp();
-if(id){await updateDoc(doc(db,active,id),data);$("contentStatus").textContent="Updated successfully.";}
-else{data.createdAt=serverTimestamp();await addDoc(collection(db,active),data);$("contentStatus").textContent="Added successfully.";}
-resetForm();await refreshAll();
-}catch(err){console.error(err);$("contentStatus").textContent="Save failed: "+(err.code||err.message);}
-finally{button.disabled=false;}
+ e.preventDefault();
+ if(!verifiedUid){$("contentStatus").textContent="Admin session not verified. Sign in again.";return;}
+
+ const data=collectForm();
+ const id=$("editId").value;
+ const button=$("saveButton");
+ const file=active==="resources"?$("f_file").files?.[0]||null:null;
+
+ if(active==="mcqs"&&data.options.some(v=>!v)){
+  $("contentStatus").textContent="Please fill all four answer options.";
+  return;
+ }
+
+ if(active==="resources"){
+  if(!file&&!data.url&&!id){
+   $("contentStatus").textContent="Provide a URL or upload a file.";
+   return;
+  }
+  if(data.url&&!/^https?:\/\//i.test(data.url)){
+   $("contentStatus").textContent="Enter a URL beginning with https:// or http://.";
+   return;
+  }
+  if(file&&(file.size<1||file.size>MAX_SIZE)){
+   $("contentStatus").textContent="File must be between 1 byte and 20 MiB.";
+   return;
+  }
+  if(file&&!ALLOWED_TYPES.has(file.type)){
+   $("contentStatus").textContent="Supported formats: PDF, JPG, PNG, WEBP and MP4.";
+   return;
+  }
+ }
+
+ button.disabled=true;
+ $("cancelEdit").disabled=true;
+ $("contentStatus").textContent="Saving…";
+
+ try{
+  if(active==="resources"){
+   if(file){
+    $("contentStatus").textContent="Uploading file to private Supabase storage…";
+    const up=await uploadResourceFile(file);
+    data.storagePath=up.storagePath;
+    data.fileName=up.fileName||file.name;
+    data.fileType=up.fileType||file.type;
+    data.fileSize=up.fileSize||file.size;
+    data.uploadedBy=up.uploadedBy||verifiedUid;
+    data.storageProvider="supabase";
+   }else if(id){
+    const old=cache.resources.find(r=>r.id===id);
+    if(old?.storagePath){
+     data.storagePath=old.storagePath;
+     data.fileName=old.fileName||"";
+     data.fileType=old.fileType||"";
+     data.fileSize=old.fileSize||0;
+     data.uploadedBy=old.uploadedBy||"";
+     data.storageProvider=old.storageProvider||"supabase";
+    }
+   }
+   if(!data.url)delete data.url;
+   if(!data.storagePath&&!data.url)throw new Error("Resource needs a URL or uploaded file.");
+  }
+
+  data.updatedAt=serverTimestamp();
+  if(id){
+   await updateDoc(doc(db,active,id),data);
+   $("contentStatus").textContent="Updated successfully.";
+  }else{
+   data.createdAt=serverTimestamp();
+   await addDoc(collection(db,active),data);
+   $("contentStatus").textContent="Added successfully.";
+  }
+  resetForm();
+  await refreshAll();
+ }catch(err){
+  console.error(err);
+  $("contentStatus").textContent="Save failed: "+(err.message||err.code||"Unknown error");
+ }finally{
+  button.disabled=false;
+  $("cancelEdit").disabled=false;
+ }
 });
 </script>
 </body>
 </html>
-
