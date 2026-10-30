@@ -1,110 +1,286 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101827">
-  <meta name="description" content="Explore MP Board and CBSE Commerce subjects, chapter lists, study resources and practice questions with COMMERZO. Learn. Practice. Score.">
+  <meta name="description" content="Explore MP Board and CBSE Commerce subjects, chapter-wise study resources, MCQs and tests with COMMERZO. Learn. Practice. Score.">
   <meta name="robots" content="index,follow">
   <title>COMMERZO | Commerce Study & Practice Platform</title>
   <link rel="icon" type="image/png" href="./commerzo-logo.png">
   <link rel="apple-touch-icon" href="./commerzo-logo.png">
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "COMMERZO",
-    "alternateName": ["COMMERZO Study", "COMMERZO - Learn. Practice. Score."],
-    "url": "https://theharshshrivas.github.io/commerzo-website/"
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"COMMERZO",
+    "alternateName":["COMMERZO Study","COMMERZO - Learn. Practice. Score."],
+    "url":"https://theharshshrivas.github.io/commerzo-website/"
   }
   </script>
+
   <style>
     :root {
-      --bg:#f5f7fb; --ink:#172033; --muted:#68748a;
-      --primary:#5145e5; --primary-dark:#3930b8; --line:#e5e9f2;
-      --card:#fff; --navy:#101827; --soft:#eeedff; --good:#117a4b;
+      --bg:#f5f7fb;
+      --ink:#172033;
+      --muted:#68748a;
+      --primary:#5145e5;
+      --primary-dark:#3930b8;
+      --line:#e5e9f2;
+      --card:#fff;
+      --navy:#101827;
+      --soft:#eeedff;
+      --good:#117a4b;
+      --bad:#c03948;
       --shadow:0 12px 35px rgba(25,35,65,.07);
     }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:var(--ink); }
-    button,input,select,textarea { font:inherit; }
-    button { border:0; border-radius:11px; padding:12px 16px; background:var(--primary); color:#fff; font-weight:700; cursor:pointer; transition:transform .15s,background .15s; }
-    button:hover { background:var(--primary-dark); transform:translateY(-1px); }
-    button:disabled { opacity:.55; cursor:not-allowed; transform:none; }
-    button.secondary { background:var(--soft); color:#4034c9; }
-    button.secondary:hover { background:#dedbff; }
-    a { color:inherit; }
-    header { background:var(--navy); color:white; padding:14px clamp(14px,5vw,64px); display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
-    .brand-lockup { display:flex; align-items:center; gap:12px; min-width:0; }
-    .site-logo { width:clamp(42px,7vw,58px); height:clamp(42px,7vw,58px); object-fit:contain; flex-shrink:0; border-radius:12px; }
-    .brand { font-size:clamp(20px,3vw,25px); font-weight:800; letter-spacing:1px; line-height:1.15; }
-    .brand span { color:#a9a2ff; }
-    .tagline { color:#c3ccdc; display:block; margin-top:4px; font-size:13px; }
-    .header-note { color:#c3ccdc; font-size:13px; }
-    main { max-width:1160px; margin:auto; padding:28px 18px 52px; }
-    .hero { position:relative; overflow:hidden; padding:clamp(25px,5vw,46px); border-radius:24px; color:white; background:linear-gradient(125deg,#211b60,#5145e5 62%,#7770fa); box-shadow:var(--shadow); }
-    .hero:after { content:""; position:absolute; width:230px; height:230px; right:-75px; bottom:-110px; border:1px solid #ffffff44; border-radius:50%; box-shadow:0 0 0 24px #ffffff0b,0 0 0 48px #ffffff0b; pointer-events:none; }
-    .tag { display:inline-block; padding:7px 11px; border-radius:20px; background:#ffffff22; font-size:12px; font-weight:700; letter-spacing:.4px; }
-    .hero h1 { font-size:clamp(31px,5vw,49px); line-height:1.08; margin:17px 0 12px; max-width:650px; }
-    .hero p { line-height:1.65; max-width:650px; color:#eeedff; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    .hero .secondary { background:#ffffffed; color:#352bb0; }
-    .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:18px 0 28px; }
-    .stat { background:white; border:1px solid var(--line); border-radius:14px; padding:16px; text-align:center; }
-    .stat strong { display:block; font-size:20px; color:var(--primary); margin-bottom:4px; }
-    .stat span { color:var(--muted); font-size:12px; }
-    h2 { margin:30px 0 10px; font-size:clamp(21px,3vw,25px); }
-    .muted { color:var(--muted); line-height:1.65; }
-    .controls { display:flex; gap:10px; flex-wrap:wrap; margin:17px 0; }
-    input,select,textarea { padding:12px 13px; border:1px solid #dce2ef; border-radius:11px; background:white; color:var(--ink); min-width:0; width:100%; }
-    .controls select { flex:0 0 160px; }
-    .controls input { flex:1 1 220px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:15px; margin-top:16px; }
-    .card,.panel { background:var(--card); padding:20px; border:1px solid var(--line); border-radius:17px; box-shadow:0 5px 18px #18213b06; }
-    .card { display:flex; flex-direction:column; align-items:flex-start; }
-    .card h3 { margin:10px 0; line-height:1.35; }
-    .icon { font-size:29px; }
-    .card p { color:var(--muted); line-height:1.55; font-size:14px; flex:1; }
-    .card button { margin-top:7px; }
-    .panel { margin-top:18px; }
-    .panel h2 { margin-top:0; }
-    .hidden { display:none !important; }
-    .option { display:block; width:100%; margin:10px 0; text-align:left; background:#f1f2ff; color:#27245c; border:1px solid #e1dfff; }
-    .option:hover { background:#e4e2ff; }
-    .feedback { min-height:24px; font-weight:600; }
-    .resource-label { font-size:11px; text-transform:uppercase; letter-spacing:.7px; color:var(--primary); font-weight:800; }
-    .ai-layout { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr); gap:18px; align-items:start; }
-    .ai-form { display:grid; gap:11px; }
-    textarea { min-height:130px; resize:vertical; line-height:1.5; }
-    .ai-answer { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.7; }
-    .notice { padding:12px 14px; border-radius:11px; background:#fff7df; color:#765000; font-size:13px; line-height:1.55; }
-    .chat-log { display:flex; flex-direction:column; gap:12px; margin:15px 0; }
-    .chat-message { padding:13px 14px; border-radius:13px; line-height:1.6; white-space:pre-wrap; overflow-wrap:anywhere; }
-    .chat-message.user { background:#eeedff; align-self:flex-end; max-width:95%; }
-    .chat-message.ai { background:#f4f6fa; border:1px solid var(--line); align-self:stretch; }
-    .pill { display:inline-block; padding:5px 9px; background:#f0efff; color:#4237c5; border-radius:20px; font-size:12px; margin:3px 4px 3px 0; }
-    footer { text-align:center; padding:27px 16px; background:var(--navy); color:#d4d9e5; font-size:13px; line-height:1.9; }
-    footer a { color:#c8c2ff; }
-    .small { font-size:12px; }
-    @media(max-width:650px) {
-      main { padding:18px 13px 36px; }
-      .header-note { width:100%; padding-left:54px; }
-      .stats { gap:8px; }
-      .stat { padding:12px 6px; }
-      .stat strong { font-size:17px; }
-      .stat span { font-size:11px; }
-      .ai-layout { grid-template-columns:1fr; }
-      .controls select { flex:1 1 100%; }
-      .hero-actions button { flex:1 1 145px; }
+
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth}
+    body {
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--ink);
     }
-    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none !important; } }
+    button,input,select {font:inherit}
+    button {
+      border:0;
+      border-radius:11px;
+      padding:12px 16px;
+      background:var(--primary);
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      transition:.15s;
+    }
+    button:hover {background:var(--primary-dark);transform:translateY(-1px)}
+    button:disabled {opacity:.55;cursor:not-allowed;transform:none}
+    button.secondary {background:var(--soft);color:#4034c9}
+    button.secondary:hover {background:#dedbff}
+    button.outline {
+      background:#fff;
+      color:var(--primary);
+      border:1px solid #d9d5ff;
+    }
+    a {color:var(--primary);text-decoration:none}
+    header {
+      background:var(--navy);
+      color:white;
+      padding:14px clamp(14px,5vw,64px);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .brand-lockup {display:flex;align-items:center;gap:12px}
+    .site-logo {
+      width:clamp(42px,7vw,58px);
+      height:clamp(42px,7vw,58px);
+      object-fit:contain;
+      border-radius:12px;
+    }
+    .brand {font-size:clamp(20px,3vw,25px);font-weight:800;letter-spacing:1px}
+    .brand span {color:#a9a2ff}
+    .tagline {color:#c3ccdc;display:block;margin-top:4px;font-size:13px}
+    .header-note {color:#c3ccdc;font-size:13px}
+    main {max-width:1160px;margin:auto;padding:28px 18px 52px}
+    .hero {
+      padding:clamp(25px,5vw,46px);
+      border-radius:24px;
+      color:white;
+      background:linear-gradient(125deg,#211b60,#5145e5 62%,#7770fa);
+      box-shadow:var(--shadow);
+    }
+    .tag {
+      display:inline-block;
+      padding:7px 11px;
+      border-radius:20px;
+      background:#ffffff22;
+      font-size:12px;
+      font-weight:700;
+    }
+    .hero h1 {
+      font-size:clamp(31px,5vw,49px);
+      line-height:1.08;
+      margin:17px 0 12px;
+    }
+    .hero p {line-height:1.65;max-width:650px;color:#eeedff}
+    .hero-actions,.toolbar {display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .hero .secondary {background:#ffffffed;color:#352bb0}
+    .stats {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin:18px 0 28px;
+    }
+    .stat {
+      background:white;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      text-align:center;
+    }
+    .stat strong {display:block;font-size:19px;color:var(--primary)}
+    .stat span {color:var(--muted);font-size:12px}
+    h2 {margin:25px 0 10px;font-size:clamp(21px,3vw,25px)}
+    h3 {margin:8px 0;line-height:1.35}
+    p {line-height:1.6}
+    .muted {color:var(--muted);line-height:1.65}
+    .controls {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin:17px 0;
+    }
+    .field label {
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:7px;
+    }
+    input,select {
+      padding:12px 13px;
+      border:1px solid #dce2ef;
+      border-radius:11px;
+      background:white;
+      color:var(--ink);
+      width:100%;
+      min-width:0;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+      gap:15px;
+      margin-top:16px;
+    }
+    .card,.panel {
+      background:var(--card);
+      padding:19px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      box-shadow:0 5px 18px #18213b06;
+    }
+    .card {display:flex;flex-direction:column;align-items:flex-start}
+    .card p {color:var(--muted);font-size:14px;flex:1}
+    .card button {margin-top:8px}
+    .panel {margin-top:18px}
+    .panel h2 {margin-top:0}
+    .hidden {display:none!important}
+    .icon {font-size:27px}
+    .pill {
+      display:inline-block;
+      padding:5px 9px;
+      background:#f0efff;
+      color:#4237c5;
+      border-radius:20px;
+      font-size:12px;
+      margin:3px 4px 3px 0;
+    }
+    .small {font-size:12px;color:var(--muted)}
+    .empty {
+      padding:22px;
+      border:1px dashed #ccd3e2;
+      border-radius:14px;
+      color:var(--muted);
+      text-align:center;
+      background:white;
+      grid-column:1/-1;
+    }
+    .resource-card {gap:8px}
+    .resource-type {
+      color:var(--primary);
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+    }
+    .resource-card a {font-weight:700;margin-top:7px}
+    .chapter-top {display:flex;gap:10px;align-items:flex-start}
+    .chapter-check {width:18px;height:18px;margin-top:7px;accent-color:var(--primary)}
+    .chapter-actions {display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
+    .chapter-actions button {padding:10px 12px;font-size:12px}
+    .option {
+      display:block;
+      width:100%;
+      margin:10px 0;
+      text-align:left;
+      background:#f1f2ff;
+      color:#27245c;
+      border:1px solid #e1dfff;
+    }
+    .option:hover {background:#e4e2ff}
+    .option:disabled {opacity:1;transform:none}
+    .option.correct {background:#e4f7ed;border-color:#83d6a8;color:#12663c}
+    .option.wrong {background:#fff0f0;border-color:#edaaaa;color:#a32635}
+    .feedback {
+      padding:12px;
+      border-radius:11px;
+      background:#f4f6fa;
+      line-height:1.6;
+      margin:12px 0;
+    }
+    .feedback.good {background:#e9f8ef;color:#12663c}
+    .feedback.bad {background:#fff0f0;color:#a32635}
+    .progress {
+      height:8px;
+      background:#e7e9f1;
+      border-radius:20px;
+      overflow:hidden;
+      margin:15px 0;
+    }
+    .progress-bar {height:100%;background:var(--primary);width:0}
+    .question {font-size:19px;font-weight:700;line-height:1.5;margin:16px 0}
+    .stats-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+      margin:15px 0;
+    }
+    .result-stat {background:#f4f5fb;border-radius:13px;padding:13px}
+    .result-stat strong {display:block;font-size:22px;color:var(--primary)}
+    .result-stat span {font-size:11px;color:var(--muted)}
+    .review-item {padding:15px 0;border-bottom:1px solid var(--line)}
+    .review-item p {font-size:13px;margin:5px 0}
+    .good-text {color:var(--good)}
+    .bad-text {color:var(--bad)}
+    .section-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    footer {
+      text-align:center;
+      padding:27px 16px;
+      background:var(--navy);
+      color:#d4d9e5;
+      font-size:13px;
+      line-height:1.9;
+    }
+    @media(max-width:700px) {
+      main {padding:18px 13px 36px}
+      .controls {grid-template-columns:1fr}
+      .stats {gap:8px}
+      .stat {padding:12px 6px}
+      .stats-grid {grid-template-columns:repeat(2,1fr)}
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html {scroll-behavior:auto}
+      * {transition:none!important}
+    }
   </style>
 </head>
+
 <body>
 <header>
   <div class="brand-lockup">
-    <img class="site-logo" src="./commerzo-logo.png" alt="COMMERZO logo" width="58" height="58" onerror="this.style.display='none'">
+    <img class="site-logo" src="./commerzo-logo.png"
+      alt="COMMERZO logo" onerror="this.style.display='none'">
     <div>
       <div class="brand">COMMER<span>ZO</span></div>
       <span class="tagline">Learn. Practice. Score.</span>
@@ -117,244 +293,138 @@
   <section class="hero">
     <span class="tag">COMMERCE • LEARNING • PRACTICE</span>
     <h1>Your studies.<br>Your progress.</h1>
-    <p>Explore MP Board and CBSE subjects, practise core concepts, and get step-by-step help with your doubts—all in one student-friendly place.</p>
+    <p>Explore your board's subjects, study resources, chapter-wise MCQs and tests — all in one place.</p>
     <div class="hero-actions">
-      <button onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">Explore Subjects →</button>
-      <button class="secondary" onclick="document.getElementById('ai-doubt').scrollIntoView({behavior:'smooth'})">Ask AI a Doubt ✦</button>
+      <button id="exploreButton">Explore Subjects →</button>
+      <button class="secondary" id="resourcesButton">Find Resources ↓</button>
     </div>
   </section>
 
-  <section class="stats" aria-label="Platform features">
+  <section class="stats">
     <div class="stat"><strong>MP Board</strong><span>Board-focused learning</span></div>
     <div class="stat"><strong>CBSE</strong><span>Commerce & Applied Maths</span></div>
-    <div class="stat"><strong>AI Doubt Help</strong><span>Backend connection required</span></div>
+    <div class="stat"><strong id="questionCount">—</strong><span>Available MCQs</span></div>
   </section>
 
-  <h2>Choose your board</h2>
-  <div class="controls">
-    <select id="board" aria-label="Choose board" onchange="renderSubjects()">
-      <option value="MP Board">MP Board</option>
-      <option value="CBSE">CBSE</option>
-    </select>
-    <input id="search" aria-label="Search subjects or chapters" placeholder="Search subjects or chapters..." oninput="renderSubjects()">
-  </div>
+  <section id="selectionArea">
+    <h2>Choose your learning path</h2>
+    <p class="muted">Select your board and class to find subjects and resources.</p>
 
-  <h2 id="subjects">Your Subjects</h2>
-  <p class="muted">Choose a subject to explore chapter entries. Official syllabus and verified material should be checked before exam use.</p>
-  <div id="subjectGrid" class="grid"></div>
+    <div class="controls">
+      <div class="field">
+        <label for="board">BOARD</label>
+        <select id="board">
+          <option value="MP Board">MP Board</option>
+          <option value="CBSE">CBSE</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="className">CLASS</label>
+        <select id="className">
+          <option value="12">Class 12</option>
+          <option value="11">Class 11</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="resourceSearch">SEARCH RESOURCES</label>
+        <input id="resourceSearch" type="search"
+          placeholder="Notes, papers, syllabus...">
+      </div>
+    </div>
+  </section>
+
+  <section id="resourceSection">
+    <div class="section-head">
+      <div>
+        <h2>Study Resources</h2>
+        <p class="muted">Find notes, papers, marking schemes and study material.</p>
+      </div>
+    </div>
+    <div id="resourceFilters" class="toolbar"></div>
+    <div id="resourceResults" class="grid"></div>
+  </section>
+
+  <section id="subjectsSection">
+    <h2 id="subjects">Your Subjects</h2>
+    <p class="muted">Choose a subject to explore its chapters.</p>
+    <div id="subjectGrid" class="grid">
+      <div class="empty">Loading subjects…</div>
+    </div>
+  </section>
 
   <section id="detail" class="panel hidden">
-    <button class="secondary" onclick="closeDetail()">← All subjects</button>
-    <h2 id="detailTitle"></h2>
-    <p class="muted" id="detailDesc"></p>
+    <div class="section-head">
+      <div>
+        <h2 id="detailTitle"></h2>
+        <p id="detailDesc" class="muted"></p>
+      </div>
+      <button class="secondary" id="backSubjects">← All subjects</button>
+    </div>
+
+    <div class="toolbar">
+      <button class="secondary" id="selectAll">Select all chapters</button>
+      <button class="secondary" id="clearSelection">Clear selection</button>
+      <button id="selectedTest">Test selected chapters</button>
+    </div>
+    <p class="small" id="selectionCount">0 chapters selected</p>
     <div id="chapterList" class="grid"></div>
   </section>
 
-  <section id="practice" class="panel hidden">
-    <h2>Quick Practice</h2>
-    <p class="muted">Sample questions for quick revision. These are not a complete question bank.</p>
-    <p id="question"></p>
-    <div id="options"></div>
-    <p id="feedback" class="muted feedback" aria-live="polite"></p>
-    <div class="controls">
-      <button onclick="nextQuestion()">Next question →</button>
-      <button class="secondary" onclick="closePractice()">Close practice</button>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Study resources</h2>
-    <p class="muted">Use these sections to organise learning resources. Download links will work after verified files are added to the repository.</p>
-    <div class="grid">
-      <article class="card"><div class="icon">📝</div><h3>Handwritten Notes</h3><p>Chapter-wise notes and revision summaries.</p><span class="pill">Coming soon</span></article>
-      <article class="card"><div class="icon">📄</div><h3>Previous Year Papers</h3><p>Past board papers for exam practice.</p><span class="pill">Coming soon</span></article>
-      <article class="card"><div class="icon">🎯</div><h3>Sample Papers</h3><p>Practice papers with exam-style questions.</p><span class="pill">Coming soon</span></article>
-      <article class="card"><div class="icon">📊</div><h3>Marking Scheme</h3><p>Understand marks allocation and answer structure.</p><span class="pill">Coming soon</span></article>
-      <article class="card"><div class="icon">⭐</div><h3>Important Questions</h3><p>Chapter-wise revision questions, reviewed before publishing.</p><span class="pill">Coming soon</span></article>
-      <article class="card"><div class="icon">📚</div><h3>Syllabus</h3><p>Board-specific syllabus links and chapter checklist.</p><span class="pill">Coming soon</span></article>
-    </div>
-  </section>
-
-  <section id="ai-doubt" class="panel">
-    <h2>COMMERZO AI Doubt Solver ✦</h2>
-    <p class="muted">Ask about Accountancy, Business Studies, Economics, Applied Mathematics, English or Hindi. The connected AI service can provide a simple explanation, step-by-step working, and a final answer.</p>
-    <div class="ai-layout">
+  <section id="chapterContent" class="panel hidden">
+    <div class="section-head">
       <div>
-        <div id="chatLog" class="chat-log" aria-live="polite">
-          <div class="chat-message ai">Hi! Apna study doubt yahan likho. AI answers activate karne ke liye website ko ek secure AI backend se connect karna hoga.</div>
-        </div>
-        <form id="aiForm" class="ai-form">
-          <label for="aiSubject"><strong>Subject</strong></label>
-          <select id="aiSubject">
-            <option>Accountancy</option><option>Business Studies</option><option>Economics</option>
-            <option>Applied Mathematics</option><option>English</option><option>Hindi</option><option>Other</option>
-          </select>
-          <label for="aiQuestion"><strong>Your doubt</strong></label>
-          <textarea id="aiQuestion" maxlength="4000" placeholder="Example: Explain goodwill adjustment in partnership reconstitution with a simple example." required></textarea>
-          <button id="aiSend" type="submit">Ask COMMERZO AI →</button>
-        </form>
+        <h2 id="chapterTitle"></h2>
+        <p id="chapterSubtitle" class="muted"></p>
       </div>
-      <aside>
-        <div class="card">
-          <div class="icon">🧠</div>
-          <h3>Study-focused answers</h3>
-          <p>Explain concepts in easy language, show working for numericals, and ask follow-up questions.</p>
-          <span class="pill">Hindi / English</span><span class="pill">Step-by-step</span><span class="pill">Commerce-first</span>
-        </div>
-        <div class="notice" style="margin-top:13px">
-          <strong>Important:</strong> This GitHub Pages file alone cannot run a private AI model. The form needs a secure backend endpoint. Do not put a Gemini/API key in this HTML or commit it to GitHub.
-        </div>
-      </aside>
+      <button class="secondary" id="backChapters">← Chapters</button>
     </div>
+    <div id="chapterBody"></div>
+  </section>
+
+  <section id="practicePanel" class="panel hidden">
+    <div class="section-head">
+      <div>
+        <h2 id="practiceTitle">Practice</h2>
+        <p id="practiceSubtitle" class="muted"></p>
+      </div>
+      <button class="secondary" id="closePractice">Close</button>
+    </div>
+    <div class="progress"><div class="progress-bar" id="practiceProgress"></div></div>
+    <div id="practiceBody"></div>
+  </section>
+
+  <section id="testPanel" class="panel hidden">
+    <div class="section-head">
+      <div>
+        <h2 id="testTitle">Chapter Test</h2>
+        <p id="testSubtitle" class="muted"></p>
+      </div>
+      <button class="secondary" id="exitTest">Exit test</button>
+    </div>
+    <div class="progress"><div class="progress-bar" id="testProgress"></div></div>
+    <div id="testBody"></div>
+  </section>
+
+  <section id="resultPanel" class="panel hidden">
+    <div class="section-head">
+      <div>
+        <h2>Test Result</h2>
+        <p class="muted">Your performance summary</p>
+      </div>
+      <button class="secondary" id="resultBack">Back to chapters</button>
+    </div>
+    <div id="resultBody"></div>
   </section>
 </main>
 
 <footer>
   <strong>COMMERZO</strong> — Learn. Practice. Score.<br>
-  Independent student learning project. Verify important exam information with your official board materials.<br>
-  <span class="small">AI responses, once connected, may occasionally be incorrect. Check important answers before relying on them.</span>
+  Independent student learning project.
 </footer>
 
-<script>
-const data = {
-  "MP Board": [
-    {name:"Accountancy",icon:"📊",chapters:["Accounting for Partnership Firms","Reconstitution of Partnership","Dissolution of Partnership Firm","Accounting for Share Capital","Debentures","Financial Statements Analysis","Accounting Ratios","Cash Flow Statement"]},
-    {name:"Business Studies",icon:"📚",chapters:["Nature and Significance of Management","Principles of Management","Business Environment","Planning","Organising","Staffing","Directing","Controlling","Financial Management","Marketing Management"]},
-    {name:"Economics",icon:"📈",chapters:["National Income","Money and Banking","Determination of Income","Government Budget","Balance of Payments","Introduction to Microeconomics","Demand","Supply","Market Equilibrium"]},
-    {name:"Mathematics",icon:"➗",chapters:["Relations and Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity and Differentiability","Applications of Derivatives","Integrals","Probability"]},
-    {name:"English",icon:"📖",chapters:["Reading","Writing","Grammar","Literature"]},
-    {name:"Hindi",icon:"✍️",chapters:["व्याकरण","लेखन","पाठ्यपुस्तक"]}
-  ],
-  "CBSE": [
-    {name:"Accountancy",icon:"📊",chapters:["Accounting for Partnership Firms","Reconstitution of Partnership","Dissolution of Partnership Firm","Accounting for Share Capital","Debentures","Financial Statements Analysis","Cash Flow Statement"]},
-    {name:"Business Studies",icon:"📚",chapters:["Nature and Significance of Management","Principles of Management","Business Environment","Planning","Organising","Staffing","Directing","Controlling","Financial Management","Marketing Management"]},
-    {name:"Economics",icon:"📈",chapters:["Introductory Macroeconomics","National Income","Money and Banking","Determination of Income and Employment","Government Budget","Balance of Payments","Indian Economic Development"]},
-    {name:"Applied Mathematics",icon:"➗",chapters:["Numbers and Quantification","Matrices","Calculus","Probability Distributions","Inferential Statistics","Index Numbers","Financial Mathematics","Linear Programming"]},
-    {name:"English",icon:"📖",chapters:["Reading","Writing","Grammar","Literature"]},
-    {name:"Hindi",icon:"✍️",chapters:["व्याकरण","लेखन","पाठ्यपुस्तक"]}
-  ]
-};
-
-let questionIndex = 0;
-const questions = [
-  {q:"Which financial statement shows assets and liabilities on a particular date?",options:["Balance Sheet","Cash Book","Journal"],answer:0,explanation:"A Balance Sheet reports assets, liabilities and capital at a particular date."},
-  {q:"What is the basic accounting equation?",options:["Assets = Liabilities + Capital","Sales = Assets + Cash","Capital = Sales − Purchases"],answer:0,explanation:"The accounting equation is Assets = Liabilities + Owner's Equity (Capital)."},
-  {q:"Which management function involves setting objectives in advance?",options:["Controlling","Planning","Staffing"],answer:1,explanation:"Planning means deciding objectives and the course of action in advance."},
-  {q:"If demand rises while supply remains unchanged, what usually happens to equilibrium price?",options:["It rises","It falls","It always becomes zero"],answer:0,explanation:"With supply unchanged, an increase in demand generally raises equilibrium price and quantity."}
-];
-
-function renderSubjects() {
-  const board = document.getElementById("board").value;
-  const term = document.getElementById("search").value.toLowerCase().trim();
-  const grid = document.getElementById("subjectGrid");
-  grid.innerHTML = "";
-  const results = data[board].filter(s => (s.name+" "+s.chapters.join(" ")).toLowerCase().includes(term));
-  if (!results.length) {
-    grid.innerHTML = '<p class="muted">No matching subjects or chapters found.</p>';
-    return;
-  }
-  results.forEach(s => {
-    const card = document.createElement("article"); card.className = "card";
-    const icon = document.createElement("div"); icon.className = "icon"; icon.textContent = s.icon;
-    const title = document.createElement("h3"); title.textContent = s.name;
-    const desc = document.createElement("p"); desc.textContent = s.chapters.length+" sample chapter entries";
-    const btn = document.createElement("button"); btn.textContent = "Explore subject →"; btn.onclick = () => openSubject(s);
-    card.append(icon,title,desc,btn); grid.appendChild(card);
-  });
-}
-function openSubject(s) {
-  document.getElementById("detail").classList.remove("hidden");
-  document.getElementById("practice").classList.add("hidden");
-  document.getElementById("detailTitle").textContent = s.name;
-  document.getElementById("detailDesc").textContent = document.getElementById("board").value+" • Sample chapter list";
-  const list = document.getElementById("chapterList"); list.innerHTML = "";
-  s.chapters.forEach((chapter,i) => {
-    const card = document.createElement("article"); card.className = "card";
-    const title = document.createElement("h3"); title.textContent = (i+1)+". "+chapter;
-    const desc = document.createElement("p"); desc.textContent = "Study materials will appear here after verified resources are added.";
-    const btn = document.createElement("button"); btn.textContent = "Practise sample quiz"; btn.onclick = startPractice;
-    card.append(title,desc,btn); list.appendChild(card);
-  });
-  document.getElementById("detail").scrollIntoView({behavior:"smooth"});
-}
-function closeDetail() {
-  document.getElementById("detail").classList.add("hidden");
-  document.getElementById("practice").classList.add("hidden");
-}
-function closePractice() { document.getElementById("practice").classList.add("hidden"); }
-function startPractice() {
-  document.getElementById("practice").classList.remove("hidden");
-  questionIndex = 0; showQuestion();
-  document.getElementById("practice").scrollIntoView({behavior:"smooth"});
-}
-function showQuestion() {
-  const q = questions[questionIndex % questions.length];
-  document.getElementById("question").textContent = q.q;
-  document.getElementById("feedback").textContent = "";
-  const options = document.getElementById("options"); options.innerHTML = "";
-  q.options.forEach((option,i) => {
-    const btn = document.createElement("button"); btn.className = "option"; btn.textContent = option;
-    btn.onclick = () => {
-      document.getElementById("feedback").textContent = i===q.answer ? "Correct! "+q.explanation : "Not quite. "+q.explanation;
-      [...options.children].forEach(b => b.disabled=true);
-    };
-    options.appendChild(btn);
-  });
-}
-function nextQuestion() { questionIndex++; showQuestion(); }
-
-function addChatMessage(text, role) {
-  const log = document.getElementById("chatLog");
-  const message = document.createElement("div");
-  message.className = "chat-message "+role;
-  message.textContent = text;
-  log.appendChild(message);
-  message.scrollIntoView({behavior:"smooth",block:"nearest"});
-}
-
-/*
-  Secure AI setup:
-  Deploy a backend (for example, a serverless function) that keeps the AI API key
-  in server-side secrets and accepts POST JSON: { subject: string, question: string }.
-  It should return JSON: { answer: string }.
-  After deploying it, set COMMERZO_AI_ENDPOINT to that backend URL below.
-*/
-const COMMERZO_AI_ENDPOINT = ""; // Example: "https://your-secure-backend.example/api/ask"
-
-document.getElementById("aiForm").addEventListener("submit", async function(event) {
-  event.preventDefault();
-  const subject = document.getElementById("aiSubject").value;
-  const question = document.getElementById("aiQuestion").value.trim();
-  const send = document.getElementById("aiSend");
-  if (!question) return;
-  addChatMessage(subject+": "+question, "user");
-  document.getElementById("aiQuestion").value = "";
-  if (!COMMERZO_AI_ENDPOINT) {
-    addChatMessage("AI abhi connect nahi hua hai. Is GitHub Pages website mein AI chat ka interface ready hai, lekin real answers ke liye secure backend/API setup zaroori hai. API key ko index.html mein mat daalna. Backend endpoint deploy hone ke baad COMMERZO_AI_ENDPOINT mein uska URL set karna hoga.", "ai");
-    return;
-  }
-  send.disabled = true; send.textContent = "Thinking…";
-  try {
-    const response = await fetch(COMMERZO_AI_ENDPOINT, {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({subject,question})
-    });
-    if (!response.ok) throw new Error("AI service returned status "+response.status);
-    const result = await response.json();
-    if (!result || typeof result.answer !== "string" || !result.answer.trim()) throw new Error("Unexpected AI response format");
-    addChatMessage(result.answer.trim(), "ai");
-  } catch (error) {
-    addChatMessage("AI se response nahi mil saka. Connection ya backend configuration check karo, phir dobara try karo.", "ai");
-  } finally {
-    send.disabled = false; send.textContent = "Ask COMMERZO AI →";
-  }
-});
-
-renderSubjects();
-</script>
-  <script type="module">
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {
   getFirestore, collection, getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -369,269 +439,877 @@ const firebaseConfig = {
   measurementId: "G-RCHSTFTQM2"
 };
 
-const app = getApps().find(a => a.name === "commerzo-public")
-  || initializeApp(firebaseConfig, "commerzo-public");
-
+const app = initializeApp(firebaseConfig, "commerzo-student");
 const db = getFirestore(app);
-const content = {
+const $ = id => document.getElementById(id);
+
+const state = {
   subjects: [],
   chapters: [],
   mcqs: [],
-  resources: []
+  resources: [],
+  currentSubject: null,
+  currentChapter: null,
+  selectedChapters: new Set(),
+  resourceType: "All",
+  practiceQuestions: [],
+  practiceAnswers: [],
+  practiceIndex: 0,
+  testQuestions: [],
+  testAnswers: [],
+  testIndex: 0,
+  testChapterIds: [],
+  busy: false
 };
 
-const el = id => document.getElementById(id);
+const RESOURCE_TYPES = [
+  "Handwritten Notes",
+  "Previous Year Papers",
+  "Marking Scheme",
+  "Sample Papers",
+  "Important Questions",
+  "Syllabus",
+  "Other"
+];
 
-function boardMatches(item, board) {
-  return !item.board || item.board === "Both" || item.board === board;
+function text(value) {
+  return String(value ?? "");
 }
 
-function makeCard(titleText, descriptionText, buttonText, action) {
-  const card = document.createElement("article");
-  card.className = "card";
+function boardMatches(item) {
+  const value = text(item.board).trim();
+  return !value || value === "Both" || value === $("board").value;
+}
 
-  const title = document.createElement("h3");
-  title.textContent = titleText;
+function classMatches(item) {
+  const value = text(item.className).toLowerCase().trim();
+  return !value ||
+    value === "both" ||
+    value === $("className").value ||
+    value === "11 and 12" ||
+    value === "11 & 12";
+}
 
-  const desc = document.createElement("p");
-  desc.textContent = descriptionText;
-
-  card.append(title, desc);
-
-  if (buttonText) {
-    const button = document.createElement("button");
-    button.textContent = buttonText;
-    button.onclick = action;
-    card.append(button);
+function shuffle(items) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
   }
-
-  return card;
+  return result;
 }
 
-function renderLiveSubjects() {
-  const board = el("board").value;
-  const term = el("search").value.trim().toLowerCase();
-  const grid = el("subjectGrid");
+function sortChapters(items) {
+  return [...items].sort((a,b) => {
+    const x = Number(a.order);
+    const y = Number(b.order);
+    if (Number.isFinite(x) && Number.isFinite(y) && x !== y) return x-y;
+    if (Number.isFinite(x) && !Number.isFinite(y)) return -1;
+    if (!Number.isFinite(x) && Number.isFinite(y)) return 1;
+    return text(a.name).localeCompare(text(b.name));
+  });
+}
 
+function makeEmpty(message) {
+  const div = document.createElement("div");
+  div.className = "empty";
+  div.textContent = message;
+  return div;
+}
+
+function makeButton(label, className, action) {
+  const button = document.createElement("button");
+  button.textContent = label;
+  button.className = className || "";
+  button.addEventListener("click", action);
+  return button;
+}
+
+function hideAllPanels() {
+  ["detail","chapterContent","practicePanel","testPanel","resultPanel"]
+    .forEach(id => $(id).classList.add("hidden"));
+}
+
+function scrollTo(id) {
+  $(id).scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function currentSubjects() {
+  return state.subjects.filter(s =>
+    boardMatches(s) && classMatches(s)
+  );
+}
+
+function currentChapters() {
+  if (!state.currentSubject) return [];
+  return sortChapters(state.chapters.filter(ch =>
+    ch.subjectId === state.currentSubject.id &&
+    boardMatches(ch) && classMatches(ch)
+  ));
+}
+
+function subjectPriority(name) {
+  const order = [
+    "accountancy",
+    "business studies",
+    "microeconomics",
+    "macroeconomics",
+    "indian economic development",
+    "economics",
+    "mathematics",
+    "applied mathematics",
+    "english",
+    "hindi"
+  ];
+  const index = order.indexOf(text(name).toLowerCase());
+  return index < 0 ? 100 : index;
+}
+
+function renderSubjects() {
+  const grid = $("subjectGrid");
   grid.replaceChildren();
 
-  const subjects = content.subjects.filter(s => {
-    const chapters = content.chapters.filter(c => c.subjectId === s.id);
-    const searchable = [
-      s.name,
-      s.description,
-      ...chapters.map(c => c.name)
-    ].join(" ").toLowerCase();
-
-    return boardMatches(s, board) && searchable.includes(term);
-  });
+  const subjects = currentSubjects().sort((a,b) =>
+    subjectPriority(a.name)-subjectPriority(b.name) ||
+    text(a.name).localeCompare(text(b.name))
+  );
 
   if (!subjects.length) {
-    grid.textContent =
-      "Is board ke liye abhi live subjects nahi mile. Admin panel mein subjects add karke check karo.";
+    grid.append(makeEmpty("No subjects available yet."));
     return;
   }
 
   subjects.forEach(subject => {
-    const chapters = content.chapters.filter(c =>
-      c.subjectId === subject.id && boardMatches(c, board)
+    const chapters = state.chapters.filter(ch =>
+      ch.subjectId === subject.id &&
+      boardMatches(ch) && classMatches(ch)
     );
 
-    grid.append(makeCard(
-      subject.name || "Subject",
-      (subject.description || "Explore subject chapters.") +
-        " · " + chapters.length + " chapters",
-      "Explore subject →",
-      () => openLiveSubject(subject, chapters)
-    ));
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const icon = document.createElement("div");
+    icon.className = "icon";
+    const name = text(subject.name).toLowerCase();
+    icon.textContent =
+      name.includes("account") ? "📊" :
+      name.includes("business") ? "📚" :
+      name.includes("economic") ? "📈" :
+      name.includes("math") ? "➗" :
+      name.includes("english") ? "📖" :
+      name.includes("hindi") ? "✍️" : "📘";
+
+    const title = document.createElement("h3");
+    title.textContent = subject.name || "Subject";
+
+    const desc = document.createElement("p");
+    desc.textContent =
+      `${chapters.length} chapters · ${subject.description || "Explore this subject."}`;
+
+    card.append(icon,title,desc,
+      makeButton("Explore subject →","",() => openSubject(subject)));
+    grid.append(card);
   });
 }
 
-function openLiveSubject(subject, chapters) {
-  el("detail").classList.remove("hidden");
-  el("practice").classList.add("hidden");
-  el("detailTitle").textContent = subject.name || "Subject";
-  el("detailDesc").textContent =
-    el("board").value + " · Live chapters";
+function openSubject(subject) {
+  state.currentSubject = subject;
+  state.selectedChapters.clear();
+  $("detailTitle").textContent = subject.name || "Subject";
+  $("detailDesc").textContent =
+    `${$("board").value} · Class ${$("className").value}`;
+  renderChapters();
+  hideAllPanels();
+  $("detail").classList.remove("hidden");
+  scrollTo("detail");
+}
 
-  const list = el("chapterList");
-  list.replaceChildren();
+function renderChapters() {
+  const grid = $("chapterList");
+  grid.replaceChildren();
 
-  chapters.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+  const chapters = currentChapters();
 
   if (!chapters.length) {
-    list.textContent = "Is subject ke chapters abhi admin se publish nahi hue.";
-  }
-
-  chapters.forEach((chapter, i) => {
-    list.append(makeCard(
-      (chapter.order || i + 1) + ". " + chapter.name,
-      chapter.description || "Practise chapter MCQs.",
-      "Practise MCQs →",
-      () => openLivePractice(subject, chapter)
-    ));
-  });
-
-  el("detail").scrollIntoView({ behavior: "smooth" });
-}
-
-function openLivePractice(subject, chapter) {
-  const board = el("board").value;
-  const questions = content.mcqs.filter(m =>
-    m.subjectId === subject.id &&
-    m.chapterId === chapter.id &&
-    boardMatches(m, board)
-  );
-
-  el("practice").classList.remove("hidden");
-  el("practice").querySelector("h2").textContent =
-    chapter.name + " — Practice";
-
-  const questionEl = el("question");
-  const optionsEl = el("options");
-  const feedbackEl = el("feedback");
-  const nextButton = el("practice").querySelector(
-    'button[onclick="nextQuestion()"]'
-  );
-
-  nextButton.classList.add("hidden");
-  optionsEl.replaceChildren();
-  feedbackEl.textContent = "";
-
-  if (!questions.length) {
-    questionEl.textContent =
-      "Is chapter ke liye abhi MCQs publish nahi hue hain.";
-    el("practice").scrollIntoView({ behavior: "smooth" });
+    grid.append(makeEmpty("No chapters available yet."));
+    updateSelectionCount();
     return;
   }
 
-  let index = 0;
+  chapters.forEach((chapter,index) => {
+    const card = document.createElement("article");
+    card.className = "card";
 
-  function showQuestion() {
-    const q = questions[index];
-    questionEl.textContent =
-      (index + 1) + "/" + questions.length + " · " + q.question;
+    const top = document.createElement("div");
+    top.className = "chapter-top";
 
-    optionsEl.replaceChildren();
-    feedbackEl.textContent = "";
-
-    (q.options || []).forEach((option, i) => {
-      const button = document.createElement("button");
-      button.className = "option";
-      button.textContent = String.fromCharCode(65 + i) + ". " + option;
-
-      button.onclick = () => {
-        [...optionsEl.querySelectorAll("button")].forEach(b => {
-          if (!b.classList.contains("live-next")) b.disabled = true;
-        });
-
-        const correct = i === Number(q.correctIndex);
-        feedbackEl.textContent =
-          (correct ? "Correct! " : "Not quite. ") +
-          (q.explanation || (
-            "Correct answer: " +
-            String.fromCharCode(65 + Number(q.correctIndex))
-          ));
-      };
-
-      optionsEl.append(button);
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.className = "chapter-check";
+    check.checked = state.selectedChapters.has(chapter.id);
+    check.setAttribute("aria-label","Select chapter");
+    check.addEventListener("change",() => {
+      if (check.checked) state.selectedChapters.add(chapter.id);
+      else state.selectedChapters.delete(chapter.id);
+      updateSelectionCount();
     });
 
-    const next = document.createElement("button");
-    next.className = "live-next";
-    next.style.marginTop = "10px";
-    next.textContent = index === questions.length - 1
-      ? "Restart practice ↻"
-      : "Next MCQ →";
+    const info = document.createElement("div");
+    const title = document.createElement("h3");
+    title.textContent = `${index+1}. ${chapter.name || "Chapter"}`;
+    const desc = document.createElement("p");
+    desc.textContent = chapter.description || "Explore chapter learning material.";
+    info.append(title,desc);
+    top.append(check,info);
 
-    next.onclick = () => {
-      index = (index + 1) % questions.length;
-      showQuestion();
-    };
+    const actions = document.createElement("div");
+    actions.className = "chapter-actions";
 
-    optionsEl.append(next);
-  }
+    actions.append(
+      makeButton("Notes","secondary",() => openChapter(chapter,"notes")),
+      makeButton("Practice","secondary",() => openChapter(chapter,"practice")),
+      makeButton("MCQs","outline",() => openChapter(chapter,"mcqs")),
+      makeButton("Test","",() => startTest([chapter.id],"single"))
+    );
 
-  showQuestion();
-  el("practice").scrollIntoView({ behavior: "smooth" });
+    card.append(top,actions);
+    grid.append(card);
+  });
+
+  updateSelectionCount();
 }
 
-function renderLiveResources() {
-  const panels = [...document.querySelectorAll("section.panel")];
-  const panel = panels.find(p =>
-    p.querySelector("h2")?.textContent.trim() === "Study resources"
-  );
+function updateSelectionCount() {
+  $("selectionCount").textContent =
+    `${state.selectedChapters.size} chapters selected`;
+  $("selectedTest").disabled = state.selectedChapters.size === 0;
+}
 
-  if (!panel) return;
+function openChapter(chapter,mode) {
+  state.currentChapter = chapter;
+  $("chapterTitle").textContent = chapter.name || "Chapter";
+  $("chapterSubtitle").textContent =
+    `${state.currentSubject.name} · ${$("board").value} · Class ${$("className").value}`;
 
-  const grid = panel.querySelector(".grid");
-  grid.replaceChildren();
+  hideAllPanels();
+  $("chapterContent").classList.remove("hidden");
 
-  const resources = content.resources.filter(r =>
-    boardMatches(r, el("board").value)
+  if (mode === "notes") renderChapterResources(chapter);
+  else renderChapterQuestions(chapter,mode);
+
+  scrollTo("chapterContent");
+}
+
+function renderChapterResources(chapter) {
+  const body = $("chapterBody");
+  body.replaceChildren();
+
+  const resources = state.resources.filter(r =>
+    r.subjectId === state.currentSubject.id &&
+    (!r.chapterId || r.chapterId === chapter.id) &&
+    boardMatches(r) && classMatches(r) &&
+    Boolean(r.url)
   );
 
   if (!resources.length) {
-    grid.textContent =
-      "Resources admin panel se add karne ke baad yahan dikhengi.";
+    body.append(makeEmpty("No study resources available for this chapter."));
     return;
   }
 
   resources.forEach(resource => {
     const card = document.createElement("article");
-    card.className = "card";
+    card.className = "card resource-card";
 
     const type = document.createElement("span");
-    type.className = "resource-label";
-    type.textContent = resource.type || "Resource";
+    type.className = "resource-type";
+    type.textContent = resource.type || "Study resource";
 
     const title = document.createElement("h3");
     title.textContent = resource.title || "Study resource";
 
     const desc = document.createElement("p");
-    desc.textContent = resource.description || "Open learning resource.";
+    desc.textContent = resource.description || "";
 
-    card.append(type, title, desc);
+    const link = document.createElement("a");
+    link.href = resource.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Open resource ↗";
 
-    if (resource.url) {
-      const link = document.createElement("a");
-      link.href = resource.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Open resource →";
-      card.append(link);
-    }
-
-    grid.append(card);
+    card.append(type,title,desc,link);
+    body.append(card);
   });
 }
 
-async function loadCommerzoContent() {
-  el("subjectGrid").textContent = "Loading live COMMERZO content…";
+function chapterQuestions(chapterId) {
+  return state.mcqs.filter(q =>
+    q.chapterId === chapterId &&
+    q.subjectId === state.currentSubject?.id &&
+    boardMatches(q) && classMatches(q) &&
+    Array.isArray(q.options) &&
+    q.options.length >= 2 &&
+    Number.isInteger(Number(q.correctIndex)) &&
+    Number(q.correctIndex) >= 0 &&
+    Number(q.correctIndex) < q.options.length
+  );
+}
 
-  try {
-    for (const name of ["subjects", "chapters", "mcqs", "resources"]) {
-      const snapshot = await getDocs(collection(db, name));
-      content[name] = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
+function renderChapterQuestions(chapter,mode) {
+  const body = $("chapterBody");
+  body.replaceChildren();
+
+  const questions = chapterQuestions(chapter.id);
+
+  if (!questions.length) {
+    body.append(makeEmpty("No MCQs available for this chapter yet."));
+    return;
+  }
+
+  const card = document.createElement("article");
+  card.className = "card";
+
+  const title = document.createElement("h3");
+  title.textContent = mode === "practice" ? "Chapter Practice" : "MCQ Question Bank";
+
+  const desc = document.createElement("p");
+  desc.textContent = `${questions.length} questions available · 1 mark each`;
+
+  const start = makeButton("Start now →","",() =>
+    startPractice(shuffle(questions),mode)
+  );
+
+  card.append(title,desc,start);
+  body.append(card);
+}
+
+function startPractice(questions,mode) {
+  state.practiceQuestions = questions;
+  state.practiceAnswers = [];
+  state.practiceIndex = 0;
+
+  $("practiceTitle").textContent =
+    mode === "practice" ? "Chapter Practice" : "MCQ Practice";
+  $("practiceSubtitle").textContent =
+    `${questions.length} questions · Immediate answer feedback`;
+
+  hideAllPanels();
+  $("practicePanel").classList.remove("hidden");
+  renderPracticeQuestion();
+  scrollTo("practicePanel");
+}
+
+function renderPracticeQuestion() {
+  const body = $("practiceBody");
+  body.replaceChildren();
+
+  const index = state.practiceIndex;
+  const q = state.practiceQuestions[index];
+  const selected = state.practiceAnswers[index];
+
+  $("practiceProgress").style.width =
+    `${((index+1)/state.practiceQuestions.length)*100}%`;
+
+  const count = document.createElement("div");
+  count.className = "small";
+  count.textContent =
+    `Question ${index+1} of ${state.practiceQuestions.length}`;
+
+  const question = document.createElement("div");
+  question.className = "question";
+  question.textContent = q.question || "Question";
+
+  body.append(count,question);
+
+  const options = document.createElement("div");
+  q.options.forEach((option,i) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent =
+      `${String.fromCharCode(65+i)}. ${text(option)}`;
+    button.disabled = selected !== undefined;
+
+    if (selected !== undefined) {
+      if (i === Number(q.correctIndex)) button.classList.add("correct");
+      if (i === selected && selected !== Number(q.correctIndex))
+        button.classList.add("wrong");
     }
 
-    window.renderSubjects = () => {
-      renderLiveSubjects();
-      renderLiveResources();
-    };
+    button.addEventListener("click",() => {
+      if (state.practiceAnswers[index] !== undefined) return;
+      state.practiceAnswers[index] = i;
+      renderPracticeQuestion();
+    });
 
-    window.renderSubjects();
-  } catch (error) {
-    console.error("COMMERZO content load failed:", error);
-    el("subjectGrid").textContent =
-      "Live content load nahi hua. Internet aur Firestore read rules check karo.";
+    options.append(button);
+  });
+  body.append(options);
+
+  if (selected !== undefined) {
+    const correct = selected === Number(q.correctIndex);
+    const feedback = document.createElement("div");
+    feedback.className = `feedback ${correct ? "good" : "bad"}`;
+    feedback.textContent =
+      `${correct ? "Correct answer. " : "Incorrect answer. "}` +
+      (q.explanation || "");
+    body.append(feedback);
+
+    body.append(makeButton(
+      index === state.practiceQuestions.length-1
+        ? "Finish practice"
+        : "Next question →",
+      "",
+      () => {
+        if (index === state.practiceQuestions.length-1) {
+          showPracticeSummary();
+        } else {
+          state.practiceIndex++;
+          renderPracticeQuestion();
+        }
+      }
+    ));
   }
 }
 
-loadCommerzoContent();
-  </script>
+function showPracticeSummary() {
+  const correct = state.practiceAnswers.filter((answer,index) =>
+    answer === Number(state.practiceQuestions[index].correctIndex)
+  ).length;
+
+  $("practiceProgress").style.width = "100%";
+  $("practiceBody").replaceChildren();
+
+  const title = document.createElement("h3");
+  title.textContent = "Practice completed";
+
+  const score = document.createElement("p");
+  score.textContent =
+    `${correct} correct out of ${state.practiceQuestions.length}`;
+
+  $("practiceBody").append(
+    title,score,
+    makeButton("Back to chapters","",() => {
+      $("practicePanel").classList.add("hidden");
+      $("detail").classList.remove("hidden");
+      scrollTo("detail");
+    })
+  );
+}
+
+function startTest(chapterIds,type) {
+  const selected = currentChapters().filter(ch =>
+    chapterIds.includes(ch.id)
+  );
+
+  if (!selected.length) return;
+
+  const groups = selected.map(ch => ({
+    chapter:ch,
+    questions:shuffle(chapterQuestions(ch.id))
+  })).filter(group => group.questions.length);
+
+  let questions = [];
+
+  if (type === "grouped") {
+    groups.forEach(group => questions.push(...group.questions));
+  } else {
+    questions = shuffle(groups.flatMap(group => group.questions));
+  }
+
+  if (!questions.length) {
+    alert("No questions are available for the selected chapters.");
+    return;
+  }
+
+  state.testQuestions = questions;
+  state.testAnswers = [];
+  state.testIndex = 0;
+  state.testChapterIds = selected.map(ch => ch.id);
+
+  $("testTitle").textContent = "Chapter Test";
+  $("testSubtitle").textContent =
+    `${questions.length} questions · 1 mark per question`;
+
+  hideAllPanels();
+  $("testPanel").classList.remove("hidden");
+  renderTestQuestion();
+  scrollTo("testPanel");
+}
+
+function renderTestQuestion() {
+  const body = $("testBody");
+  body.replaceChildren();
+
+  const index = state.testIndex;
+  const q = state.testQuestions[index];
+  const selected = state.testAnswers[index];
+
+  $("testProgress").style.width =
+    `${((index+1)/state.testQuestions.length)*100}%`;
+
+  const chapter = state.chapters.find(ch => ch.id === q.chapterId);
+
+  const count = document.createElement("div");
+  count.className = "small";
+  count.textContent =
+    `Question ${index+1} of ${state.testQuestions.length}`;
+
+  const chapterLabel = document.createElement("span");
+  chapterLabel.className = "pill";
+  chapterLabel.textContent = chapter?.name || "Chapter";
+
+  const question = document.createElement("div");
+  question.className = "question";
+  question.textContent = q.question || "Question";
+
+  body.append(count,chapterLabel,question);
+
+  const options = document.createElement("div");
+
+  q.options.forEach((option,i) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent =
+      `${String.fromCharCode(65+i)}. ${text(option)}`;
+    button.disabled = selected !== undefined;
+
+    if (selected !== undefined) {
+      if (i === Number(q.correctIndex)) button.classList.add("correct");
+      if (i === selected && selected !== Number(q.correctIndex))
+        button.classList.add("wrong");
+    }
+
+    button.addEventListener("click",() => {
+      if (state.testAnswers[index] !== undefined) return;
+      state.testAnswers[index] = i;
+      renderTestQuestion();
+    });
+
+    options.append(button);
+  });
+
+  body.append(options);
+
+  if (selected !== undefined) {
+    const feedback = document.createElement("div");
+    feedback.className = "feedback";
+    feedback.textContent = "Answer saved.";
+    body.append(feedback);
+
+    body.append(makeButton(
+      index === state.testQuestions.length-1
+        ? "Submit test"
+        : "Next question →",
+      "",
+      () => {
+        if (index === state.testQuestions.length-1) {
+          renderResult();
+        } else {
+          state.testIndex++;
+          renderTestQuestion();
+        }
+      }
+    ));
+  }
+}
+
+function renderResult() {
+  const total = state.testQuestions.length;
+  const correct = state.testAnswers.filter((answer,index) =>
+    answer === Number(state.testQuestions[index].correctIndex)
+  ).length;
+  const wrong = total-correct;
+  const percentage = total ? correct/total*100 : 0;
+
+  const body = $("resultBody");
+  body.replaceChildren();
+
+  const stats = document.createElement("div");
+  stats.className = "stats-grid";
+
+  [
+    ["Total questions",total],
+    ["Obtained marks",`${correct}/${total}`],
+    ["Correct answers",correct],
+    ["Wrong answers",wrong]
+  ].forEach(([label,value]) => {
+    const box = document.createElement("div");
+    box.className = "result-stat";
+    const strong = document.createElement("strong");
+    strong.textContent = value;
+    const span = document.createElement("span");
+    span.textContent = label;
+    box.append(strong,span);
+    stats.append(box);
+  });
+
+  const percentageBox = document.createElement("div");
+  percentageBox.className = "card";
+  const percent = document.createElement("h2");
+  percent.textContent = `${percentage.toFixed(2)}%`;
+  const label = document.createElement("p");
+  label.textContent = "Overall percentage";
+  percentageBox.append(percent,label);
+
+  const chapterHeading = document.createElement("h3");
+  chapterHeading.textContent = "Chapter-wise performance";
+  chapterHeading.style.marginTop = "25px";
+
+  const chapterGrid = document.createElement("div");
+  chapterGrid.className = "grid";
+
+  state.testChapterIds.forEach(chapterId => {
+    const items = state.testQuestions.map((q,index) => ({q,index}))
+      .filter(item => item.q.chapterId === chapterId);
+
+    const marks = items.filter(item =>
+      state.testAnswers[item.index] === Number(item.q.correctIndex)
+    ).length;
+
+    const chapter = state.chapters.find(ch => ch.id === chapterId);
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = chapter?.name || "Chapter";
+    const score = document.createElement("p");
+    score.textContent = `${marks}/${items.length} correct`;
+    card.append(title,score);
+    chapterGrid.append(card);
+  });
+
+  const reviewHeading = document.createElement("h3");
+  reviewHeading.textContent = "Answer review";
+  reviewHeading.style.marginTop = "25px";
+
+  const review = document.createElement("div");
+
+  state.testQuestions.forEach((q,index) => {
+    const selected = state.testAnswers[index];
+    const answer = Number(q.correctIndex);
+    const correct = selected === answer;
+
+    const item = document.createElement("div");
+    item.className = "review-item";
+
+    const question = document.createElement("strong");
+    question.textContent = `${index+1}. ${q.question}`;
+
+    const yourAnswer = document.createElement("p");
+    yourAnswer.textContent =
+      `Your answer: ${text(q.options[selected])}`;
+    yourAnswer.className = correct ? "good-text" : "bad-text";
+
+    const correctAnswer = document.createElement("p");
+    correctAnswer.textContent =
+      `Correct answer: ${text(q.options[answer])}`;
+
+    const explanation = document.createElement("p");
+    explanation.textContent = q.explanation || "";
+
+    item.append(question,yourAnswer,correctAnswer,explanation);
+    review.append(item);
+  });
+
+  body.append(
+    stats,percentageBox,chapterHeading,chapterGrid,
+    reviewHeading,review
+  );
+
+  hideAllPanels();
+  $("resultPanel").classList.remove("hidden");
+  scrollTo("resultPanel");
+}
+
+function renderResourceFilters() {
+  const box = $("resourceFilters");
+  box.replaceChildren();
+
+  ["All",...RESOURCE_TYPES].forEach(type => {
+    const button = makeButton(
+      type,
+      state.resourceType === type ? "" : "secondary",
+      () => {
+        state.resourceType = type;
+        renderResourceFilters();
+        renderResources();
+      }
+    );
+    box.append(button);
+  });
+}
+
+function renderResources() {
+  const results = $("resourceResults");
+  results.replaceChildren();
+
+  const query = $("resourceSearch").value.trim().toLowerCase();
+
+  const resources = state.resources.filter(r => {
+    if (!boardMatches(r) || !classMatches(r)) return false;
+
+    if (state.resourceType !== "All" &&
+        text(r.type).toLowerCase() !== state.resourceType.toLowerCase()) {
+      return false;
+    }
+
+    const searchable = [
+      r.title,r.type,r.description,r.board,r.className
+    ].join(" ").toLowerCase();
+
+    return !query || searchable.includes(query);
+  }).filter(r => Boolean(r.url));
+
+  if (!resources.length) {
+    results.append(makeEmpty(
+      query ? "No matching resources found." : "No study resources available yet."
+    ));
+    return;
+  }
+
+  resources.forEach(resource => {
+    const card = document.createElement("article");
+    card.className = "card resource-card";
+
+    const type = document.createElement("span");
+    type.className = "resource-type";
+    type.textContent = resource.type || "Study resource";
+
+    const title = document.createElement("h3");
+    title.textContent = resource.title || "Study resource";
+
+    const desc = document.createElement("p");
+    desc.textContent = resource.description || "";
+
+    const subject = state.subjects.find(s =>
+      s.id === resource.subjectId
+    );
+    const subjectLabel = document.createElement("span");
+    subjectLabel.className = "small";
+    subjectLabel.textContent = subject?.name || "";
+
+    const link = document.createElement("a");
+    link.href = resource.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Open resource ↗";
+
+    card.append(type,title,desc,subjectLabel,link);
+    results.append(card);
+  });
+}
+
+async function loadContent() {
+  $("subjectGrid").replaceChildren(makeEmpty("Loading COMMERZO content…"));
+
+  try {
+    const collections = [
+      "subjects","chapters","mcqs","resources"
+    ];
+
+    const snapshots = await Promise.all(
+      collections.map(name => getDocs(collection(db,name)))
+    );
+
+    collections.forEach((name,index) => {
+      state[name] = snapshots[index].docs.map(doc => ({
+        id:doc.id,
+        ...doc.data()
+      }));
+    });
+
+    $("questionCount").textContent = state.mcqs.length;
+    renderSubjects();
+    renderResourceFilters();
+    renderResources();
+  } catch (error) {
+    console.error("COMMERZO content loading error:",error);
+    $("subjectGrid").replaceChildren(
+      makeEmpty("Content is temporarily unavailable. Please try again later.")
+    );
+    $("resourceResults").replaceChildren(
+      makeEmpty("Resources are temporarily unavailable.")
+    );
+  }
+}
+
+$("board").addEventListener("change",() => {
+  state.currentSubject = null;
+  state.selectedChapters.clear();
+  renderSubjects();
+  renderResources();
+  hideAllPanels();
+});
+
+$("className").addEventListener("change",() => {
+  state.currentSubject = null;
+  state.selectedChapters.clear();
+  renderSubjects();
+  renderResources();
+  hideAllPanels();
+});
+
+$("resourceSearch").addEventListener("input",renderResources);
+
+$("exploreButton").addEventListener("click",() => scrollTo("subjectsSection"));
+$("resourcesButton").addEventListener("click",() => scrollTo("resourceSection"));
+
+$("backSubjects").addEventListener("click",() => {
+  hideAllPanels();
+  state.currentSubject = null;
+  scrollTo("subjectsSection");
+});
+
+$("backChapters").addEventListener("click",() => {
+  $("chapterContent").classList.add("hidden");
+  $("detail").classList.remove("hidden");
+  scrollTo("detail");
+});
+
+$("closePractice").addEventListener("click",() => {
+  $("practicePanel").classList.add("hidden");
+  $("detail").classList.remove("hidden");
+  scrollTo("detail");
+});
+
+$("selectAll").addEventListener("click",() => {
+  currentChapters().forEach(ch => state.selectedChapters.add(ch.id));
+  renderChapters();
+});
+
+$("clearSelection").addEventListener("click",() => {
+  state.selectedChapters.clear();
+  renderChapters();
+});
+
+$("selectedTest").addEventListener("click",() => {
+  if (!state.selectedChapters.size) return;
+
+  const choice = prompt(
+    "Enter 1 for Chapter-wise grouping or 2 for Full shuffle."
+  );
+
+  if (choice === "1") {
+    startTest([...state.selectedChapters],"grouped");
+  } else if (choice === "2") {
+    startTest([...state.selectedChapters],"shuffle");
+  }
+});
+
+$("exitTest").addEventListener("click",() => {
+  if (confirm("Exit this test? Your current progress will be lost.")) {
+    $("testPanel").classList.add("hidden");
+    $("detail").classList.remove("hidden");
+    scrollTo("detail");
+  }
+});
+
+$("resultBack").addEventListener("click",() => {
+  $("resultPanel").classList.add("hidden");
+  $("detail").classList.remove("hidden");
+  scrollTo("detail");
+});
+
+loadContent();
+</script>
 </body>
 </html>
