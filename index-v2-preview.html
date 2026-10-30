@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="COMMERZO — Learn. Practice. Score.">
+  <title>COMMERZO | Learn. Practice. Score.</title>
+  <link rel="icon" href="commerzo-logo.png">
+  <style>
+    :root {
+      --bg:#0b1220; --panel:#121d30; --panel2:#18263c;
+      --text:#f3f6fc; --muted:#9eabc0; --line:#26364d;
+      --brand:#67e8c0; --brand2:#39b99a; --danger:#ff7777;
+      --gold:#ffd27a; --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font-family:Inter,system-ui,Arial,sans-serif;line-height:1.5}
+    button,select{font:inherit}
+    button{cursor:pointer}
+    .shell{max-width:1120px;margin:auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;
+      gap:14px;padding:12px 0 22px;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:45px;height:45px;object-fit:contain;border-radius:12px}
+    .brand-name{font-size:23px;font-weight:850;letter-spacing:1px}
+    .tagline{font-size:12px;color:var(--muted);letter-spacing:1px}
+    .status{font-size:12px;color:var(--brand)}
+    .hero{padding:34px 0 22px}
+    .eyebrow{color:var(--brand);font-size:12px;font-weight:800;
+      letter-spacing:2px;text-transform:uppercase}
+    h1{font-size:clamp(28px,5vw,43px);line-height:1.12;margin:9px 0}
+    h2{font-size:23px;margin:0 0 6px}
+    h3{font-size:17px;margin:0 0 5px}
+    p{margin:5px 0;color:var(--muted)}
+    .controls{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+      margin:22px 0}
+    .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}
+    select{width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);
+      background:var(--panel);color:var(--text);outline:none}
+    .section{margin:28px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:center;
+      gap:10px;margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+    .card{background:var(--panel);border:1px solid var(--line);
+      border-radius:var(--radius);padding:17px;min-width:0}
+    .card p{font-size:13px}
+    .subject-card{transition:.18s}
+    .subject-card:hover{border-color:var(--brand);transform:translateY(-2px)}
+    .subject-card button{width:100%;text-align:left;background:none;border:0;
+      color:inherit;padding:0}
+    .chapter-card{display:flex;flex-direction:column;gap:10px}
+    .chapter-top{display:flex;align-items:flex-start;gap:10px}
+    .chapter-top input{accent-color:var(--brand);width:18px;height:18px;margin-top:4px}
+    .chapter-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto}
+    .btn{border:0;border-radius:11px;padding:10px 14px;font-weight:750;
+      background:var(--brand);color:#071b18}
+    .btn:hover{filter:brightness(1.06)}
+    .btn.secondary{background:var(--panel2);color:var(--text);
+      border:1px solid var(--line)}
+    .btn.ghost{background:transparent;color:var(--brand);
+      border:1px solid var(--brand)}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .small{font-size:12px;color:var(--muted)}
+    .pill{display:inline-block;border:1px solid var(--line);border-radius:99px;
+      padding:4px 9px;font-size:11px;color:var(--muted)}
+    .empty,.loading{padding:28px;text-align:center;background:var(--panel);
+      border:1px dashed var(--line);border-radius:var(--radius);color:var(--muted)}
+    .hidden{display:none!important}
+    .toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+    .question{font-size:19px;font-weight:700;margin:14px 0 18px}
+    .option{display:block;width:100%;text-align:left;padding:13px 15px;
+      margin:9px 0;background:var(--panel2);color:var(--text);
+      border:1px solid var(--line);border-radius:12px}
+    .option:disabled{cursor:default;opacity:1}
+    .option.correct{border-color:var(--brand);background:#123b35}
+    .option.wrong{border-color:var(--danger);background:#40252e}
+    .feedback{padding:13px;border-radius:12px;margin:13px 0;
+      background:var(--panel2);font-size:14px}
+    .feedback.good{border:1px solid var(--brand)}
+    .feedback.bad{border:1px solid var(--danger)}
+    .progress{height:7px;background:var(--panel2);border-radius:99px;overflow:hidden}
+    .progress>div{height:100%;background:var(--brand);width:0}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+    .stat{background:var(--panel2);padding:13px;border-radius:13px}
+    .stat strong{display:block;font-size:24px}
+    .stat span{font-size:11px;color:var(--muted)}
+    .review{border-top:1px solid var(--line);padding:15px 0}
+    .review .answer{font-size:13px;margin-top:5px}
+    .resource{display:flex;align-items:center;justify-content:space-between;
+      gap:12px}
+    .resource a{color:var(--brand);font-weight:750;text-decoration:none}
+    footer{border-top:1px solid var(--line);margin-top:45px;padding:20px 0;
+      text-align:center;color:var(--muted);font-size:12px}
+    @media(max-width:760px){
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .controls{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .shell{padding:14px}.grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .brand-name{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <div class="brand">
+      <img src="commerzo-logo.png" alt="COMMERZO"
+        onerror="this.style.display='none'">
+      <div>
+        <div class="brand-name">COMMERZO</div>
+        <div class="tagline">LEARN. PRACTICE. SCORE.</div>
+      </div>
+    </div>
+    <div class="status">● Student Portal</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Commerce Learning Platform</div>
+      <h1>Learn smarter.<br>Score better.</h1>
+      <p>Choose your board, class and subject to begin learning.</p>
+    </section>
+
+    <section class="controls">
+      <div class="field">
+        <label for="board">BOARD</label>
+        <select id="board">
+          <option value="MP Board">MP Board</option>
+          <option value="CBSE">CBSE</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="className">CLASS</label>
+        <select id="className">
+          <option value="12">Class 12</option>
+          <option value="11">Class 11</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="subject">SUBJECT</label>
+        <select id="subject">
+          <option value="">Select subject</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="subjectsSection" class="section">
+      <div class="section-head">
+        <div><h2>Your Subjects</h2><p>Select a subject to explore chapters.</p></div>
+      </div>
+      <div id="subjectsGrid" class="grid"></div>
+    </section>
+
+    <section id="chaptersSection" class="section hidden">
+      <div class="section-head">
+        <div><h2 id="subjectHeading">Chapters</h2><p id="chapterSubtitle"></p></div>
+        <button class="btn secondary" id="backSubjects">Back</button>
+      </div>
+      <div class="toolbar">
+        <button class="btn secondary" id="selectAll">Select all</button>
+        <button class="btn secondary" id="clearSelection">Clear selection</button>
+        <button class="btn" id="selectedTest">Test selected chapters</button>
+      </div>
+      <div class="small" id="selectionCount">0 chapters selected</div>
+      <div id="chaptersGrid" class="grid" style="margin-top:13px"></div>
+    </section>
+
+    <section id="contentSection" class="section hidden">
+      <div class="section-head">
+        <div><h2 id="contentHeading">Chapter</h2><p id="contentSubtitle"></p></div>
+        <button class="btn secondary" id="backChapters">Back</button>
+      </div>
+      <div id="contentBody"></div>
+    </section>
+
+    <section id="testSection" class="section hidden">
+      <div class="section-head">
+        <div><h2 id="testHeading">Test</h2><p id="testSubtitle"></p></div>
+        <button class="btn secondary" id="exitTest">Exit</button>
+      </div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="questionArea" class="card" style="margin-top:15px"></div>
+    </section>
+
+    <section id="resultSection" class="section hidden">
+      <div class="section-head">
+        <div><h2>Test Result</h2><p>Your performance summary</p></div>
+      </div>
+      <div id="resultBody"></div>
+    </section>
+  </main>
+
+  <footer>COMMERZO · Learn. Practice. Score.</footer>
+</div>
+
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getFirestore, collection, getDocs } from
+    "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+    authDomain: "commerzo-42fd2.firebaseapp.com",
+    projectId: "commerzo-42fd2",
+    storageBucket: "commerzo-42fd2.firebasestorage.app",
+    messagingSenderId: "472656083923",
+    appId: "1:472656083923:web:022b77078ec9e07db00d26",
+    measurementId: "G-RCHSTFTQM2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const $ = id => document.getElementById(id);
+  const state = {
+    subjects: [], chapters: [], mcqs: [], resources: [],
+    currentSubject: null, currentChapter: null,
+    selectedChapters: new Set(), questions: [],
+    answers: [], questionIndex: 0, mode: "test",
+    testChapters: [], started: false
+  };
+
+  const board = $("board");
+  const className = $("className");
+  const subjectSelect = $("subject");
+
+  function safeText(value) {
+    return String(value ?? "");
+  }
+
+  function matchesBoard(item) {
+    const value = safeText(item.board).trim();
+    return !value || value === "Both" || value === board.value;
+  }
+
+  function matchesClass(item) {
+    const value = safeText(item.className).toLowerCase().trim();
+    return !value || value === "both" ||
+      value === className.value ||
+      value === "11 and 12" || value === "11 & 12";
+  }
+
+  function sortChapters(items) {
+    return [...items].sort((a,b) => {
+      const x = Number(a.order);
+      const y = Number(b.order);
+      if (Number.isFinite(x) && Number.isFinite(y) && x !== y) return x-y;
+      if (Number.isFinite(x) && !Number.isFinite(y)) return -1;
+      if (!Number.isFinite(x) && Number.isFinite(y)) return 1;
+      return safeText(a.name).localeCompare(safeText(b.name));
+    });
+  }
+
+  function subjectPriority(name) {
+    const n = name.toLowerCase();
+    const order = [
+      "accountancy","business studies","microeconomics",
+      "macroeconomics","indian economic development",
+      "economics","mathematics","applied mathematics","english","hindi"
+    ];
+    const index = order.indexOf(n);
+    return index < 0 ? 100 : index;
+  }
+
+  function shuffle(items) {
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i],arr[j]] = [arr[j],arr[i]];
+    }
+    return arr;
+  }
+
+  function showSection(id) {
+    ["subjectsSection","chaptersSection","contentSection",
+      "testSection","resultSection"].forEach(section =>
+        $(section).classList.toggle("hidden", section !== id)
+      );
+  }
+
+  function makeCard(title, description, action) {
+    const card = document.createElement("div");
+    card.className = "card subject-card";
+    const button = document.createElement("button");
+    const h = document.createElement("h3");
+    h.textContent = title;
+    const p = document.createElement("p");
+    p.textContent = description || "";
+    button.append(h,p);
+    button.addEventListener("click",action);
+    card.append(button);
+    return card;
+  }
+
+  async function loadData() {
+    $("subjectsGrid").innerHTML = '<div class="loading">Loading subjects…</div>';
+    try {
+      const names = ["subjects","chapters","mcqs","resources"];
+      const results = await Promise.all(
+        names.map(name => getDocs(collection(db,name)))
+      );
+      [state.subjects,state.chapters,state.mcqs,state.resources] =
+        results.map(snapshot => snapshot.docs.map(doc => ({
+          id:doc.id,...doc.data()
+        })));
+      renderSubjects();
+    } catch (error) {
+      console.error(error);
+      $("subjectsGrid").textContent =
+        "Content is temporarily unavailable. Please try again later.";
+    }
+  }
+
+  function availableSubjects() {
+    return state.subjects.filter(item =>
+      matchesBoard(item) && matchesClass(item)
+    ).sort((a,b) =>
+      subjectPriority(a.name) - subjectPriority(b.name) ||
+      safeText(a.name).localeCompare(safeText(b.name))
+    );
+  }
+
+  function renderSubjectOptions() {
+    const previous = subjectSelect.value;
+    subjectSelect.replaceChildren(new Option("Select subject",""));
+    availableSubjects().forEach(item =>
+      subjectSelect.add(new Option(item.name,item.id))
+    );
+    if ([...subjectSelect.options].some(o => o.value === previous))
+      subjectSelect.value = previous;
+  }
+
+  function renderSubjects() {
+    renderSubjectOptions();
+    const grid = $("subjectsGrid");
+    grid.replaceChildren();
+    const items = availableSubjects();
+
+    if (!items.length) {
+      grid.textContent = "No subjects available yet.";
+      return;
+    }
+
+    items.forEach(item => {
+      const count = state.chapters.filter(ch =>
+        ch.subjectId === item.id && matchesBoard(ch) && matchesClass(ch)
+      ).length;
+      grid.append(makeCard(item.name,`${count} chapters`,() =>
+        openSubject(item)
+      ));
+    });
+  }
+
+  function openSubject(item) {
+    state.currentSubject = item;
+    state.selectedChapters.clear();
+    subjectSelect.value = item.id;
+    $("subjectHeading").textContent = item.name;
+    $("chapterSubtitle").textContent =
+      `${board.value} · Class ${className.value}`;
+    renderChapters();
+    showSection("chaptersSection");
+  }
+
+  function currentChapters() {
+    return sortChapters(state.chapters.filter(ch =>
+      ch.subjectId === state.currentSubject?.id &&
+      matchesBoard(ch) && matchesClass(ch)
+    ));
+  }
+
+  function renderChapters() {
+    const grid = $("chaptersGrid");
+    grid.replaceChildren();
+    const items = currentChapters();
+
+    if (!items.length) {
+      grid.textContent = "No chapters available yet.";
+      updateSelectionCount();
+      return;
+    }
+
+    items.forEach((chapter,index) => {
+      const card = document.createElement("div");
+      card.className = "card chapter-card";
+
+      const top = document.createElement("div");
+      top.className = "chapter-top";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = state.selectedChapters.has(chapter.id);
+      checkbox.setAttribute("aria-label",`Select ${chapter.name}`);
+      checkbox.addEventListener("change",() => {
+        if (checkbox.checked) state.selectedChapters.add(chapter.id);
+        else state.selectedChapters.delete(chapter.id);
+        updateSelectionCount();
+      });
+
+      const info = document.createElement("div");
+      const title = document.createElement("h3");
+      title.textContent = `${index+1}. ${chapter.name}`;
+      const desc = document.createElement("p");
+      desc.textContent = chapter.description || "Explore this chapter.";
+      info.append(title,desc);
+      top.append(checkbox,info);
+
+      const actions = document.createElement("div");
+      actions.className = "chapter-actions";
+
+      const notes = document.createElement("button");
+      notes.className = "btn secondary";
+      notes.textContent = "Notes";
+      notes.addEventListener("click",() => openChapter(chapter,"notes"));
+
+      const practice = document.createElement("button");
+      practice.className = "btn secondary";
+      practice.textContent = "Practice";
+      practice.addEventListener("click",() => openChapter(chapter,"practice"));
+
+      const mcqs = document.createElement("button");
+      mcqs.className = "btn ghost";
+      mcqs.textContent = "MCQs";
+      mcqs.addEventListener("click",() => openChapter(chapter,"mcqs"));
+
+      const test = document.createElement("button");
+      test.className = "btn";
+      test.textContent = "Test";
+      test.addEventListener("click",() => startTest([chapter.id],"single"));
+
+      actions.append(notes,practice,mcqs,test);
+      card.append(top,actions);
+      grid.append(card);
+    });
+    updateSelectionCount();
+  }
+
+  function updateSelectionCount() {
+    $("selectionCount").textContent =
+      `${state.selectedChapters.size} chapters selected`;
+    $("selectedTest").disabled = state.selectedChapters.size === 0;
+  }
+
+  function openChapter(chapter,mode) {
+    state.currentChapter = chapter;
+    $("contentHeading").textContent = chapter.name;
+    $("contentSubtitle").textContent =
+      `${state.currentSubject.name} · ${board.value} · Class ${className.value}`;
+    state.mode = mode;
+    renderChapterContent(mode);
+    showSection("contentSection");
+  }
+
+  function chapterQuestions(chapterId) {
+    return state.mcqs.filter(q =>
+      q.chapterId === chapterId &&
+      q.subjectId === state.currentSubject?.id &&
+      matchesBoard(q) && matchesClass(q) &&
+      Array.isArray(q.options) && q.options.length >= 2 &&
+      Number.isInteger(Number(q.correctIndex)) &&
+      Number(q.correctIndex) >= 0 &&
+      Number(q.correctIndex) < q.options.length
+    );
+  }
+
+  function renderChapterContent(mode) {
+    const body = $("contentBody");
+    body.replaceChildren();
+
+    if (mode === "notes") {
+      const resources = state.resources.filter(r =>
+        r.subjectId === state.currentSubject.id &&
+        (!r.chapterId || r.chapterId === state.currentChapter.id) &&
+        matchesBoard(r) && matchesClass(r) &&
+        r.url
+      );
+
+      const allowed = [
+        "handwritten notes","notes","previous year papers",
+        "marking scheme","sample papers","important questions","syllabus"
+      ];
+      const filtered = resources.filter(r =>
+        allowed.includes(safeText(r.type).toLowerCase())
+      );
+
+      if (!filtered.length) {
+        body.textContent = "No notes or study resources available yet.";
+        return;
+      }
+
+      filtered.forEach(r => {
+        const card = document.createElement("div");
+        card.className = "card resource";
+        const info = document.createElement("div");
+        const h = document.createElement("h3");
+        h.textContent = r.title || r.type || "Study resource";
+        const p = document.createElement("p");
+        p.textContent = r.type || "";
+        info.append(h,p);
+        const link = document.createElement("a");
+        link.href = r.url;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Open ↗";
+        card.append(info,link);
+        body.append(card);
+      });
+      return;
+    }
+
+    const questions = shuffle(chapterQuestions(state.currentChapter.id));
+    if (!questions.length) {
+      body.textContent = "No practice questions available yet.";
+      return;
+    }
+
+    const info = document.createElement("div");
+    info.className = "card";
+    const heading = document.createElement("h3");
+    heading.textContent = mode === "practice" ? "Practice Questions" : "MCQ Bank";
+    const para = document.createElement("p");
+    para.textContent = `${questions.length} questions available`;
+    const button = document.createElement("button");
+    button.className = "btn";
+    button.textContent = "Start";
+    button.addEventListener("click",() =>
+      startQuestionSession(questions,mode)
+    );
+    info.append(heading,para,button);
+    body.append(info);
+  }
+
+  function startQuestionSession(questions,mode) {
+    state.mode = mode;
+    state.questions = questions;
+    state.answers = [];
+    state.questionIndex = 0;
+    state.testChapters = [...new Set(questions.map(q => q.chapterId))];
+    state.started = true;
+    $("testHeading").textContent =
+      mode === "practice" ? "Practice" : "MCQ Practice";
+    $("testSubtitle").textContent =
+      `${questions.length} questions · 1 mark each`;
+    showSection("testSection");
+    renderQuestion();
+  }
+
+  function startTest(chapterIds,type) {
+    const orderedChapters = currentChapters().filter(ch =>
+      chapterIds.includes(ch.id)
+    );
+    if (!orderedChapters.length) return;
+
+    const byChapter = orderedChapters.map(ch => ({
+      chapter:ch,
+      questions:shuffle(chapterQuestions(ch.id))
+    })).filter(group => group.questions.length);
+
+    let questions = [];
+    if (type === "grouped") {
+      byChapter.forEach(group => questions.push(...group.questions));
+    } else {
+      questions = shuffle(byChapter.flatMap(group => group.questions));
+    }
+
+    if (!questions.length) {
+      alert("No questions are available for the selected chapters.");
+      return;
+    }
+
+    state.mode = "test";
+    state.questions = questions;
+    state.answers = [];
+    state.questionIndex = 0;
+    state.testChapters = orderedChapters.map(ch => ch.id);
+    state.started = true;
+
+    $("testHeading").textContent = "Chapter Test";
+    $("testSubtitle").textContent =
+      `${questions.length} questions · 1 mark each`;
+    showSection("testSection");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = state.questions[state.questionIndex];
+    const area = $("questionArea");
+    area.replaceChildren();
+    $("progressBar").style.width =
+      `${(state.questionIndex/state.questions.length)*100}%`;
+
+    const count = document.createElement("div");
+    count.className = "small";
+    count.textContent =
+      `Question ${state.questionIndex+1} of ${state.questions.length}`;
+
+    const chapter = state.chapters.find(ch => ch.id === q.chapterId);
+    const label = document.createElement("span");
+    label.className = "pill";
+    label.textContent = chapter?.name || "Chapter";
+
+    const question = document.createElement("div");
+    question.className = "question";
+    question.textContent = q.question || "Question";
+
+    area.append(count,label,question);
+
+    const options = document.createElement("div");
+    const savedAnswer = state.answers[state.questionIndex];
+
+    q.options.forEach((option,index) => {
+      const button = document.createElement("button");
+      button.className = "option";
+      button.textContent =
+        `${String.fromCharCode(65+index)}. ${safeText(option)}`;
+      button.disabled = savedAnswer !== undefined;
+
+      if (savedAnswer !== undefined) {
+        if (index === Number(q.correctIndex)) button.classList.add("correct");
+        if (index === savedAnswer && savedAnswer !== Number(q.correctIndex))
+          button.classList.add("wrong");
+      }
+
+      button.addEventListener("click",() => chooseAnswer(index));
+      options.append(button);
+    });
+    area.append(options);
+
+    if (savedAnswer !== undefined) {
+      const correct = savedAnswer === Number(q.correctIndex);
+      const feedback = document.createElement("div");
+      feedback.className = `feedback ${correct ? "good" : "bad"}`;
+      feedback.textContent =
+        `${correct ? "Correct answer." : "Incorrect answer."} ` +
+        (q.explanation || "");
+      area.append(feedback);
+
+      const next = document.createElement("button");
+      next.className = "btn";
+      next.textContent =
+        state.questionIndex === state.questions.length-1
+          ? "View result" : "Next question";
+      next.addEventListener("click",nextQuestion);
+      area.append(next);
+    }
+  }
+
+  function chooseAnswer(index) {
+    if (state.answers[state.questionIndex] !== undefined) return;
+    state.answers[state.questionIndex] = index;
+    renderQuestion();
+  }
+
+  function nextQuestion() {
+    if (state.questionIndex < state.questions.length-1) {
+      state.questionIndex++;
+      renderQuestion();
+    } else {
+      if (state.mode === "test") renderResult();
+      else finishPractice();
+    }
+  }
+
+  function finishPractice() {
+    const correct = state.answers.filter((answer,index) =>
+      answer === Number(state.questions[index].correctIndex)
+    ).length;
+    $("progressBar").style.width = "100%";
+    $("questionArea").replaceChildren();
+
+    const h = document.createElement("h2");
+    h.textContent = "Practice completed";
+    const p = document.createElement("p");
+    p.textContent = `${correct} correct out of ${state.questions.length}`;
+    const button = document.createElement("button");
+    button.className = "btn";
+    button.textContent = "Back to chapters";
+    button.addEventListener("click",() => showSection("chaptersSection"));
+    $("questionArea").append(h,p,button);
+  }
+
+  function renderResult() {
+    const total = state.questions.length;
+    const correct = state.answers.filter((answer,index) =>
+      answer === Number(state.questions[index].correctIndex)
+    ).length;
+    const wrong = total-correct;
+    const percentage = total ? (correct/total)*100 : 0;
+
+    $("progressBar").style.width = "100%";
+    const body = $("resultBody");
+    body.replaceChildren();
+
+    const stats = document.createElement("div");
+    stats.className = "stats";
+    [
+      ["Total questions",total],
+      ["Obtained marks",`${correct}/${total}`],
+      ["Correct",correct],
+      ["Wrong",wrong]
+    ].forEach(([label,value]) => {
+      const box = document.createElement("div");
+      box.className = "stat";
+      const strong = document.createElement("strong");
+      strong.textContent = value;
+      const span = document.createElement("span");
+      span.textContent = label;
+      box.append(strong,span);
+      stats.append(box);
+    });
+
+    const score = document.createElement("div");
+    score.className = "card";
+    const scoreTitle = document.createElement("h2");
+    scoreTitle.textContent = `${percentage.toFixed(1)}%`;
+    const scoreText = document.createElement("p");
+    scoreText.textContent = "Overall percentage";
+    score.append(scoreTitle,scoreText);
+
+    const chapterTitle = document.createElement("h3");
+    chapterTitle.textContent = "Chapter-wise performance";
+    chapterTitle.style.margin = "22px 0 10px";
+
+    const chapterResults = document.createElement("div");
+    chapterResults.className = "grid";
+
+    state.testChapters.forEach(chapterId => {
+      const qs = state.questions.map((q,index) => ({q,index}))
+        .filter(item => item.q.chapterId === chapterId);
+      const marks = qs.filter(item =>
+        state.answers[item.index] === Number(item.q.correctIndex)
+      ).length;
+      const chapter = state.chapters.find(ch => ch.id === chapterId);
+      const card = document.createElement("div");
+      card.className = "card";
+      const h = document.createElement("h3");
+      h.textContent = chapter?.name || "Chapter";
+      const p = document.createElement("p");
+      p.textContent = `${marks}/${qs.length} correct`;
+      card.append(h,p);
+      chapterResults.append(card);
+    });
+
+    const reviewTitle = document.createElement("h3");
+    reviewTitle.textContent = "Answer review";
+    reviewTitle.style.margin = "24px 0 10px";
+
+    const review = document.createElement("div");
+    state.questions.forEach((q,index) => {
+      const correctIndex = Number(q.correctIndex);
+      const selectedIndex = state.answers[index];
+      const item = document.createElement("div");
+      item.className = "review";
+
+      const title = document.createElement("strong");
+      title.textContent = `${index+1}. ${safeText(q.question)}`;
+
+      const selected = document.createElement("div");
+      selected.className = "answer";
+      selected.textContent =
+        `Your answer: ${safeText(q.options[selectedIndex])}`;
+
+      const answer = document.createElement("div");
+      answer.className = "answer";
+      answer.textContent =
+        `Correct answer: ${safeText(q.options[correctIndex])}`;
+
+      const explanation = document.createElement("p");
+      explanation.textContent = q.explanation || "";
+
+      item.append(title,selected,answer,explanation);
+      review.append(item);
+    });
+
+    const back = document.createElement("button");
+    back.className = "btn";
+    back.textContent = "Back to chapters";
+    back.style.marginTop = "20px";
+    back.addEventListener("click",() => showSection("chaptersSection"));
+
+    body.append(stats,score,chapterTitle,chapterResults,
+      reviewTitle,review,back);
+    showSection("resultSection");
+  }
+
+  $("backSubjects").addEventListener("click",() => {
+    state.currentSubject = null;
+    showSection("subjectsSection");
+  });
+
+  $("backChapters").addEventListener("click",() =>
+    showSection("chaptersSection")
+  );
+
+  $("exitTest").addEventListener("click",() => {
+    if (confirm("Exit this session? Your current progress will be lost.")) {
+      state.started = false;
+      showSection("chaptersSection");
+    }
+  });
+
+  $("selectAll").addEventListener("click",() => {
+    currentChapters().forEach(ch => state.selectedChapters.add(ch.id));
+    renderChapters();
+  });
+
+  $("clearSelection").addEventListener("click",() => {
+    state.selectedChapters.clear();
+    renderChapters();
+  });
+
+  $("selectedTest").addEventListener("click",() => {
+    if (!state.selectedChapters.size) return;
+    const choice = prompt(
+      "Enter 1 for Chapter-wise grouping or 2 for Full shuffle."
+    );
+    if (choice === "1")
+      startTest([...state.selectedChapters],"grouped");
+    else if (choice === "2")
+      startTest([...state.selectedChapters],"shuffle");
+  });
+
+  board.addEventListener("change",() => {
+    state.currentSubject = null;
+    state.selectedChapters.clear();
+    renderSubjects();
+    showSection("subjectsSection");
+  });
+
+  className.addEventListener("change",() => {
+    state.currentSubject = null;
+    state.selectedChapters.clear();
+    renderSubjects();
+    showSection("subjectsSection");
+  });
+
+  subjectSelect.addEventListener("change",() => {
+    const item = state.subjects.find(s => s.id === subjectSelect.value);
+    if (item) openSubject(item);
+  });
+
+  loadData();
+</script>
+</body>
+</html>
