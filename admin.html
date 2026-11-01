@@ -1,117 +1,1517 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#101827">
-<title>COMMERZO | Admin 2.0</title><link rel="icon" href="./commerzo-logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101827">
+<title>COMMERZO | Admin 2.0</title>
+<link rel="icon" href="./commerzo-logo.png">
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f4f6fb;color:#172033;font:15px/1.5 system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#f4f6fb;color:#172033;font:15px/1.5 system-ui,sans-serif}
 header{background:#101827;color:#fff;padding:14px 17px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:5}
 header img{width:42px;height:42px;object-fit:contain;background:#fff;border-radius:9px;padding:3px}
-main{max-width:1120px;margin:22px auto;padding:0 13px}.card{background:#fff;border:1px solid #e2e7f0;border-radius:15px;padding:17px;margin-bottom:14px;box-shadow:0 5px 20px #18213b08}
-h1{font-size:24px;margin:0 0 5px}h2{font-size:19px;margin:17px 0 9px}h3{font-size:16px;margin:0 0 8px}p{color:#657087}
+main{max-width:1120px;margin:22px auto;padding:0 13px}
+.card{background:#fff;border:1px solid #e2e7f0;border-radius:15px;padding:17px;margin-bottom:14px;box-shadow:0 5px 20px #18213b08}
+h1{font-size:24px;margin:0 0 5px}
+h2{font-size:19px;margin:17px 0 9px}
+h3{font-size:16px;margin:0 0 8px}
+p{color:#657087}
 label{display:block;font-size:13px;font-weight:700;color:#526078;margin:11px 0 5px}
 input,select,textarea{width:100%;min-width:0;padding:10px 11px;border:1px solid #cbd2df;border-radius:10px;font:inherit;background:#fff;color:#172033}
-textarea{min-height:78px;resize:vertical}input[type=file]{padding:8px}
-button{padding:10px 13px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
-.primary{background:#5145e5;color:#fff}.secondary{background:#edf0f7;color:#172033}.danger{background:#fee2e2;color:#991b1b}.outline{background:#fff;border:1px solid #d9d5ff;color:#5145e5}
-.hidden{display:none!important}.muted,.small,.help{font-size:13px;color:#657087;overflow-wrap:anywhere}.status{margin-top:9px;min-height:21px;overflow-wrap:anywhere}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
-.metric{background:#f7f8fc;padding:12px;border-radius:11px}.metric strong{display:block;font-size:24px}
-.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}.tab{background:#edf0f7;color:#172033}.tab.active{background:#5145e5;color:#fff}
-.entry{border:1px solid #e2e7f0;border-radius:11px;padding:12px;margin:9px 0;overflow-wrap:anywhere}.entryhead{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
+textarea{min-height:78px;resize:vertical}
+input[type=file]{padding:8px}
+button{padding:10px 13px;border:0;border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:#5145e5;color:#fff}
+.secondary{background:#edf0f7;color:#172033}
+.danger{background:#fee2e2;color:#991b1b}
+.outline{background:#fff;border:1px solid #d9d5ff;color:#5145e5}
+.hidden{display:none!important}
+.muted,.small,.help{font-size:13px;color:#657087;overflow-wrap:anywhere}
+.status{margin-top:9px;min-height:21px;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+.metric{background:#f7f8fc;padding:12px;border-radius:11px}
+.metric strong{display:block;font-size:24px}
+.tabs,.actions{display:flex;gap:8px;flex-wrap:wrap;margin:13px 0}
+.tab{background:#edf0f7;color:#172033}
+.tab.active{background:#5145e5;color:#fff}
+.entry{border:1px solid #e2e7f0;border-radius:11px;padding:12px;margin:9px 0;overflow-wrap:anywhere}
+.entryhead{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap}
 .filters,.formgrid,.optiongrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 11px}
 .filters{grid-template-columns:repeat(4,minmax(0,1fr));background:#f8f9fc;border-radius:11px;padding:11px;margin:12px 0}
-.full{grid-column:1/-1}.pill{display:inline-block;background:#eeedff;color:#4034c9;padding:3px 8px;border-radius:30px;font-size:11px}
-.draft{background:#fff3cd;color:#765600}.published{background:#dcfce7;color:#166534}
+.full{grid-column:1/-1}
+.pill{display:inline-block;background:#eeedff;color:#4034c9;padding:3px 8px;border-radius:30px;font-size:11px}
+.draft{background:#fff3cd;color:#765600}
+.published{background:#dcfce7;color:#166534}
 .notice{background:#fff5d8;color:#694e00;padding:11px;border-radius:10px;font-size:13px;margin:10px 0}
 .batchbar{position:sticky;bottom:5px;background:#ffffffed;border:1px solid #e2e7f0;padding:10px;border-radius:13px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;backdrop-filter:blur(8px);z-index:3}
-@media(max-width:680px){main{padding:0 9px}.card{padding:13px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.filters,.formgrid,.optiongrid,.grid{grid-template-columns:1fr}.full{grid-column:auto}.tab{flex:1 1 38%}.batchbar{position:sticky;bottom:4px}}
-</style></head>
-<body>
-<header><img src="./commerzo-logo.png" alt="COMMERZO" onerror="this.style.display='none'"><div><strong>COMMERZO ADMIN 2.0</strong><div class="small" style="color:#cbd5e1">Learn. Practice. Score.</div></div></header>
-<main>
-<section class="card" id="loginPanel"><h1>Admin Login</h1><p>Sign in using your authorized Firebase admin account.</p>
-<form id="loginForm"><label>Email address</label><input id="email" type="email" autocomplete="username" required><label>Password</label><input id="password" type="password" autocomplete="current-password" required><button class="primary" id="loginButton" style="width:100%;margin-top:14px">Sign in</button><div id="loginStatus" class="status" role="status"></div></form><div class="notice">Access requires admins/{uid}.role = "admin".</div></section>
-<section class="hidden" id="dashboard">
-<div class="card entryhead"><div><h1>Dashboard</h1><div id="account" class="muted"></div></div><button class="secondary" id="logoutButton">Sign out</button></div>
-<div class="card"><div id="mainStatus" class="status">Checking access…</div><div class="grid metrics"><div class="metric">Subjects<strong id="subjectCount">—</strong></div><div class="metric">Chapters<strong id="chapterCount">—</strong></div><div class="metric">MCQs<strong id="mcqCount">—</strong></div><div class="metric">Resources<strong id="resourceCount">—</strong></div></div>
-<div class="tabs"><button class="tab active" data-section="subjects">Subjects</button><button class="tab" data-section="chapters">Chapters</button><button class="tab" data-section="mcqs">MCQ Studio</button><button class="tab" data-section="resources">Resources</button></div>
-<div class="entryhead"><div><h2 id="sectionTitle">Subjects</h2><p id="sectionHelp" class="muted"></p></div><button class="outline" id="refreshButton">Refresh</button></div>
-<div id="filters"></div><div id="editor"></div><div id="contentStatus" class="status" role="status"></div><h2 id="listTitle">Saved content</h2><div id="entries"></div></div>
-</section></main>
-<script type="module">
-import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import{getFirestore,doc,getDoc,collection,getDocs,addDoc,updateDoc,deleteDoc,serverTimestamp,writeBatch,setDoc}from"https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-const firebaseConfig={apiKey:"AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",authDomain:"commerzo-42fd2.firebaseapp.com",projectId:"commerzo-42fd2",storageBucket:"commerzo-42fd2.firebasestorage.app",messagingSenderId:"472656083923",appId:"1:472656083923:web:022b77078ec9e07db00d26",measurementId:"G-RCHSTFTQM2"};
-const MEDIA_ENDPOINT="https://rawnsqcovqckwreuegpz.supabase.co/functions/v1/super-action",MAX_SIZE=20*1024*1024,ALLOWED=new Set(["application/pdf","image/jpeg","image/png","image/webp","video/mp4"]);
-const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app),$=id=>document.getElementById(id);
-const sections=["subjects","chapters","mcqs","resources"],cache={subjects:[],chapters:[],mcqs:[],resources:[]};
-let active="subjects",verifiedUid=null,authRun=0,editId=null,batchQueue=[],batchIds={};
-const cfg={
-subjects:{title:"Subjects",help:"Create MP Board, CBSE or shared subjects.",fields:[["name","Subject name","text",1],["board","Board","select",1,["MP Board","CBSE","Both"]],["className","Class","select",1,["11","12","11 and 12"]],["code","Subject code","text"],["description","Description","textarea"]]},
-chapters:{title:"Chapters",help:"Select a subject to see its chapters grouped correctly.",fields:[["name","Chapter name","text",1],["subjectId","Subject","subject",1],["board","Board","select",1,["MP Board","CBSE","Both"]],["className","Class","select",1,["11","12"]],["order","Chapter number / order","number",1],["description","Description","textarea"]]},
-resources:{title:"Study Resources",help:"Existing Supabase private upload flow is retained.",fields:[["title","Resource title","text",1],["type","Resource type","select",1,["Handwritten Notes","Previous Year Papers","Marking Scheme","Sample Papers","Important Questions","Syllabus","Other"]],["subjectId","Subject","subject"],["chapterId","Chapter","chapter"],["board","Board","select",1,["MP Board","CBSE","Both"]],["className","Class","select",1,["11","12","11 and 12"]],["url","Existing URL","url"],["file","Upload file","file"],["description","Description","textarea"]]}
-};
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const titleOf=r=>r.name||r.title||r.question||"Untitled";
-function setStatus(t){$("contentStatus").textContent=t}
-function boardOK(item,b){return !b||!item.board||item.board==="Both"||item.board===b}
-function classOK(item,c){return !c||!item.className||["11 and 12","11 & 12","both"].includes(String(item.className).toLowerCase())||String(item.className)===c}
-function subjectItems(board,cls){return cache.subjects.filter(x=>boardOK(x,board)&&classOK(x,cls))}
-function chapterItems(subjectId,board,cls){return cache.chapters.filter(x=>(!subjectId||x.subjectId===subjectId)&&boardOK(x,board)&&classOK(x,cls))}
-function fieldHTML(f,val=""){let[id,label,type,req,opts]=f,control="";
-if(type==="select")control=`<select id="f_${id}" ${req?"required":""}><option value="">Choose…</option>${opts.map(v=>`<option ${v===val?"selected":""}>${esc(v)}</option>`).join("")}</select>`;
-else if(type==="subject"||type==="chapter"){let arr=type==="subject"?cache.subjects:cache.chapters;control=`<select id="f_${id}" ${req?"required":""}><option value="">Choose…</option>${arr.map(x=>`<option value="${esc(x.id)}" ${x.id===val?"selected":""}>${esc(titleOf(x))}</option>`).join("")}</select>`}
-else if(type==="textarea")control=`<textarea id="f_${id}">${esc(val)}</textarea>`;
-else if(type==="file")control=`<input id="f_file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.mp4,application/pdf,image/jpeg,image/png,image/webp,video/mp4"><div class="help" id="currentFile"></div>`;
-else control=`<input id="f_${id}" type="${type}" ${req?"required":""} value="${esc(val)}">`;
-return `<div class="${["description","question"].includes(id)?"full":""}"><label>${label}${req?" *":""}</label>${control}</div>`}
-function renderFilters(){if(active==="subjects"){$("filters").innerHTML="";return}
-let b=$("filterBoard")?.value||"",cl=$("filterClass")?.value||"",s=$("filterSubject")?.value||"",ch=$("filterChapter")?.value||"";
-$("filters").innerHTML=`<div class="filters"><div><label>Board</label><select id="filterBoard"><option value="">All boards</option><option>MP Board</option><option>CBSE</option></select></div><div><label>Class</label><select id="filterClass"><option value="">All classes</option><option>11</option><option>12</option></select></div><div><label>Subject</label><select id="filterSubject"><option value="">All subjects</option>${subjectItems(b,cl).map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")}</select></div><div><label>Chapter</label><select id="filterChapter"><option value="">All chapters</option>${chapterItems(s,b,cl).map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")}</select></div></div>`;
-$("filterBoard").value=b;$("filterClass").value=cl;$("filterSubject").value=s;$("filterChapter").value=ch;
-["filterBoard","filterClass","filterSubject","filterChapter"].forEach(id=>$(id).onchange=()=>{let nb=$("filterBoard").value,nc=$("filterClass").value,ns=$("filterSubject").value;let keep=id==="filterChapter"?$("filterChapter").value:"";if(id!=="filterChapter"){$("filters").dataset.subject=ns;$("filters").dataset.chapter=""}renderFilters();if(id!=="filterChapter"){$("filterSubject").value=ns;$("filterChapter").value=""}else $("filterChapter").value=keep;renderEntries()})}
-function renderEditor(){if(active==="mcqs"){renderBatchEditor();return}let c=cfg[active];$("editor").innerHTML=`<form id="contentForm" class="card"><h3>${editId?"Edit":"Add"} ${active==="resources"?"resource":active.slice(0,-1)}</h3><div class="formgrid">${c.fields.map(f=>fieldHTML(f)).join("")}</div><div class="actions"><button class="primary">${editId?"Save changes":"Save "+active.slice(0,-1)}</button><button type="button" class="secondary" id="cancelEdit">Cancel</button></div></form>`;
-$("cancelEdit").onclick=()=>{editId=null;renderManager()};$("contentForm").onsubmit=saveStandard;
-if(active==="resources" )$("f_subjectId")?.addEventListener("change",()=>{let s=$("f_subjectId").value,sel=$("f_chapterId");if(sel)sel.innerHTML='<option value="">— None —</option>'+chapterItems(s,"","").map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join("")});
+@media(max-width:680px){
+ main{padding:0 9px}
+ .card{padding:13px}
+ .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .filters,.formgrid,.optiongrid,.grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .tab{flex:1 1 38%}
+ .batchbar{position:sticky;bottom:4px}
 }
-function renderBatchEditor(){let s=batchSettings();let subs=subjectItems(s.board,s.className),chs=chapterItems(s.subjectId,s.board,s.className);
-$("editor").innerHTML=`<section class="card"><h3>① Batch setup</h3><div class="formgrid"><div><label>Board</label><select id="bBoard"><option ${s.board==="MP Board"?"selected":""}>MP Board</option><option ${s.board==="CBSE"?"selected":""}>CBSE</option></select></div><div><label>Class</label><select id="bClass"><option value="11" ${s.className==="11"?"selected":""}>11</option><option value="12" ${s.className==="12"?"selected":""}>12</option></select></div><div><label>Subject</label><select id="bSubject"><option value="">Choose subject</option>${subs.map(x=>`<option value="${esc(x.id)}" ${x.id===s.subjectId?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div><div><label>Chapter</label><select id="bChapter"><option value="">Choose chapter</option>${chs.map(x=>`<option value="${esc(x.id)}" ${x.id===s.chapterId?"selected":""}>${esc(x.name)}</option>`).join("")}</select></div><div><label>Default difficulty</label><select id="bDifficulty"><option>Easy</option><option ${s.difficulty==="Medium"?"selected":""}>Medium</option><option ${s.difficulty==="Hard"?"selected":""}>Hard</option></select></div></div><p class="help">Set these once. Each added question keeps the same board, class, subject and chapter.</p></section>
-<section class="card"><h3>② Fast MCQ entry</h3><form id="mcqForm"><label>Question *</label><textarea id="qQuestion" required></textarea><div class="optiongrid"><div><label>Option A *</label><input id="qA" required></div><div><label>Option B *</label><input id="qB" required></div><div><label>Option C *</label><input id="qC" required></div><div><label>Option D *</label><input id="qD" required></div></div><div class="formgrid"><div><label>Correct answer *</label><select id="qCorrect" required><option value="">Choose</option><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div><div><label>Difficulty</label><select id="qDifficulty"><option value="">Use batch default</option><option>Easy</option><option>Medium</option><option>Hard</option></select></div><div class="full"><label>Explanation (optional)</label><textarea id="qExplanation"></textarea></div></div><button class="primary" type="submit">Save & Add Next</button></form><div id="batchStatus" class="status"></div></section>
-<section class="card"><div class="entryhead"><div><h3>③ Batch review</h3><div class="muted">Review before saving as drafts or publishing.</div></div><span class="pill" id="queueCount">${batchQueue.length} queued</span></div><div id="queueList"></div><div class="batchbar"><strong id="queueSummary">${batchQueue.length} ready</strong><div class="actions"><button class="secondary" id="clearQueue">Clear</button><button class="outline" id="saveDrafts">Save drafts</button><button class="primary" id="publishQueue">Publish batch</button></div></div></section>`;
-["bBoard","bClass","bSubject"].forEach(id=>$(id).onchange=()=>{let s=batchSettings();s.board=$("bBoard").value;s.className=$("bClass").value;s.subjectId=$("bSubject").value;s.chapterId="";renderBatchEditor()});
-$("bChapter").onchange=()=>batchSettings().chapterId=$("bChapter").value;$("bDifficulty").onchange=()=>batchSettings().difficulty=$("bDifficulty").value;
-$("mcqForm").onsubmit=e=>{e.preventDefault();queueMCQ()};$("clearQueue").onclick=()=>{if(confirm("Clear the current unsaved review queue?")){batchQueue=[];renderQueue()}};
-$("saveDrafts").onclick=()=>persistQueue("draft");$("publishQueue").onclick=()=>persistQueue("published");renderQueue()}
-let settings={board:"MP Board",className:"12",subjectId:"",chapterId:"",difficulty:"Medium"};function batchSettings(){return settings}
-function queueMCQ(){let s=batchSettings(),q=$("qQuestion").value.trim(),options=[$("qA").value.trim(),$("qB").value.trim(),$("qC").value.trim(),$("qD").value.trim()],ci=$("qCorrect").value;if(!s.subjectId||!s.chapterId){$("batchStatus").textContent="Select subject and chapter first.";return}if(!q||options.some(x=>!x)||ci===""){$("batchStatus").textContent="Complete the question, all options and correct answer.";return}
-batchQueue.push({question:q,options,correctIndex:Number(ci),explanation:$("qExplanation").value.trim(),difficulty:$("qDifficulty").value||s.difficulty,subjectId:s.subjectId,chapterId:s.chapterId,board:s.board,className:s.className,status:"draft"});$("mcqForm").reset();$("batchStatus").textContent="Added to review. Batch settings retained.";renderQueue()}
-function renderQueue(){if(!$("queueList"))return;$("queueCount").textContent=batchQueue.length+" queued";$("queueSummary").textContent=batchQueue.length+" MCQs ready";$("queueList").innerHTML=batchQueue.length?batchQueue.map((q,i)=>`<article class="entry"><div class="entryhead"><strong>${i+1}. ${esc(q.question)}</strong><button class="danger" data-remove="${i}">Remove</button></div><div class="small">${esc(q.board)} · Class ${esc(q.className)} · ${esc(cache.subjects.find(x=>x.id===q.subjectId)?.name||"")} · ${esc(cache.chapters.find(x=>x.id===q.chapterId)?.name||"")} · Correct ${"ABCD"[q.correctIndex]}</div></article>`).join(""):'<p class="muted">No questions queued.</p>';document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{batchQueue.splice(Number(b.dataset.remove),1);renderQueue()})}
-async function persistQueue(state){if(!batchQueue.length){$("batchStatus").textContent="Queue at least one MCQ first.";return}if(!confirm(`${state==="draft"?"Save":"Publish"} ${batchQueue.length} MCQs?`))return;const buttons=[$("saveDrafts"),$("publishQueue")];buttons.forEach(b=>b.disabled=true);try{
-let docs=batchQueue.map(q=>{if(!q._id)q._id=doc(collection(db,"mcqs")).id;return q});
-for(let start=0;start<docs.length;start+=400){let wb=writeBatch(db);for(const q of docs.slice(start,start+400)){let data={...q,status:state,createdBy:verifiedUid,updatedAt:serverTimestamp()};delete data._id;wb.set(doc(db,"mcqs",q._id),data,{merge:true})}await wb.commit()}
-$("batchStatus").textContent=`${docs.length} MCQs ${state==="draft"?"saved as drafts":"published"}.`;batchQueue=[];await refreshAll();renderBatchEditor()
-}catch(e){console.error(e);$("batchStatus").textContent="Save failed: "+(e.message||e.code)+". Retry uses the same generated document IDs, preventing duplicate documents."}finally{buttons.forEach(b=>b.disabled=false)}}
-function currentList(){let arr=cache[active];if(active==="subjects")return arr;let b=$("filterBoard")?.value||"",cl=$("filterClass")?.value||"",s=$("filterSubject")?.value||"",ch=$("filterChapter")?.value||"";return arr.filter(x=>boardOK(x,b)&&classOK(x,cl)&&(!s||x.subjectId===s)&&(!ch||x.chapterId===ch))}
-function renderEntries(){let arr=currentList();if(active==="chapters"||active==="mcqs"){let key=active==="chapters"?"subjectId":"chapterId",groups={};arr.forEach(x=>(groups[x[key]||"unlinked"]??=[]).push(x));$("entries").innerHTML=arr.length?Object.entries(groups).map(([id,items])=>{let p=active==="chapters"?cache.subjects.find(x=>x.id===id):cache.chapters.find(x=>x.id===id);return `<section class="card"><h3>${esc(p?.name||"Unlinked")} <span class="pill">${items.length}</span></h3>${items.map(entryHTML).join("")}</section>`}).join(""):'<p class="muted">No matching records.</p>'}else $("entries").innerHTML=arr.length?arr.map(entryHTML).join(""):'<p class="muted">No records saved.</p>';
-$("entries").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editItem(b.dataset.edit));$("entries").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>removeItem(b.dataset.delete));$("entries").querySelectorAll("[data-state]").forEach(b=>b.onclick=()=>changeMCQState(b.dataset.state,b.dataset.value))}
-function entryHTML(r){let meta=active==="chapters"?`${cache.subjects.find(x=>x.id===r.subjectId)?.name||"Subject missing"} · ${r.board||""} · Class ${r.className||""}`:active==="mcqs"?`${cache.subjects.find(x=>x.id===r.subjectId)?.name||"Subject missing"} · ${cache.chapters.find(x=>x.id===r.chapterId)?.name||"Chapter missing"} · ${r.board||""} · Correct ${"ABCD"[Number(r.correctIndex)]||"?"}`:active==="resources"?`${r.type||""} · ${r.board||""} · ${r.storagePath?"Private file":r.url?"URL":"No file"}`:`${r.board||""} · Class ${r.className||""}`;
-return `<article class="entry"><div class="entryhead"><strong>${esc(titleOf(r))}</strong>${active==="mcqs"?`<span class="pill ${r.status==="draft"?"draft":"published"}">${r.status||"legacy published"}</span>`:""}</div><div class="small">${esc(meta)}</div>${active==="mcqs"?`<div class="small">${esc((r.options||[]).map((o,i)=>"("+ "ABCD"[i]+") "+o).join(" · "))}</div>`:""}<div class="actions">${active==="mcqs"?`<button class="${r.status==="published"?"secondary":"primary"}" data-state="${esc(r.id)}" data-value="${r.status==="published"?"draft":"published"}">${r.status==="published"?"Move to draft":"Publish"}</button>`:""}<button class="secondary" data-edit="${esc(r.id)}">Edit</button><button class="danger" data-delete="${esc(r.id)}">Delete</button></div></article>`}
-async function changeMCQState(id,value){try{await updateDoc(doc(db,"mcqs",id),{status:value,updatedAt:serverTimestamp()});setStatus(value==="published"?"Published.":"Moved to draft.");await refreshAll()}catch(e){setStatus("Status update failed: "+(e.message||e.code))}}
-async function editItem(id){let r=cache[active].find(x=>x.id===id);if(!r)return;editId=id;if(active==="mcqs"){renderMCQEdit(r);return}renderEditor();for(let f of cfg[active].fields){if(f[0]==="file")continue;let el=$("f_"+f[0]);if(el)el.value=r[f[0]]??""}if(active==="resources"&&$("currentFile"))$("currentFile").textContent=r.fileName?"Existing private file: "+r.fileName:"";window.scrollTo({top:0,behavior:"smooth"})}
-function renderMCQEdit(r){$("editor").innerHTML=`<form id="mcqEditForm" class="card"><h3>Edit MCQ</h3><label>Question</label><textarea id="eQuestion" required>${esc(r.question)}</textarea><div class="optiongrid">${(r.options||["","","",""]).map((x,i)=>`<div><label>Option ${"ABCD"[i]}</label><input id="eOpt${i}" value="${esc(x)}" required></div>`).join("")}</div><div class="formgrid"><div><label>Correct answer</label><select id="eCorrect">${["A","B","C","D"].map((x,i)=>`<option value="${i}" ${Number(r.correctIndex)===i?"selected":""}>${x}</option>`).join("")}</select></div><div><label>Difficulty</label><select id="eDifficulty">${["Easy","Medium","Hard"].map(x=>`<option ${r.difficulty===x?"selected":""}>${x}</option>`).join("")}</select></div><div class="full"><label>Explanation</label><textarea id="eExplanation">${esc(r.explanation||"")}</textarea></div></div><div class="actions"><button class="primary">Save MCQ</button><button type="button" class="secondary" id="cancelMCQEdit">Cancel</button></div></form>`;$("cancelMCQEdit").onclick=()=>{editId=null;renderManager()};$("mcqEditForm").onsubmit=async e=>{e.preventDefault();try{let data={question:$("eQuestion").value.trim(),options:[0,1,2,3].map(i=>$("eOpt"+i).value.trim()),correctIndex:Number($("eCorrect").value),difficulty:$("eDifficulty").value,explanation:$("eExplanation").value.trim(),updatedAt:serverTimestamp()};await updateDoc(doc(db,"mcqs",id),data);editId=null;setStatus("MCQ updated.");await refreshAll()}catch(err){setStatus("Update failed: "+(err.message||err.code))}}}
-async function saveStandard(e){e.preventDefault();let data={},fields=cfg[active].fields;for(let f of fields){let[id,label,type]=f;if(type==="file")continue;let v=$("f_"+id)?.value?.trim()??"";if(type==="number")v=v===""?null:Number(v);if(v!==""&&v!==null)data[id]=v}
-let file=active==="resources"?$("f_file").files?.[0]:null;if(active==="resources"){if(!file&&!data.url&&!editId){setStatus("Provide a URL or upload a file.");return}if(data.url&&!/^https?:\\/\\//i.test(data.url)){setStatus("URL must start with http:// or https://.");return}}
-try{if(active==="resources"&&file){if(file.size<1||file.size>MAX_SIZE||!ALLOWED.has(file.type))throw Error("Use PDF/JPG/PNG/WEBP/MP4 up to 20 MiB.");let token=await auth.currentUser.getIdToken(true),fd=new FormData();fd.append("file",file,file.name);let res=await fetch(MEDIA_ENDPOINT,{method:"POST",headers:{Authorization:"Bearer "+token},body:fd}),up=await res.json().catch(()=>({}));if(!res.ok||!up.ok||!up.storagePath)throw Error(up.error||"Upload failed");Object.assign(data,{storagePath:up.storagePath,fileName:up.fileName||file.name,fileType:up.fileType||file.type,fileSize:up.fileSize||file.size,uploadedBy:up.uploadedBy||verifiedUid,storageProvider:"supabase"})}else if(active==="resources"&&editId){let old=cache.resources.find(x=>x.id===editId);if(old?.storagePath)for(let k of ["storagePath","fileName","fileType","fileSize","uploadedBy","storageProvider"])data[k]=old[k]}
-if(active==="resources"&&!data.url)delete data.url;if(active==="resources"&&!data.url&&!data.storagePath)throw Error("Resource requires URL or uploaded file.");
-data.updatedAt=serverTimestamp();if(editId)await updateDoc(doc(db,active,editId),data);else{data.createdAt=serverTimestamp();await addDoc(collection(db,active),data)}editId=null;setStatus("Saved successfully.");await refreshAll()}catch(err){console.error(err);setStatus("Save failed: "+(err.message||err.code))}}
-async function removeItem(id){let r=cache[active].find(x=>x.id===id);if(!r||!confirm(`Delete "${titleOf(r)}" from Firestore? This cannot be undone. Stored file will not be deleted automatically.`))return;try{await deleteDoc(doc(db,active,id));setStatus("Deleted.");await refreshAll()}catch(e){setStatus("Delete failed: "+(e.message||e.code))}}
-async function refreshAll(){ $("mainStatus").textContent="Loading Firestore…";try{for(let s of sections){let snap=await getDocs(collection(db,s));cache[s]=snap.docs.map(d=>({id:d.id,...d.data()}))}for(let id of ["subjectCount","chapterCount","mcqCount","resourceCount"])$(id).textContent=cache[id.replace("Count","")].length;$("mainStatus").textContent="Connected. Existing records preserved.";renderManager()}catch(e){console.error(e);$("mainStatus").textContent="Load failed: "+(e.message||e.code)}}
-function renderManager(){$("sectionTitle").textContent=active==="mcqs"?"MCQ Studio":cfg[active].title;$("sectionHelp").textContent=active==="mcqs"?"Batch setup once, add questions quickly, review, then save or publish.":cfg[active].help;$("listTitle").textContent=active==="chapters"?"Chapters grouped by subject":active==="mcqs"?"MCQs grouped by chapter":"Saved "+active;$("filters").innerHTML="";renderFilters();renderEditor();renderEntries()}
-function switchSection(s){active=s;editId=null;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.section===s));setStatus("");renderManager()}
-onAuthStateChanged(auth,async user=>{let run=++authRun;$("dashboard").classList.add("hidden");if(!user){verifiedUid=null;$("loginPanel").classList.remove("hidden");return}$("loginPanel").classList.add("hidden");try{let snap=await getDoc(doc(db,"admins",user.uid));if(run!==authRun)return;if(!snap.exists()||snap.data().role!=="admin"){await signOut(auth);$("loginPanel").classList.remove("hidden");$("loginStatus").textContent="Access denied: admin role not found.";return}verifiedUid=user.uid;$("account").textContent="Admin: "+(user.email||user.uid);$("dashboard").classList.remove("hidden");await refreshAll()}catch(e){console.error(e);await signOut(auth).catch(()=>{});$("loginPanel").classList.remove("hidden");$("loginStatus").textContent="Admin verification failed: "+(e.message||e.code)}});
-$("loginForm").onsubmit=async e=>{e.preventDefault();$("loginButton").disabled=true;try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(err){$("loginStatus").textContent=err.message||err.code}finally{$("loginButton").disabled=false}};
-$("logoutButton").onclick=()=>signOut(auth);$("refreshButton").onclick=refreshAll;document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>switchSection(b.dataset.section));
-</script></body></html>
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="./commerzo-logo.png" alt="COMMERZO"
+onerror="this.style.display='none'">
+<div>
+<strong>COMMERZO ADMIN 2.0</strong>
+<div class="small" style="color:#cbd5e1">Learn. Practice. Score.</div>
+</div>
+</header>
+
+<main>
+
+<section class="card" id="loginPanel">
+<h1>Admin Login</h1>
+<p>Sign in using your authorized Firebase admin account.</p>
+
+<form id="loginForm">
+<label>Email address</label>
+<input id="email" type="email" autocomplete="username" required>
+
+<label>Password</label>
+<input id="password" type="password" autocomplete="current-password" required>
+
+<button class="primary" id="loginButton" style="width:100%;margin-top:14px">
+Sign in
+</button>
+
+<div id="loginStatus" class="status" role="status"></div>
+</form>
+
+<div class="notice">
+Access requires admins/{uid}.role = "admin".
+</div>
+</section>
+
+<section class="hidden" id="dashboard">
+
+<div class="card entryhead">
+<div>
+<h1>Dashboard</h1>
+<div id="account" class="muted"></div>
+</div>
+<button class="secondary" id="logoutButton">Sign out</button>
+</div>
+
+<div class="card">
+
+<div id="mainStatus" class="status">Checking access…</div>
+
+<div class="grid metrics">
+<div class="metric">Subjects<strong id="subjectCount">—</strong></div>
+<div class="metric">Chapters<strong id="chapterCount">—</strong></div>
+<div class="metric">MCQs<strong id="mcqCount">—</strong></div>
+<div class="metric">Resources<strong id="resourceCount">—</strong></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-section="subjects">Subjects</button>
+<button class="tab" data-section="chapters">Chapters</button>
+<button class="tab" data-section="mcqs">MCQ Studio</button>
+<button class="tab" data-section="resources">Resources</button>
+</div>
+
+<div class="entryhead">
+<div>
+<h2 id="sectionTitle">Subjects</h2>
+<p id="sectionHelp" class="muted"></p>
+</div>
+<button class="outline" id="refreshButton">Refresh</button>
+</div>
+
+<div id="filters"></div>
+<div id="editor"></div>
+<div id="contentStatus" class="status" role="status"></div>
+
+<h2 id="listTitle">Saved content</h2>
+<div id="entries"></div>
+
+</div>
+</section>
+  </main>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  writeBatch
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",
+  authDomain: "commerzo-42fd2.firebaseapp.com",
+  projectId: "commerzo-42fd2",
+  storageBucket: "commerzo-42fd2.firebasestorage.app",
+  messagingSenderId: "472656083923",
+  appId: "1:472656083923:web:022b77078ec9e07db00d26",
+  measurementId: "G-RCHSTFTQM2"
+};
+
+const app = initializeApp(firebaseConfig, "commerzo-admin-2");
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const MEDIA_ENDPOINT =
+  "https://rawnsqcovqckwreuegpz.supabase.co/functions/v1/super-action";
+
+const MAX_SIZE = 20 * 1024 * 1024;
+
+const ALLOWED_TYPES = [
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "video/mp4"
+];
+
+const $ = id => document.getElementById(id);
+
+const state = {
+  user: null,
+  section: "subjects",
+  subjects: [],
+  chapters: [],
+  mcqs: [],
+  resources: [],
+  filters: {
+    board: "MP Board",
+    className: "12",
+    subjectId: "",
+    chapterId: ""
+  },
+  editing: null,
+  batch: [],
+  batchSettings: {
+    board: "MP Board",
+    className: "12",
+    subjectId: "",
+    chapterId: "",
+    difficulty: "Medium"
+  },
+  saving: false
+};
+
+const BOARD_OPTIONS = ["MP Board", "CBSE", "Both"];
+const CLASS_OPTIONS = ["11", "12", "Both"];
+const DIFFICULTIES = ["Easy", "Medium", "Hard"];
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function setStatus(id, message, error = false) {
+  const element = $(id);
+  if (!element) return;
+  element.textContent = message;
+  element.style.color = error ? "#b42318" : "#167447";
+}
+
+function optionList(values, selected) {
+  return values.map(value =>
+    `<option value="${esc(value)}" ${String(value) === String(selected) ? "selected" : ""}>${esc(value)}</option>`
+  ).join("");
+}
+
+function subjectOptions(board, className, selected = "") {
+  const subjects = state.subjects.filter(subject =>
+    matchesBoard(subject, board) &&
+    matchesClass(subject, className)
+  );
+
+  return `<option value="">Select subject</option>` +
+    subjects.map(subject =>
+      `<option value="${esc(subject.id)}" ${subject.id === selected ? "selected" : ""}>${esc(subject.name)}</option>`
+    ).join("");
+}
+
+function chapterOptions(subjectId, board, className, selected = "") {
+  const chapters = state.chapters.filter(chapter =>
+    chapter.subjectId === subjectId &&
+    matchesBoard(chapter, board) &&
+    matchesClass(chapter, className)
+  );
+
+  return `<option value="">Select chapter</option>` +
+    chapters.map(chapter =>
+      `<option value="${esc(chapter.id)}" ${chapter.id === selected ? "selected" : ""}>${esc(chapter.name)}</option>`
+    ).join("");
+}
+
+function matchesBoard(item, board) {
+  const value = String(item.board || "").trim();
+  return !value || value === "Both" || value === board;
+}
+
+function matchesClass(item, className) {
+  const value = String(item.className || "").trim().toLowerCase();
+  return !value ||
+    value === "both" ||
+    value === String(className).toLowerCase() ||
+    value === "11 and 12" ||
+    value === "11 & 12";
+}
+
+function selectedSubject() {
+  return state.subjects.find(subject =>
+    subject.id === state.filters.subjectId
+  );
+}
+
+function selectedChapter() {
+  return state.chapters.find(chapter =>
+    chapter.id === state.filters.chapterId
+  );
+}
+
+function filteredSubjects() {
+  return state.subjects.filter(subject =>
+    matchesBoard(subject, state.filters.board) &&
+    matchesClass(subject, state.filters.className)
+  );
+}
+
+function filteredChapters() {
+  return state.chapters.filter(chapter =>
+    matchesBoard(chapter, state.filters.board) &&
+    matchesClass(chapter, state.filters.className) &&
+    (!state.filters.subjectId ||
+      chapter.subjectId === state.filters.subjectId)
+  );
+}
+
+function filteredMcqs() {
+  return state.mcqs.filter(mcq =>
+    matchesBoard(mcq, state.filters.board) &&
+    matchesClass(mcq, state.filters.className) &&
+    (!state.filters.subjectId ||
+      mcq.subjectId === state.filters.subjectId) &&
+    (!state.filters.chapterId ||
+      mcq.chapterId === state.filters.chapterId)
+  );
+}
+
+function filteredResources() {
+  return state.resources.filter(resource =>
+    matchesBoard(resource, state.filters.board) &&
+    matchesClass(resource, state.filters.className) &&
+    (!state.filters.subjectId ||
+      resource.subjectId === state.filters.subjectId) &&
+    (!state.filters.chapterId ||
+      !resource.chapterId ||
+      resource.chapterId === state.filters.chapterId)
+  );
+}
+
+async function loadAll() {
+  setStatus("mainStatus", "Loading COMMERZO data…");
+
+  const names = ["subjects", "chapters", "mcqs", "resources"];
+
+  const snapshots = await Promise.all(
+    names.map(name => getDocs(collection(db, name)))
+  );
+
+  names.forEach((name, index) => {
+    state[name] = snapshots[index].docs.map(snapshot => ({
+      id: snapshot.id,
+      ...snapshot.data()
+    }));
+  });
+
+  $("subjectCount").textContent = state.subjects.length;
+  $("chapterCount").textContent = state.chapters.length;
+  $("mcqCount").textContent = state.mcqs.length;
+  $("resourceCount").textContent = state.resources.length;
+
+  setStatus("mainStatus", "COMMERZO data loaded.");
+  renderSection();
+}
+
+function showDashboard(user) {
+  state.user = user;
+
+  $("loginPanel").classList.add("hidden");
+  $("dashboard").classList.remove("hidden");
+  $("account").textContent = user.email || user.uid;
+
+  loadAll().catch(error => {
+    console.error(error);
+    setStatus(
+      "mainStatus",
+      "Data loading failed: " + error.message,
+      true
+    );
+  });
+}
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const button = $("loginButton");
+  button.disabled = true;
+  setStatus("loginStatus", "Signing in…");
+
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      $("email").value.trim(),
+      $("password").value
+    );
+  } catch (error) {
+    setStatus("loginStatus", error.message, true);
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$("logoutButton").addEventListener("click", async () => {
+  if (confirm("Sign out from COMMERZO Admin?")) {
+    await signOut(auth);
+  }
+});
+
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    state.user = null;
+    $("dashboard").classList.add("hidden");
+    $("loginPanel").classList.remove("hidden");
+    return;
+  }
+
+  try {
+    const adminSnapshot = await getDoc(
+      doc(db, "admins", user.uid)
+    );
+
+    if (!adminSnapshot.exists() ||
+        adminSnapshot.data().role !== "admin") {
+      await signOut(auth);
+      setStatus(
+        "loginStatus",
+        "This account is not authorized as an admin.",
+        true
+      );
+      return;
+    }
+
+    showDashboard(user);
+  } catch (error) {
+    console.error(error);
+    setStatus(
+      "loginStatus",
+      "Admin verification failed: " + error.message,
+      true
+    );
+  }
+});
+
+$("refreshButton").addEventListener("click", () => {
+  loadAll().catch(error => {
+    setStatus("mainStatus", error.message, true);
+  });
+});
+
+document.querySelectorAll("[data-section]").forEach(button => {
+  button.addEventListener("click", () => {
+    state.section = button.dataset.section;
+    state.editing = null;
+    renderSection();
+  });
+});
+    function renderSection() {
+  document.querySelectorAll("[data-section]").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.section === state.section
+    );
+  });
+
+  const titles = {
+    subjects: ["Subjects", "Manage board-wise and class-wise subjects."],
+    chapters: ["Chapters", "Filter chapters by board, class and subject."],
+    mcqs: ["MCQ Studio", "Create and publish MCQs in batches."],
+    resources: ["Resources", "Manage study resources and uploads."]
+  };
+
+  $("sectionTitle").textContent = titles[state.section][0];
+  $("sectionHelp").textContent = titles[state.section][1];
+
+  renderFilters();
+  renderEditor();
+  renderEntries();
+}
+
+function renderFilters() {
+  const box = $("filters");
+
+  if (state.section === "subjects") {
+    box.innerHTML = `
+      <div class="filters">
+        <div>
+          <label>Board</label>
+          <select id="filterBoard">${optionList(BOARD_OPTIONS,state.filters.board)}</select>
+        </div>
+        <div>
+          <label>Class</label>
+          <select id="filterClass">${optionList(CLASS_OPTIONS,state.filters.className)}</select>
+        </div>
+      </div>`;
+  } else {
+    box.innerHTML = `
+      <div class="filters">
+        <div>
+          <label>Board</label>
+          <select id="filterBoard">${optionList(BOARD_OPTIONS,state.filters.board)}</select>
+        </div>
+        <div>
+          <label>Class</label>
+          <select id="filterClass">${optionList(CLASS_OPTIONS,state.filters.className)}</select>
+        </div>
+        <div>
+          <label>Subject</label>
+          <select id="filterSubject">
+            ${subjectOptions(state.filters.board,state.filters.className,state.filters.subjectId)}
+          </select>
+        </div>
+        ${state.section === "chapters" || state.section === "mcqs" || state.section === "resources" ? `
+        <div>
+          <label>Chapter</label>
+          <select id="filterChapter">
+            ${chapterOptions(state.filters.subjectId,state.filters.board,state.filters.className,state.filters.chapterId)}
+          </select>
+        </div>` : ""}
+      </div>`;
+  }
+
+  $("filterBoard")?.addEventListener("change", event => {
+    state.filters.board = event.target.value;
+    resetInvalidFilters();
+    renderSection();
+  });
+
+  $("filterClass")?.addEventListener("change", event => {
+    state.filters.className = event.target.value;
+    resetInvalidFilters();
+    renderSection();
+  });
+
+  $("filterSubject")?.addEventListener("change", event => {
+    state.filters.subjectId = event.target.value;
+    state.filters.chapterId = "";
+    renderSection();
+  });
+
+  $("filterChapter")?.addEventListener("change", event => {
+    state.filters.chapterId = event.target.value;
+    renderEntries();
+  });
+}
+
+function resetInvalidFilters() {
+  const validSubjects = filteredSubjects();
+
+  if (!validSubjects.some(subject =>
+    subject.id === state.filters.subjectId
+  )) {
+    state.filters.subjectId = "";
+  }
+
+  const validChapters = filteredChapters();
+
+  if (!validChapters.some(chapter =>
+    chapter.id === state.filters.chapterId
+  )) {
+    state.filters.chapterId = "";
+  }
+}
+
+function renderEditor() {
+  const editor = $("editor");
+  editor.replaceChildren();
+
+  if (state.section === "subjects") {
+    renderSubjectEditor();
+  } else if (state.section === "chapters") {
+    renderChapterEditor();
+  } else if (state.section === "mcqs") {
+    renderMcqEditor();
+  } else {
+    renderResourceEditor();
+  }
+}
+
+function renderSubjectEditor() {
+  $("editor").innerHTML = `
+    <div class="card">
+      <h3>${state.editing?.type === "subject" ? "Edit subject" : "Add subject"}</h3>
+      <form id="subjectForm" class="formgrid">
+        <div>
+          <label>Board</label>
+          <select name="board" required>
+            ${optionList(BOARD_OPTIONS,state.editing?.data?.board || state.filters.board)}
+          </select>
+        </div>
+        <div>
+          <label>Class</label>
+          <select name="className" required>
+            ${optionList(CLASS_OPTIONS,state.editing?.data?.className || state.filters.className)}
+          </select>
+        </div>
+        <div class="full">
+          <label>Subject name</label>
+          <input name="name" required maxlength="100"
+            value="${esc(state.editing?.data?.name || "")}">
+        </div>
+        <div class="full">
+          <label>Description</label>
+          <textarea name="description">${esc(state.editing?.data?.description || "")}</textarea>
+        </div>
+        <div class="full actions">
+          <button class="primary">Save subject</button>
+          <button type="button" class="secondary" id="cancelEdit">Cancel</button>
+        </div>
+      </form>
+    </div>`;
+
+  $("subjectForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const form = new FormData(event.currentTarget);
+    const data = {
+      board: form.get("board"),
+      className: form.get("className"),
+      name: form.get("name").trim(),
+      description: form.get("description").trim(),
+      updatedAt: serverTimestamp()
+    };
+
+    await saveRecord("subjects", data, "subject");
+  });
+
+  $("cancelEdit").addEventListener("click", cancelEditing);
+}
+
+function renderChapterEditor() {
+  const subjectId = state.editing?.type === "chapter"
+    ? state.editing.data.subjectId
+    : state.filters.subjectId;
+
+  const board = state.editing?.type === "chapter"
+    ? state.editing.data.board
+    : state.filters.board;
+
+  const className = state.editing?.type === "chapter"
+    ? state.editing.data.className
+    : state.filters.className;
+
+  $("editor").innerHTML = `
+    <div class="card">
+      <h3>${state.editing?.type === "chapter" ? "Edit chapter" : "Add chapter"}</h3>
+      <form id="chapterForm" class="formgrid">
+        <div>
+          <label>Board</label>
+          <select name="board" id="chapterBoard">
+            ${optionList(BOARD_OPTIONS,board)}
+          </select>
+        </div>
+        <div>
+          <label>Class</label>
+          <select name="className" id="chapterClass">
+            ${optionList(CLASS_OPTIONS,className)}
+          </select>
+        </div>
+        <div class="full">
+          <label>Subject</label>
+          <select name="subjectId" id="chapterSubject" required>
+            ${subjectOptions(board,className,subjectId)}
+          </select>
+        </div>
+        <div class="full">
+          <label>Chapter name</label>
+          <input name="name" required maxlength="150"
+            value="${esc(state.editing?.data?.name || "")}">
+        </div>
+        <div>
+          <label>Chapter order</label>
+          <input name="order" type="number" min="1"
+            value="${esc(state.editing?.data?.order ?? "")}">
+        </div>
+        <div class="full">
+          <label>Description</label>
+          <textarea name="description">${esc(state.editing?.data?.description || "")}</textarea>
+        </div>
+        <div class="full actions">
+          <button class="primary">Save chapter</button>
+          <button type="button" class="secondary" id="cancelEdit">Cancel</button>
+        </div>
+      </form>
+    </div>`;
+
+  $("chapterBoard").addEventListener("change", updateChapterSubjects);
+  $("chapterClass").addEventListener("change", updateChapterSubjects);
+
+  $("chapterForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const form = new FormData(event.currentTarget);
+
+    const data = {
+      board: form.get("board"),
+      className: form.get("className"),
+      subjectId: form.get("subjectId"),
+      name: form.get("name").trim(),
+      description: form.get("description").trim(),
+      order: Number(form.get("order")) || 0,
+      updatedAt: serverTimestamp()
+    };
+
+    if (!data.subjectId) {
+      setStatus("contentStatus","Select a subject first.",true);
+      return;
+    }
+
+    await saveRecord("chapters",data,"chapter");
+  });
+
+  $("cancelEdit").addEventListener("click",cancelEditing);
+}
+
+function updateChapterSubjects() {
+  const board = $("chapterBoard").value;
+  const className = $("chapterClass").value;
+  const previous = $("chapterSubject").value;
+
+  $("chapterSubject").innerHTML =
+    subjectOptions(board,className,previous);
+}
+
+async function saveRecord(collectionName,data,type) {
+  if (state.saving) return;
+
+  state.saving = true;
+  setStatus("contentStatus","Saving…");
+
+  try {
+    if (state.editing?.type === type) {
+      await updateDoc(
+        doc(db,collectionName,state.editing.id),
+        data
+      );
+    } else {
+      data.createdAt = serverTimestamp();
+      await addDoc(collection(db,collectionName),data);
+    }
+
+    state.editing = null;
+    await loadAll();
+    setStatus("contentStatus","Saved successfully.");
+  } catch (error) {
+    console.error(error);
+    setStatus("contentStatus",error.message,true);
+  } finally {
+    state.saving = false;
+  }
+}
+
+function cancelEditing() {
+  state.editing = null;
+  renderSection();
+}
+
+function editRecord(type,id) {
+  const collectionName = type === "subject" ? "subjects" :
+    type === "chapter" ? "chapters" :
+    type === "mcq" ? "mcqs" : "resources";
+
+  const item = state[collectionName].find(entry => entry.id === id);
+  if (!item) return;
+
+  state.editing = {type,id,data:item};
+
+  state.filters.board = item.board || "MP Board";
+  state.filters.className = item.className || "12";
+  state.filters.subjectId = item.subjectId || "";
+  state.filters.chapterId = item.chapterId || "";
+
+  renderSection();
+  $("editor").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function deleteRecord(collectionName,id) {
+  if (!confirm("Permanently delete this record? This cannot be undone.")) {
+    return;
+  }
+
+  try {
+    await deleteDoc(doc(db,collectionName,id));
+    await loadAll();
+    setStatus("contentStatus","Record deleted.");
+  } catch (error) {
+    setStatus("contentStatus",error.message,true);
+  }
+}
+
+function renderEntries() {
+  const box = $("entries");
+  box.replaceChildren();
+
+  if (state.section === "subjects") {
+    const groups = filteredSubjects();
+
+    if (!groups.length) {
+      box.textContent = "No subjects found.";
+      return;
+    }
+
+    groups.forEach(item => {
+      box.append(makeEntry(
+        item.name,
+        `${item.board || "All boards"} · Class ${item.className || "Both"}`,
+        "subject",
+        item.id
+      ));
+    });
+
+  } else if (state.section === "chapters") {
+    const groups = filteredChapters();
+
+    const grouped = new Map();
+
+    groups.forEach(chapter => {
+      if (!grouped.has(chapter.subjectId)) {
+        grouped.set(chapter.subjectId,[]);
+      }
+      grouped.get(chapter.subjectId).push(chapter);
+    });
+
+    grouped.forEach((chapters,subjectId) => {
+      const subject = state.subjects.find(item => item.id === subjectId);
+
+      const heading = document.createElement("h3");
+      heading.textContent = subject?.name || "Subject";
+      box.append(heading);
+
+      chapters.sort((a,b) =>
+        Number(a.order || 0) - Number(b.order || 0)
+      ).forEach(item => {
+        box.append(makeEntry(
+          item.name,
+          `${item.board || "All boards"} · Class ${item.className || "Both"} · Order ${item.order || "—"}`,
+          "chapter",
+          item.id
+        ));
+      });
+    });
+
+    if (!groups.length) box.textContent = "No chapters found.";
+
+  } else if (state.section === "mcqs") {
+    const questions = filteredMcqs();
+
+    const grouped = new Map();
+
+    questions.forEach(question => {
+      const key = question.chapterId || "unassigned";
+      if (!grouped.has(key)) grouped.set(key,[]);
+      grouped.get(key).push(question);
+    });
+
+    grouped.forEach((items,chapterId) => {
+      const chapter = state.chapters.find(item => item.id === chapterId);
+      const heading = document.createElement("h3");
+      heading.textContent = chapter?.name || "Unassigned chapter";
+      box.append(heading);
+
+      items.forEach(item => {
+        const status = item.status || "legacy";
+        box.append(makeEntry(
+          item.question,
+          `${item.board || "—"} · Class ${item.className || "—"} · ${status}`,
+          "mcq",
+          item.id,
+          status
+        ));
+      });
+    });
+
+    if (!questions.length) box.textContent = "No MCQs found.";
+
+  } else {
+    const resources = filteredResources();
+
+    resources.forEach(item => {
+      box.append(makeEntry(
+        item.title,
+        `${item.type || "Resource"} · ${item.board || "—"} · Class ${item.className || "—"}`,
+        "resource",
+        item.id
+      ));
+    });
+
+    if (!resources.length) box.textContent = "No resources found.";
+  }
+}
+
+function makeEntry(title,description,type,id,status = "") {
+  const card = document.createElement("div");
+  card.className = "entry";
+
+  const head = document.createElement("div");
+  head.className = "entryhead";
+
+  const info = document.createElement("div");
+  const name = document.createElement("strong");
+  name.textContent = title || "Untitled";
+  const detail = document.createElement("div");
+  detail.className = "small";
+  detail.textContent = description || "";
+
+  info.append(name,detail);
+
+  const actions = document.createElement("div");
+  actions.className = "actions";
+
+  if (status) {
+    const badge = document.createElement("span");
+    badge.className = "pill " +
+      (status === "published" ? "published" :
+      status === "draft" ? "draft" : "");
+    badge.textContent = status;
+    actions.append(badge);
+  }
+
+  const edit = document.createElement("button");
+  edit.className = "secondary";
+  edit.textContent = "Edit";
+  edit.addEventListener("click",() => editRecord(type,id));
+
+  const remove = document.createElement("button");
+  remove.className = "danger";
+  remove.textContent = "Delete";
+  remove.addEventListener("click",() => {
+    const collectionName = type === "subject" ? "subjects" :
+      type === "chapter" ? "chapters" :
+      type === "mcq" ? "mcqs" : "resources";
+    deleteRecord(collectionName,id);
+  });
+
+  actions.append(edit,remove);
+  head.append(info,actions);
+  card.append(head);
+
+  return card;
+  }
+    function renderMcqEditor() {
+  const editor = $("editor");
+
+  const settings = state.batchSettings;
+  const editing = state.editing?.type === "mcq"
+    ? state.editing.data
+    : null;
+
+  editor.innerHTML = `
+    <div class="card">
+      <h3>① Batch setup</h3>
+      <p class="muted">Board, class, subject और chapter एक बार चुनो। ये settings अगले MCQs में बनी रहेंगी।</p>
+
+      <div class="formgrid">
+        <div>
+          <label>Board</label>
+          <select id="batchBoard">
+            ${optionList(BOARD_OPTIONS,editing?.board || settings.board)}
+          </select>
+        </div>
+
+        <div>
+          <label>Class</label>
+          <select id="batchClass">
+            ${optionList(CLASS_OPTIONS,editing?.className || settings.className)}
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Subject</label>
+          <select id="batchSubject">
+            ${subjectOptions(
+              editing?.board || settings.board,
+              editing?.className || settings.className,
+              editing?.subjectId || settings.subjectId
+            )}
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Chapter</label>
+          <select id="batchChapter">
+            ${chapterOptions(
+              editing?.subjectId || settings.subjectId,
+              editing?.board || settings.board,
+              editing?.className || settings.className,
+              editing?.chapterId || settings.chapterId
+            )}
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Default difficulty</label>
+          <select id="batchDifficulty">
+            ${optionList(DIFFICULTIES,editing?.difficulty || settings.difficulty)}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>② MCQ entry</h3>
+      <form id="mcqForm">
+        <label>Question</label>
+        <textarea id="mcqQuestion" required placeholder="Enter your question"></textarea>
+
+        <div class="optiongrid">
+          <div>
+            <label>Option A</label>
+            <input id="optionA" required>
+          </div>
+          <div>
+            <label>Option B</label>
+            <input id="optionB" required>
+          </div>
+          <div>
+            <label>Option C</label>
+            <input id="optionC" required>
+          </div>
+          <div>
+            <label>Option D</label>
+            <input id="optionD" required>
+          </div>
+        </div>
+
+        <label>Correct answer</label>
+        <select id="correctAnswer" required>
+          <option value="">Choose correct option</option>
+          <option value="0">Option A</option>
+          <option value="1">Option B</option>
+          <option value="2">Option C</option>
+          <option value="3">Option D</option>
+        </select>
+
+        <label>Explanation (optional)</label>
+        <textarea id="mcqExplanation" placeholder="Explain why the answer is correct"></textarea>
+
+        <div class="actions">
+          <button class="primary" type="submit">
+            Save & Add Next
+          </button>
+          <button class="secondary" type="button" id="clearMcq">
+            Clear fields
+          </button>
+        </div>
+      </form>
+      <div class="small">Each question is kept in this batch until you save drafts or publish.</div>
+    </div>
+
+    <div class="card">
+      <div class="entryhead">
+        <div>
+          <h3>③ Batch review</h3>
+          <div id="batchCount" class="muted">0 questions added</div>
+        </div>
+        <span class="pill">Review before publishing</span>
+      </div>
+
+      <div id="batchPreview"></div>
+
+      <div class="actions">
+        <button class="secondary" id="saveDrafts">
+          Save all as drafts
+        </button>
+        <button class="primary" id="publishBatch">
+          Publish batch
+        </button>
+        <button class="outline" id="clearBatch">
+          Clear batch
+        </button>
+      </div>
+    </div>
+  `;
+
+  function updateBatchSubjects() {
+    const board = $("batchBoard").value;
+    const className = $("batchClass").value;
+    const previous = $("batchSubject").value;
+
+    $("batchSubject").innerHTML =
+      subjectOptions(board,className,previous);
+
+    updateBatchChapters();
+  }
+
+  function updateBatchChapters() {
+    $("batchChapter").innerHTML = chapterOptions(
+      $("batchSubject").value,
+      $("batchBoard").value,
+      $("batchClass").value,
+      ""
+    );
+  }
+
+  $("batchBoard").addEventListener("change",updateBatchSubjects);
+  $("batchClass").addEventListener("change",updateBatchSubjects);
+  $("batchSubject").addEventListener("change",updateBatchChapters);
+
+  function captureSettings() {
+    state.batchSettings = {
+      board: $("batchBoard").value,
+      className: $("batchClass").value,
+      subjectId: $("batchSubject").value,
+      chapterId: $("batchChapter").value,
+      difficulty: $("batchDifficulty").value
+    };
+  }
+
+  ["batchBoard","batchClass","batchSubject","batchChapter","batchDifficulty"]
+    .forEach(id => $(id).addEventListener("change",captureSettings));
+
+  $("mcqForm").addEventListener("submit",event => {
+    event.preventDefault();
+    captureSettings();
+
+    const settings = state.batchSettings;
+
+    if (!settings.subjectId || !settings.chapterId) {
+      setStatus("contentStatus","Select a subject and chapter first.",true);
+      return;
+    }
+
+    const options = [
+      $("optionA").value.trim(),
+      $("optionB").value.trim(),
+      $("optionC").value.trim(),
+      $("optionD").value.trim()
+    ];
+
+    if (options.some(option => !option)) {
+      setStatus("contentStatus","Fill all four options.",true);
+      return;
+    }
+
+    if ($("correctAnswer").value === "") {
+      setStatus("contentStatus","Select the correct answer.",true);
+      return;
+    }
+
+    const question = $("mcqQuestion").value.trim();
+
+    if (!question) {
+      setStatus("contentStatus","Enter the question.",true);
+      return;
+    }
+
+    if (editing) {
+      const updated = {
+        ...editing,
+        question,
+        options,
+        correctIndex: Number($("correctAnswer").value),
+        explanation: $("mcqExplanation").value.trim(),
+        board: settings.board,
+        className: settings.className,
+        subjectId: settings.subjectId,
+        chapterId: settings.chapterId,
+        difficulty: settings.difficulty,
+        updatedAt: serverTimestamp()
+      };
+
+      updateDoc(doc(db,"mcqs",state.editing.id),updated)
+        .then(async () => {
+          state.editing = null;
+          await loadAll();
+          setStatus("contentStatus","MCQ updated.");
+        })
+        .catch(error => setStatus("contentStatus",error.message,true));
+
+      return;
+    }
+
+    const reference = doc(collection(db,"mcqs"));
+
+    state.batch.push({
+      id: reference.id,
+      question,
+      options,
+      correctIndex: Number($("correctAnswer").value),
+      explanation: $("mcqExplanation").value.trim(),
+      board: settings.board,
+      className: settings.className,
+      subjectId: settings.subjectId,
+      chapterId: settings.chapterId,
+      difficulty: settings.difficulty
+    });
+
+    $("mcqForm").reset();
+    $("mcqQuestion").focus();
+
+    $("batchBoard").value = settings.board;
+    $("batchClass").value = settings.className;
+    $("batchSubject").value = settings.subjectId;
+    $("batchChapter").value = settings.chapterId;
+    $("batchDifficulty").value = settings.difficulty;
+
+    renderBatchPreview();
+    setStatus("contentStatus","MCQ added to batch.");
+  });
+
+  $("clearMcq").addEventListener("click",() => {
+    $("mcqForm").reset();
+    $("mcqQuestion").focus();
+  });
+
+  $("saveDrafts").addEventListener("click",saveBatchAsDrafts);
+  $("publishBatch").addEventListener("click",publishBatch);
+  $("clearBatch").addEventListener("click",() => {
+    if (!state.batch.length) return;
+
+    if (confirm("Clear all unsaved MCQs from this batch?")) {
+      state.batch = [];
+      renderBatchPreview();
+    }
+  });
+
+  if (editing) {
+    $("mcqQuestion").value = editing.question || "";
+    $("optionA").value = editing.options?.[0] || "";
+    $("optionB").value = editing.options?.[1] || "";
+    $("optionC").value = editing.options?.[2] || "";
+    $("optionD").value = editing.options?.[3] || "";
+    $("correctAnswer").value = String(editing.correctIndex ?? "");
+    $("mcqExplanation").value = editing.explanation || "";
+  }
+
+  renderBatchPreview();
+}
+
+function renderBatchPreview() {
+  const box = $("batchPreview");
+  if (!box) return;
+
+  box.replaceChildren();
+
+  $("batchCount").textContent =
+    `${state.batch.length} questions added`;
+
+  if (!state.batch.length) {
+    box.textContent = "No questions added yet.";
+    return;
+  }
+
+  state.batch.forEach((item,index) => {
+    const card = document.createElement("div");
+    card.className = "entry";
+
+    const title = document.createElement("strong");
+    title.textContent = `${index+1}. ${item.question}`;
+
+    const detail = document.createElement("div");
+    detail.className = "small";
+    detail.textContent =
+      `${item.board} · Class ${item.className} · ${item.difficulty}`;
+
+    const answer = document.createElement("p");
+    answer.textContent =
+      `Correct answer: ${String.fromCharCode(65+item.correctIndex)}. ${item.options[item.correctIndex]}`;
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const remove = document.createElement("button");
+    remove.className = "danger";
+    remove.textContent = "Remove";
+    remove.addEventListener("click",() => {
+      state.batch.splice(index,1);
+      renderBatchPreview();
+    });
+
+    actions.append(remove);
+    card.append(title,detail,answer,actions);
+    box.append(card);
+  });
+}
+
+function makeMcqDocument(item,status) {
+  return {
+    question: item.question,
+    subjectId: item.subjectId,
+    chapterId: item.chapterId,
+    board: item.board,
+    className: item.className,
+    options: item.options,
+    correctIndex: item.correctIndex,
+    explanation: item.explanation || "",
+    difficulty: item.difficulty || "Medium",
+    status,
+    updatedAt: serverTimestamp()
+  };
+}
+
+async function writeBatchInChunks(items,status) {
+  const chunkSize = 400;
+
+  for (let start = 0; start < items.length; start += chunkSize) {
+    const chunk = items.slice(start,start+chunkSize);
+    const batch = writeBatch(db);
+
+    chunk.forEach(item => {
+      const reference = doc(db,"mcqs",item.id);
+      batch.set(
+        reference,
+        makeMcqDocument(item,status),
+        {merge:true}
+      );
+    });
+
+    await batch.commit();
+  }
+}
+
+async function saveBatchAsDrafts() {
+  if (!state.batch.length || state.saving) return;
+
+  if (!confirm(`Save ${state.batch.length} MCQs as drafts?`)) return;
+
+  state.saving = true;
+  setStatus("contentStatus","Saving draft batch…");
+
+  try {
+    await writeBatchInChunks(state.batch,"draft");
+    state.batch = [];
+    await loadAll();
+    setStatus("contentStatus","Drafts saved successfully.");
+  } catch (error) {
+    console.error(error);
+    setStatus("contentStatus",error.message,true);
+  } finally {
+    state.saving = false;
+  }
+}
+
+async function publishBatch() {
+  if (!state.batch.length || state.saving) return;
+
+  if (!confirm(
+    `Publish ${state.batch.length} MCQs? Students may see them after the homepage update.`
+  )) return;
+
+  state.saving = true;
+  setStatus("contentStatus","Publishing batch…");
+
+  try {
+    await writeBatchInChunks(state.batch,"published");
+    state.batch = [];
+    await loadAll();
+    setStatus("contentStatus","MCQs published successfully.");
+  } catch (error) {
+    console.error(error);
+    setStatus("contentStatus",error.message,true);
+  } finally {
+    state.saving = false;
+  }
+}
+
+function renderResourceEditor() {
+  const editing = state.editing?.type === "resource"
+    ? state.editing.data
+    : null;
+
+  $("editor").innerHTML = `
+    <div class="card">
+      <h3>${editing ? "Edit resource" : "Add resource"}</h3>
+      <form id="resourceForm">
+        <div class="formgrid">
+          <div>
+            <label>Board</label>
+            <select name="board">
+              ${optionList(BOARD_OPTIONS,editing?.board || state.filters.board)}
+            </select>
+          </div>
+
+          <div>
+            <label>Class</label>
+            <select name="className">
+              ${optionList(CLASS_OPTIONS,editing?.className || state.filters.className)}
+            </select>
+          </div>
+
+          <div class="full">
+            <label>Subject</label>
+            <select name="subjectId" id="resourceSubject">
+              ${subjectOptions(
+                editing?.board || state.filters.board,
+                editing?.className || state.filters.className,
+                editing?.subjectId || state.filters.subjectId
+              )}
+            </select>
+          </div>
+
+          <div class="full">
+            <label>Chapter (optional)</label>
+            <select name="chapterId" id="resourceChapter">
+              ${chapterOptions(
+                editing?.subjectId || state.filters.subjectId,
+                editing?.board || state.filters.board,
+                editing?.className || state.filters.className,
+                editing?.chapterId || ""
+              )}
+            </select>
+          </div>
+
+          <div>
+            <label>Resource type</label>
+            <select name="type">
+              ${optionList([
+                "Handwritten Notes",
+                "Previous Year Papers",
+                "Marking Scheme",
+                "Sample Papers",
+                "Important Questions",
+                "Syllabus",
+                "Other"
+              ],editing?.type || "Handwritten Notes")}
+            </select>
+          </div>
+
+          <div>
+            <label>Access</label>
+            <select name="access">
+              ${optionList(["public","login"],editing?.access || "public")}
+            </select>
+          </div>
+
+          <div class="full">
+            <label>Title</label>
+            <input name="title" required value="${esc(editing?.title || "")}">
+          </div>
+
+          <div class="full">
+            <label>Description</label>
+            <textarea name="description">${esc(editing?.description || "")}</textarea>
+          </div>
+
+          <div class="full">
+            <label>Resource URL</label>
+            <input name="url" type="url"
+              value="${esc(editing?.url || "")}"
+              placeholder="https://example.com/resource.pdf">
+          </div>
+        </div>
+
+        <div class="notice">
+          This editor saves an existing resource URL. It does not upload a new file to Supabase.
+        </div>
+
+        <div class="actions">
+          <button class="primary">Save resource</button>
+          <button type="button" class="secondary" id="cancelResource">Cancel</button>
+        </div>
+      </form>
+    </div>
+  `;
+
+  const form = $("resourceForm");
+
+  form.querySelector('[name="board"]').addEventListener("change",updateResourceSubjects);
+  form.querySelector('[name="className"]').addEventListener("change",updateResourceSubjects);
+  $("resourceSubject").addEventListener("change",updateResourceChapters);
+
+  form.addEventListener("submit",async event => {
+    event.preventDefault();
+
+    const values = new FormData(form);
+    const url = String(values.get("url") || "").trim();
+
+    if (url && !/^https?:\/\//i.test(url)) {
+      setStatus("contentStatus","Enter a valid HTTP or HTTPS URL.",true);
+      return;
+    }
+
+    const data = {
+      board: values.get("board"),
+      className: values.get("className"),
+      subjectId: values.get("subjectId"),
+      chapterId: values.get("chapterId") || "",
+      type: values.get("type"),
+      access: values.get("access"),
+      title: String(values.get("title")).trim(),
+      description: String(values.get("description") || "").trim(),
+      url,
+      updatedAt: serverTimestamp()
+    };
+
+    if (editing) {
+      await saveRecord("resources",data,"resource");
+    } else {
+      await saveRecord("resources",data,"resource");
+    }
+  });
+
+  $("cancelResource").addEventListener("click",cancelEditing);
+}
+
+function updateResourceSubjects() {
+  const form = $("resourceForm");
+  const board = form.querySelector('[name="board"]').value;
+  const className = form.querySelector('[name="className"]').value;
+
+  $("resourceSubject").innerHTML =
+    subjectOptions(board,className,"");
+
+  updateResourceChapters();
+}
+
+function updateResourceChapters() {
+  const form = $("resourceForm");
+  $("resourceChapter").innerHTML = chapterOptions(
+    $("resourceSubject").value,
+    form.querySelector('[name="board"]').value,
+    form.querySelector('[name="className"]').value,
+    ""
+  );
+}
+
+</script>
+</body>
+</html>
