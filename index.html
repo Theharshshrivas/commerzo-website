@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -308,7 +307,7 @@
 
   <section id="selectionArea">
     <h2>Choose your learning path</h2>
-    <p class="muted">Select your board and class to find subjects and resources.</p>
+        <p class="muted">Select your board and class to find subjects and resources.</p>
 
     <div class="controls">
       <div class="field">
@@ -517,8 +516,7 @@ function makeEmpty(message) {
   return div;
 }
 
-function makeButton(label, className, action) {
-  const button = document.createElement("button");
+function makeButton(label, className, action) {  const button = document.createElement("button");
   button.textContent = label;
   button.className = className || "";
   button.addEventListener("click", action);
@@ -757,7 +755,6 @@ function chapterQuestions(chapterId) {
 function renderChapterQuestions(chapter,mode) {
   const body = $("chapterBody");
   body.replaceChildren();
-
   const questions = chapterQuestions(chapter.id);
 
   if (!questions.length) {
@@ -997,8 +994,7 @@ function renderTestQuestion() {
 
     body.append(makeButton(
       index === state.testQuestions.length-1
-        ? "Submit test"
-        : "Next question →",
+              : "Next question →",
       "",
       () => {
         if (index === state.testQuestions.length-1) {
@@ -1238,7 +1234,7 @@ $("board").addEventListener("change",() => {
   renderSubjects();
   renderResources();
   hideAllPanels();
-});
+  });
 
 $("className").addEventListener("change",() => {
   state.currentSubject = null;
