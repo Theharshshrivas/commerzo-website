@@ -67,7 +67,7 @@ footer{margin-top:15px;text-align:center;padding:27px 16px;background:var(--navy
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import {getFirestore,collection,getDocs,doc,getDoc,query,where,setDoc,updateDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 import {getAuth,onAuthStateChanged,signInAnonymously,GoogleAuthProvider,signInWithPopup,linkWithPopup,signOut} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyC8UomLked7cPRjfD2yBBTlCAeCd-53cM",authDomain:"commerzo-42fd2.firebaseapp.com",projectId:"commerzo-42fd2",storageBucket:"commerzo-42fd2.firebasestorage.app",messagingSenderId:"472656083923",appId:"1:472656083923:web:022b77078ec9e07db00d26",measurementId:"G-RCHSTFTQM2"};
+const firebaseConfig={apiKey:"AIzaSyC8UomLked7cPRjfD2yHBBTlCAeCd-53cM",authDomain:"commerzo-42fd2.firebaseapp.com",projectId:"commerzo-42fd2",storageBucket:"commerzo-42fd2.firebasestorage.app",messagingSenderId:"472656083923",appId:"1:472656083923:web:022b77078ec9e07db00d26",measurementId:"G-RCHSTFTQM2"};
 const app=initializeApp(firebaseConfig,"commerzo-student"),db=getFirestore(app),auth=getAuth(app),googleProvider=new GoogleAuthProvider(),$=id=>document.getElementById(id);
 googleProvider.setCustomParameters({prompt:"select_account"});
 const state={subjects:[],chapters:[],mcqs:[],resources:[],currentSubject:null,currentChapter:null,selectedChapters:new Set(),resourceType:"All",practiceQuestions:[],practiceAnswers:[],practiceIndex:0,testQuestions:[],testAnswers:[],testIndex:0,testChapterIds:[]};
