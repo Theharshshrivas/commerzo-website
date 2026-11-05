@@ -908,6 +908,25 @@ $("exitTest").addEventListener("click",()=>{if(confirm("Exit this test? Your pro
 $("resultBack").addEventListener("click",()=>{$("resultPanel").classList.add("hidden");$("detail").classList.remove("hidden");scroll("detail");});
 $("googleLoginButton").addEventListener("click",googleLogin);
 $("guestLoginButton").addEventListener("click",guestLogin);
+  // Register COMMERZO Service Worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./sw.js")
+      .then(registration => {
+        console.log(
+          "COMMERZO Service Worker active:",
+          registration.scope
+        );
+      })
+      .catch(error => {
+        console.error(
+          "Service Worker registration failed:",
+          error
+        );
+      });
+  });
+  }
 </script>
 </body>
 </html>
