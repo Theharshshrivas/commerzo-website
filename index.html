@@ -208,9 +208,264 @@ footer strong{color:#fff;letter-spacing:1px}
         }
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  /* =================================
+   COMMERZO AUTHENTICATION GATE
+================================= */
+
+.auth-gate{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 15% 15%,#373078 0%,transparent 42%),
+    radial-gradient(ellipse at 85% 85%,#27265d 0%,transparent 45%),
+    #101522;
+  transition:opacity .45s ease,visibility .45s ease;
+}
+
+.auth-gate.gate-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.auth-glow{
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  filter:blur(85px);
+  opacity:.28;
+  pointer-events:none;
+  animation:glowMove 8s ease-in-out infinite alternate;
+}
+
+.glow-one{
+  background:#796cff;
+  top:-100px;
+  left:-80px;
+}
+
+.glow-two{
+  background:#4b9bff;
+  bottom:-110px;
+  right:-70px;
+  animation-delay:-4s;
+}
+
+.auth-box{
+  position:relative;
+  z-index:2;
+  width:min(420px,100%);
+  padding:35px 26px 25px;
+  text-align:center;
+  border:1px solid #ffffff20;
+  border-radius:25px;
+  background:linear-gradient(
+    145deg,
+    #ffffff16,
+    #ffffff08
+  );
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  box-shadow:0 25px 80px #00000045;
+  animation:authEnter .65s cubic-bezier(.2,.8,.2,1);
+}
+
+.auth-logo{
+  width:68px;
+  height:68px;
+  object-fit:contain;
+  padding:4px;
+  background:#fff;
+  border-radius:19px;
+  box-shadow:0 10px 30px #00000030;
+}
+
+.auth-brand{
+  margin-top:17px;
+  color:#fff;
+  font-size:29px;
+  font-weight:950;
+  letter-spacing:3px;
+}
+
+.auth-brand span{
+  color:#aaa3ff;
+}
+
+.auth-tag{
+  color:#b9c2d7;
+  font-size:9px;
+  letter-spacing:2px;
+  margin-top:5px;
+}
+
+.auth-divider{
+  width:45px;
+  height:3px;
+  margin:25px auto;
+  border-radius:10px;
+  background:linear-gradient(90deg,#8a80ff,#d4caff);
+}
+
+.auth-box h1{
+  color:#fff;
+  font-size:25px;
+  letter-spacing:-.7px;
+  margin:0 0 10px;
+}
+
+.auth-description{
+  color:#bfc8dc;
+  font-size:12px;
+  line-height:1.7;
+  margin:0 auto 25px;
+  max-width:290px;
+}
+
+.auth-buttons{
+  display:grid;
+  gap:12px;
+}
+
+.auth-buttons button{
+  width:100%;
+  min-height:51px;
+  border-radius:13px;
+  font-size:13px;
+  font-weight:800;
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    background .22s ease;
+}
+
+.auth-buttons button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 25px #00000035;
+}
+
+.auth-buttons button:active{
+  transform:scale(.97);
+}
+
+.auth-google{
+  background:#fff;
+  color:#20283a;
+  border:1px solid #ffffff;
+}
+
+.auth-google span{
+  display:inline-grid;
+  place-items:center;
+  width:23px;
+  height:23px;
+  margin-right:8px;
+  border-radius:50%;
+  background:#f0efff;
+  color:#5146c5;
+  font-weight:950;
+}
+
+.auth-guest{
+  background:#ffffff12;
+  color:#fff;
+  border:1px solid #ffffff35;
+}
+
+.auth-message{
+  min-height:18px;
+  color:#bfc8dc;
+  font-size:10px;
+  margin:18px 0;
+}
+
+.auth-footer{
+  color:#929bb1;
+  font-size:8px;
+  letter-spacing:1.3px;
+}
+
+@keyframes authEnter{
+  from{
+    opacity:0;
+    transform:translateY(25px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@keyframes glowMove{
+  from{transform:translate(0,0) scale(1);}
+  to{transform:translate(45px,30px) scale(1.2);}
+}
+
+@media(max-width:480px){
+  .auth-box{
+    padding:30px 20px 23px;
+  }
+  .auth-box h1{
+    font-size:23px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .auth-box,.auth-glow{
+    animation:none!important;
+  }
+  }
 </style>
 </head>
 <body>
+  <div id="authGate" class="auth-gate">
+  <div class="auth-glow glow-one"></div>
+  <div class="auth-glow glow-two"></div>
+
+  <div class="auth-box">
+    <img
+      src="https://theharshshrivas.github.io/commerzo-logo.png"
+      alt="COMMERZO"
+      class="auth-logo"
+    >
+
+    <div class="auth-brand">COMMER<span>ZO</span></div>
+    <div class="auth-tag">LEARN · PRACTICE · SCORE</div>
+
+    <div class="auth-divider"></div>
+
+    <h1>Welcome to COMMERZO</h1>
+    <p class="auth-description">
+      Your learning journey starts here.
+      Sign in to access your study dashboard.
+    </p>
+
+    <div class="auth-buttons">
+      <button id="gateGoogle" class="auth-google">
+        <span>G</span> Continue with Google
+      </button>
+
+      <button id="gateGuest" class="auth-guest">
+        <span>◉</span> Continue as Guest
+      </button>
+    </div>
+
+    <p id="gateMessage" class="auth-message">
+      Secure student access
+    </p>
+
+    <div class="auth-footer">
+      COMMERZO · YOUR COMMERCE LEARNING SPACE
+    </div>
+  </div>
+  </div>
 <header><div class="container header-inner">
   <div class="brand-lockup">
     <img class="logo-mark" src="https://theharshshrivas.github.io/commerzo-logo.png" alt="COMMERZO official logo" width="42" height="42" fetchpriority="high">
@@ -484,6 +739,29 @@ async function loadContent(){
 }
 
 // Student authentication
+  async function syncUserProfile(user){
+  if(!user) return;
+
+  const ref=doc(db,"users",user.uid);
+  const snap=await getDoc(ref);
+
+  const profile={
+    uid:user.uid,
+    displayName:(user.displayName||"Student").slice(0,80),
+    email:user.email||null,
+    provider:user.isAnonymous?"anonymous":"google.com",
+    lastLoginAt:serverTimestamp()
+  };
+
+  if(snap.exists()){
+    await updateDoc(ref,profile);
+  }else{
+    await setDoc(ref,{
+      ...profile,
+      createdAt:serverTimestamp()
+    });
+  }
+  }
 function isGoogleUser(user){return !!user&&user.providerData.some(p=>p.providerId==="google.com");}
 function authError(e){const m={"auth/unauthorized-domain":"This website domain is not authorized in Firebase.","auth/popup-blocked":"Popup blocked. Allow popups and retry.","auth/popup-closed-by-user":"Sign-in was cancelled.","auth/operation-not-allowed":"This sign-in method is not enabled in Firebase.","auth/network-request-failed":"Network error. Check your connection.","auth/credential-already-in-use":"This Google account is already linked to another account."};return m[e.code]||e.message||"Authentication failed.";}
 function accountMessage(msg,error=false){$("accountMessage").textContent=msg;$("accountMessage").className=`message ${error?"error-text":"good-text"}`;}
@@ -533,8 +811,76 @@ $("reviewDelete").addEventListener("click",async()=>{
  try{await deleteDoc(doc(db,"reviews",user.uid));ownReview=null;$("reviewComment").value="";reviewMessage("Your review was deleted.");renderReviewFormState();await loadReviews();}
  catch(e){reviewMessage(authError(e),true);}
 });
-onAuthStateChanged(auth,async user=>{renderAccount(user);await loadOwnReview(user);});
-loadReviews();
+// =================================
+// AUTHENTICATION + ACCESS CONTROL
+// =================================
+
+let loadedUserUid=null;
+
+function showAuthGate(message){
+  $("authGate").classList.remove("gate-hidden");
+  $("gateMessage").textContent=message||"Secure student access";
+}
+
+function hideAuthGate(){
+  $("authGate").classList.add("gate-hidden");
+}
+
+async function handleAuthentication(user){
+  renderAccount(user);
+
+  if(!user){
+    loadedUserUid=null;
+    ownReview=null;
+    renderReviewFormState();
+    showAuthGate("Please sign in to continue.");
+    return;
+  }
+
+  $("gateMessage").textContent="Verifying your account...";
+
+  try{
+    await syncUserProfile(user);
+  }catch(e){
+    console.error("User profile sync failed:",e);
+    showAuthGate("Unable to verify your profile. Please try again.");
+    await signOut(auth);
+    return;
+  }
+
+  hideAuthGate();
+
+  await loadOwnReview(user);
+
+  if(loadedUserUid!==user.uid){
+    loadedUserUid=user.uid;
+    await Promise.all([
+      loadContent(),
+      loadReviews()
+    ]);
+  }
+}
+
+onAuthStateChanged(auth,handleAuthentication);
+
+// Login screen buttons
+$("gateGoogle").addEventListener("click",async()=>{
+  $("gateGoogle").disabled=true;
+  $("gateGuest").disabled=true;
+  $("gateMessage").textContent="Connecting to Google...";
+  await googleLogin();
+  $("gateGoogle").disabled=false;
+  $("gateGuest").disabled=false;
+});
+
+$("gateGuest").addEventListener("click",async()=>{
+  $("gateGoogle").disabled=true;
+  $("gateGuest").disabled=true;
+  $("gateMessage").textContent="Creating guest account...";
+  await guestLogin();
+  $("gateGoogle").disabled=false;
+  $("gateGuest").disabled=false;
+});
 
 // Resource viewer
 const viewer=$("resourceViewer"),frame=$("resourceFrame");
