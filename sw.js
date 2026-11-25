@@ -1,14 +1,16 @@
 
-const CACHE_NAME = "commerzo-static-v2";
+const CACHE_NAME = "commerzo-static-v3";
+
+const APP_BASE = new URL("./", self.registration.scope).pathname;
 
 const APP_FILES = [
-  "/",
-  "/index.html",
-  "/premium.html",
-  "/admin.html",
-  "/privacy-policy.html",
-  "/commerzo-logo.png"
-];
+  "",
+  "index.html",
+  "premium.html",
+  "admin.html",
+  "privacy-policy.html",
+  "commerzo-logo.png"
+].map(file => new URL(file, self.registration.scope).pathname);
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -43,6 +45,7 @@ self.addEventListener("fetch", event => {
   const url = new URL(request.url);
 
   if (url.origin !== self.location.origin) return;
+  if (!url.pathname.startsWith(APP_BASE)) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
@@ -58,16 +61,16 @@ self.addEventListener("fetch", event => {
           return (
             await caches.match(request, { ignoreSearch: true })
           ) || (
-            await caches.match("/index.html")
+            await caches.match(
+              new URL("index.html", self.registration.scope).pathname
+            )
           );
         })
     );
     return;
   }
 
-  if (
-    ["image", "style", "script", "font"].includes(request.destination)
-  ) {
+  if (["image", "style", "script", "font"].includes(request.destination)) {
     event.respondWith(
       caches.match(request).then(cached => {
         if (cached) return cached;
