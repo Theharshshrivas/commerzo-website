@@ -1,14 +1,13 @@
-const CACHE_NAME = "commerzo-static-v1";
 
-const APP_PATH = "/commerzo-website/";
+const CACHE_NAME = "commerzo-static-v2";
 
 const APP_FILES = [
-  APP_PATH,
-  APP_PATH + "index.html",
-  APP_PATH + "premium.html",
-  APP_PATH + "admin.html",
-  APP_PATH + "privacy-policy.html",
-  APP_PATH + "commerzo-logo.png"
+  "/",
+  "/index.html",
+  "/premium.html",
+  "/admin.html",
+  "/privacy-policy.html",
+  "/commerzo-logo.png"
 ];
 
 self.addEventListener("install", event => {
@@ -38,19 +37,20 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   const request = event.request;
+
+  if (request.method !== "GET") return;
+
   const url = new URL(request.url);
 
   if (url.origin !== self.location.origin) return;
-  if (!url.pathname.startsWith(APP_PATH)) return;
 
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
-        .then(response => {
+        .then(async response => {
           if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => cache.put(request, copy));
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(request, response.clone());
           }
           return response;
         })
@@ -58,7 +58,7 @@ self.addEventListener("fetch", event => {
           return (
             await caches.match(request, { ignoreSearch: true })
           ) || (
-            await caches.match(APP_PATH + "index.html")
+            await caches.match("/index.html")
           );
         })
     );
@@ -72,11 +72,10 @@ self.addEventListener("fetch", event => {
       caches.match(request).then(cached => {
         if (cached) return cached;
 
-        return fetch(request).then(response => {
+        return fetch(request).then(async response => {
           if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME)
-              .then(cache => cache.put(request, copy));
+            const cache = await caches.open(CACHE_NAME);
+            await cache.put(request, response.clone());
           }
           return response;
         });
